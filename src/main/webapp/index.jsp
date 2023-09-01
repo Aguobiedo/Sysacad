@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0;url=views/pages/home/Home.jsp">
+    <title>Redirigiendo a la página de inicio</title>
 </head>
 <body>
-<h1>Hola mundo</h1>
+    <p>Si no eres redirigido automáticamente, <a href="views/pages/home/Home.jsp">haz clic aquí</a>.</p>
 </body>
 </html>
