@@ -5,5 +5,5 @@ public class MiembroFacultad {
 	private String nombre;
 	private String apellido;
 	
-
 }
+W
