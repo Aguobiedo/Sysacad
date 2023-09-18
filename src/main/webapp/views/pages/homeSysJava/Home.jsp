@@ -1,20 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <link rel="stylesheet" type="text/css" href="/SysacadProject/resources/css/Styles.css">
+<meta charset="ISO-8859-1">
+<title>SysJava</title>
+<link rel="stylesheet" type="text/css" href="Home.css">
 </head>
 <body>
-    <header>
-        <h1>SysJava</h1>
-    </header>
-   
-    <section class="hero home-container">
+<section class="container">
+    <h1>SYSJAVA (Logo)</h1>
+    <section class="home-container">
         <h2>Bienvenido a tu plataforma académica</h2>
         <p>Aquí puedes acceder a tus cursos, ver tus calificaciones, realizar inscripciones y más.</p>
-        <a href="#" class="cta-button">Ingresar</a>
+        <a href="../login/Login.jsp" class="cta-button">Ingresar</a>
+        <a href="../principal/Principal.jsp" class="cta-button">Inicio(Provisorio)</a>
     </section>
 
     <section class="features">
@@ -37,9 +37,9 @@
             </div>
         </div>
     </section>
-
+</section>
     <footer>
-        <p>&copy; 2023 Tu Plataforma Académica</p>
+        <p>&copy; 2023 SysJavaProject</p>
     </footer>
 </body>
 </html>
