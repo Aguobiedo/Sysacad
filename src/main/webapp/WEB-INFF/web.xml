@@ -8,9 +8,9 @@
 
     <!-- Configura la página de inicio -->
     <welcome-file-list>
-        <welcome-file>/SysacadProject/views/pages/home/Home.jsp</welcome-file>
+        <welcome-file>/SysacadProject/src/main/webapp/views/pages/home/Home.jsp</welcome-file>
     </welcome-file-list>
-
+ 
     <!-- Otras configuraciones del servlet, filtro, etc., pueden ir aquí -->
 
 </web-app>
