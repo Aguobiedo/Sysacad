@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="entities.MiembroFacultad" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,7 @@
 <body>
 <section class="container">
     <div class="login-container">
-        <form class="login-form">
+        <form class="login-form" action="../../../login" method="post">
             <h1>Iniciar Sesión</h1>
             <div class="input-container">
                 <label for="username">Usuario:</label>
