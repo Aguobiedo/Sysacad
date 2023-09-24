@@ -5,7 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Inicio - Tu Sistema Académico</title>
-    <link rel="stylesheet" type="text/css" href="Principal.css">
+    <link rel="stylesheet" type="text/css" href="views/pages/principal/Principal.css">
 </head>
 <body>
   <!-- Encabezado -->
@@ -32,7 +32,7 @@
         <nav>
             <ul>
                 
-                <li><a href="Cursos.jsp">Cursos</a></li>
+                <li><a href="views/pages/principal/Cursos.jsp">Cursos</a></li>
                 <li><a href="#">Calificaciones</a></li>
                 <li><a href="#">Inscripciones</a></li>
                 <li><a href="#">Horarios</a></li>

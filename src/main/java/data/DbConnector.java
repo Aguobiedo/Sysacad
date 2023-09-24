@@ -11,7 +11,7 @@ public class DbConnector {
 	private String port="3306";
 	private String user="root";
 	private String password="java2022";
-	private String db="java";
+	private String db="sysacad";
 	private int conectados=0;
 	private Connection conn=null;
 	
