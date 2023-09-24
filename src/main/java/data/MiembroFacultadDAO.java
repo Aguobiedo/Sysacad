@@ -11,7 +11,7 @@ import entities.MiembroFacultad;
 public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
 
 	
-	public MiembroFacultad validate(String username, String password){
+	public MiembroFacultad validate(String username, String password) throws SQLException{
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		MiembroFacultad a = null;

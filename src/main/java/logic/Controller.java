@@ -2,6 +2,7 @@ package logic;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
 import data.MiembroFacultadDAO;
 import entities.MiembroFacultad;
@@ -10,7 +11,7 @@ public class Controller {
 	
 	
 	
-	public MiembroFacultad validate(String username, String password) {
+	public MiembroFacultad validate(String username, String password) throws SQLException {
 		MiembroFacultadDAO mfDao = new MiembroFacultadDAO();
 		return mfDao.validate(username, calcularSHA256(password));
 	}

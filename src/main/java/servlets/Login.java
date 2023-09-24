@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import entities.MiembroFacultad;
 import entities.Alumno;
@@ -20,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class Prueba
  */
 @WebServlet("/login")
-public class Prueba extends HttpServlet {
+public class Login extends HttpServlet {
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -28,7 +29,7 @@ public class Prueba extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Prueba() {
+    public Login() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,12 +50,27 @@ public class Prueba extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		Controller ctrl = new Controller();
-		MiembroFacultad mf = ctrl.validate(username, password);
-		if(mf.getTipo().equals("Alumno")){
-			Alumno a = (Alumno) mf;
-			request.getSession().setAttribute("alumno", a);
+		try {
+			MiembroFacultad mf = ctrl.validate(username, password);
+			if(mf.getTipo().equals("Alumno")){
+				Alumno a = (Alumno) mf;
+				request.getSession().setAttribute("alumno", a);
+			}else if(mf.getTipo().equals("Docente")){
+				Docente d = (Docente) mf;
+				request.getSession().setAttribute("docente", d);
+			}else {
+				NoDocente nd = (NoDocente)mf;
+				request.getSession().setAttribute("noDocente", nd);
+			}
+			request.getRequestDispatcher("WEB-INF/principal/Principal.jsp").forward(request, response);
+		}catch (SQLException e) {
+			// PAGINA DONDE LO ENVIA EN CASO DE QUE SALGA UNA EXCEPCION SQL
+			request.getRequestDispatcher("views/pages/excepciones/sqlexception/sqlexception.jsp").forward(request, response);
+		}catch (NullPointerException n){
+			// PAGINA DONDE LO ENVIA EN CASO DE QUE SALGA UNA EXCEPCION NULL POINTER (mf recupera dato null)
+			request.getRequestDispatcher("views/pages/excepciones/sqlexception/sqlexception.jsp").forward(request, response);
 		}
-		request.getRequestDispatcher("WEB-INF/principal/Principal.jsp").forward(request, response);
+		
 	}
 		
 		
