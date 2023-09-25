@@ -34,7 +34,7 @@
                 
                 <li><a href="views/pages/principal/Cursos.jsp">Cursos</a></li>
                 <li><a href="#">Calificaciones</a></li>
-                <li><a href="#">Inscripciones</a></li>
+                <li><a href="inscripciones">Inscripciones</a></li>
                 <li><a href="#">Horarios</a></li>
                 <!-- Agrega más opciones de menú según tu sistema -->
             </ul>

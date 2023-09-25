@@ -1,13 +1,12 @@
 package entities;
 
-import java.util.LinkedList;
-import java.time.LocalTime;
+import java.sql.Time;
 
 public class Clase {
 	private int idClase;
-	private LinkedList<String> diasSemanaCursado;
-	private LocalTime horarioInicio;
-	private LocalTime horarioFin;
+	private String diaSemanaCursado;
+	private Time horarioInicio;
+	private Time horarioFin;
 	private Docente docente;
 	private Materia materia;
 	private Comision comision;
@@ -18,22 +17,22 @@ public class Clase {
 	public void setIdClase(int idClase) {
 		this.idClase = idClase;
 	}
-	public LinkedList<String> getDiasSemanaCursado() {
-		return diasSemanaCursado;
+	public String getDiaSemanaCursado() {
+		return diaSemanaCursado;
 	}
-	public void setDiasSemanaCursado(LinkedList<String> diasSemanaCursado) {
-		this.diasSemanaCursado = diasSemanaCursado;
+	public void setDiaSemanaCursado(String diasSemanaCursado) {
+		this.diaSemanaCursado = diasSemanaCursado;
 	}
-	public LocalTime getHorarioInicio() {
+	public Time getHorarioInicio() {
 		return horarioInicio;
 	}
-	public void setHorarioInicio(LocalTime horarioInicio) {
+	public void setHorarioInicio(Time horarioInicio) {
 		this.horarioInicio = horarioInicio;
 	}
-	public LocalTime getHorarioFin() {
+	public Time getHorarioFin() {
 		return horarioFin;
 	}
-	public void setHorarioFin(LocalTime horarioFin) {
+	public void setHorarioFin(Time horarioFin) {
 		this.horarioFin = horarioFin;
 	}
 	public Docente getDocente() {

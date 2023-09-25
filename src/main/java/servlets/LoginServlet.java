@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+
 import java.sql.SQLException;
 
 import entities.MiembroFacultad;
@@ -8,7 +9,6 @@ import entities.Alumno;
 import entities.Docente;
 import entities.NoDocente;
 
-import data.MiembroFacultadDAO;
 import logic.Controller;
 
 import javax.servlet.ServletException;
@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class Prueba
  */
 @WebServlet("/login")
-public class Login extends HttpServlet {
+public class LoginServlet extends HttpServlet {
 	
 	
 	private static final long serialVersionUID = 1L;
@@ -29,7 +29,7 @@ public class Login extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Login() {
+    public LoginServlet() {
         super();
         // TODO Auto-generated constructor stub
     }

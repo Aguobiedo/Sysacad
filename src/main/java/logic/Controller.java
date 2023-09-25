@@ -3,8 +3,12 @@ package logic;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.LinkedList;
 
+import data.InscripcionDAO;
 import data.MiembroFacultadDAO;
+import entities.Alumno;
+import entities.Inscripcion;
 import entities.MiembroFacultad;
 
 public class Controller {
@@ -14,6 +18,11 @@ public class Controller {
 	public MiembroFacultad validate(String username, String password) throws SQLException {
 		MiembroFacultadDAO mfDao = new MiembroFacultadDAO();
 		return mfDao.validate(username, calcularSHA256(password));
+	}
+	
+	public LinkedList<Inscripcion> getInscripcionesByAlumno(Alumno a){
+		InscripcionDAO insDao = new InscripcionDAO();
+		return insDao.getByAlumno(a);
 	}
 	
 	

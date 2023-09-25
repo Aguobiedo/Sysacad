@@ -23,5 +23,6 @@ public class Comision {
 	public void setTurno(String turno) {
 		this.turno = turno;
 	}
+	
 
 }
