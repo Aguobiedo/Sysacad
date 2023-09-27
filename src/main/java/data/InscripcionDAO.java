@@ -28,7 +28,8 @@ public class InscripcionDAO implements IDao<Inscripcion>{
 					+ "docente doc ON cla.legajodoc = doc.legajo "
 					+ "INNER JOIN "
 					+ "materia mat ON cla.idmateria = mat.idmateria "
-					+ "WHERE ins.legajo_alumno = ?;");
+					+ "WHERE ins.legajo_alumno = ? "
+					+ "ORDER BY cla.horario_inicio DESC;");
 			stmt.setInt(1, a.getLegajo());
 			rs = stmt.executeQuery();
 			if(rs!=null) {
