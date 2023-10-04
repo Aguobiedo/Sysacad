@@ -62,7 +62,7 @@ public class LoginServlet extends HttpServlet {
 			}else {
 				NoDocente nd = (NoDocente)mf;
 				request.getSession().setAttribute("noDocente", nd);
-				response.getWriter().append("Es no docente");
+				request.getRequestDispatcher("WEB-INF/principal/PrincipalNoDocente.jsp").forward(request, response);
 			}
 			
 		}catch (SQLException e) {
