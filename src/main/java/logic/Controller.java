@@ -17,7 +17,7 @@ public class Controller {
 	
 	public MiembroFacultad validate(String username, String password) throws SQLException {
 		MiembroFacultadDAO mfDao = new MiembroFacultadDAO();
-		return mfDao.validate(username, calcularSHA256(password));
+		return (MiembroFacultad)mfDao.validate(username, calcularSHA256(password));
 	}
 	
 	public LinkedList<Inscripcion> getInscripcionesByAlumno(Alumno a){

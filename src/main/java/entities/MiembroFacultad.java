@@ -58,5 +58,17 @@ public abstract class MiembroFacultad {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-
+	
+	public boolean esAlumno() {
+		return false;
+	}
+	
+	public boolean esDocente() {
+		return false;
+	}
+	
+	public boolean esNoDocente() {
+		return false;
+	}
+	
 }

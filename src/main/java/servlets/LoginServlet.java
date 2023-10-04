@@ -55,19 +55,23 @@ public class LoginServlet extends HttpServlet {
 			if(mf.getTipo().equals("Alumno")){
 				Alumno a = (Alumno) mf;
 				request.getSession().setAttribute("alumno", a);
+				request.getRequestDispatcher("WEB-INF/principal/Principal.jsp").forward(request, response);
 			}else if(mf.getTipo().equals("Docente")){
 				Docente d = (Docente) mf;
 				request.getSession().setAttribute("docente", d);
 			}else {
 				NoDocente nd = (NoDocente)mf;
 				request.getSession().setAttribute("noDocente", nd);
+				response.getWriter().append("Es no docente");
 			}
-			request.getRequestDispatcher("WEB-INF/principal/Principal.jsp").forward(request, response);
+			
 		}catch (SQLException e) {
 			// PAGINA DONDE LO ENVIA EN CASO DE QUE SALGA UNA EXCEPCION SQL
+			e.printStackTrace();
 			request.getRequestDispatcher("views/pages/excepciones/sqlexception/sqlexception.jsp").forward(request, response);
 		}catch (NullPointerException n){
 			// PAGINA DONDE LO ENVIA EN CASO DE QUE SALGA UNA EXCEPCION NULL POINTER (mf recupera dato null)
+			n.printStackTrace();
 			request.getRequestDispatcher("views/pages/excepciones/sqlexception/sqlexception.jsp").forward(request, response);
 		}
 		
