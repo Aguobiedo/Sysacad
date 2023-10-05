@@ -98,9 +98,10 @@ ul {
   padding: 0;
   margin: 0 1rem 0 1rem;
   display: flex;
-  justify-content: space-around; /* Centra los elementos horizontalmente */
+  justify-content: center; /* Centra los elementos horizontalmente */
   align-items: center; /* Centra los elementos verticalmente */
   flex-wrap: wrap; /* Para manejar m�ltiples l�neas si es necesario */
+  gap: 20px;
 }
 
 li {
@@ -113,7 +114,7 @@ li {
   text-decoration: none;
   transition: background-color 0.3s ease-in-out;
   margin: 0.5rem; /* Agregamos margen entre los elementos li */
-  min-width: 150px; /* Establecemos un ancho m�nimo para cada elemento li */
+  min-width: 200px; /* Establecemos un ancho m�nimo para cada elemento li */
   text-align: center; /* Centra el texto dentro de cada elemento li */
   padding:1rem 0 1rem 0;
 }

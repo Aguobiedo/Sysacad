@@ -5,7 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Inicio - Tu Sistema Acad�mico</title>
-    <link rel="stylesheet" type="text/css" href="views/pages/principal/PrincipalNoDocente.css">
+    <link rel="stylesheet" type="text/css" href="views/pages/principalNoDocente/PrincipalNoDocente.css">
 </head>
 <body>
   <!-- Encabezado -->
