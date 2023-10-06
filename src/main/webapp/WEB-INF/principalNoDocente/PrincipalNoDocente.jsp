@@ -27,7 +27,7 @@
             <ul>
                 
                 <li><a href="#">Clases</a></li>
-                <li><a href="#">Alumnos</a></li>
+                <li><a href="readAlumno">Alumnos</a></li>
                 <li><a href="#">Docentes</a></li>
                 <li><a href="#">No Docentes</a></li>
                 <li><a href="#">Materias</a></li>

@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.LinkedList;
 
+import data.AlumnoDAO;
 import data.InscripcionDAO;
 import data.MiembroFacultadDAO;
 import entities.Alumno;
@@ -23,6 +24,11 @@ public class Controller {
 	public LinkedList<Inscripcion> getInscripcionesByAlumno(Alumno a){
 		InscripcionDAO insDao = new InscripcionDAO();
 		return insDao.getByAlumno(a);
+	}
+	
+	public LinkedList<Alumno> alumnosGetAll(){
+		AlumnoDAO aDao = new AlumnoDAO();
+		return aDao.getAll();
 	}
 	
 	
