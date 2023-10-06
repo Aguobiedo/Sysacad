@@ -31,6 +31,10 @@ public class Controller {
 		return aDao.getAll();
 	}
 	
+	public boolean addAlumno(Alumno a, String password) {
+		
+	}
+	
 	
 	
 	public static String calcularSHA256(String texto) {
