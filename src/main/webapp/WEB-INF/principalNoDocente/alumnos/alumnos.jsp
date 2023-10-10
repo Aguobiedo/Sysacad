@@ -93,9 +93,20 @@
                     <input type="password" id="password" name="password" required>
                 </div>
                 <%if(aviso.equals("ALUMNO CARGADO CON EXITO")) {%>
-                <div>
-                	<h5><%=aviso%></h5>
-                </div>
+                    <dialog data-modal class="modal">
+                        <div><%=aviso%></div>
+                        <button data-close-modal>Aceptar</button>
+                    </dialog>
+                    
+                    <script>
+                        const closeButton = document.querySelector("[data-close-modal]")
+                        const modal = document.querySelector("[data-modal]")
+                        
+                        modal.showModal()
+                        closeButton.addEventListener("click", () => {
+                            modal.close()
+                        })
+                    </script>
                 <%} %>
 
                 <button class="alta-button" type="submit">Cargar</button>
