@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entities.Alumno;
 import entities.MiembroFacultad;
 import logic.Controller;
 
@@ -49,8 +51,21 @@ public class CreateAlumno extends HttpServlet {
 		String password = request.getParameter("password");
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
 		if(mf.esNoDocente()) {
+			Alumno a = new Alumno();
+			a.setLegajo(legajo);
+			a.setNombre(name);
+			a.setApellido(last_name);
+			a.setDni(dni);
+			a.setDireccion(adress);
+			a.setEmail(email);
+			a.setUsuario(username);
 			Controller ctrl = new Controller();
-			
+			if(ctrl.addAlumno(a, password)) {
+				LinkedList<Alumno> alumnos = ctrl.alumnosGetAll();
+				request.setAttribute("alumnos", alumnos);
+				request.setAttribute("aviso", "ALUMNO CARGADO CON EXITO");
+				request.getRequestDispatcher("WEB-INF/principalNoDocente/alumnos/alumnos.jsp").forward(request, response);		
+			}			
 		}
 	}
 

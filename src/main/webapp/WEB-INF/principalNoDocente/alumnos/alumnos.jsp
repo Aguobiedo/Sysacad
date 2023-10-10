@@ -10,6 +10,7 @@
     <link rel="stylesheet" type="text/css" href="views/pages/principalNoDocente/alumnos/alumnos.css">
 <%
 	LinkedList<Alumno> alumnos = (LinkedList<Alumno>)request.getAttribute("alumnos");
+	String aviso = (String)request.getAttribute("aviso");
 %>    
 </head>
 <body>
@@ -54,7 +55,8 @@
                     <%} %>
                 </tbody>           
             </table>
-        </div>       
+        </div>
+        <script src="altaAlumno"></script>       
         <div class="left">
             <form class="altaAlumno-form" action="altaAlumno" method="post">
                 <h1>Cargar Alumno</h1>
@@ -90,6 +92,11 @@
                     <label for="password">Contraseña:</label>
                     <input type="password" id="password" name="password" required>
                 </div>
+                <%if(aviso.equals("ALUMNO CARGADO CON EXITO")) {%>
+                <div>
+                	<h5><%=aviso%></h5>
+                </div>
+                <%} %>
 
                 <button class="alta-button" type="submit">Cargar</button>
             </form>

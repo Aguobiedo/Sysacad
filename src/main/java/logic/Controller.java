@@ -32,7 +32,8 @@ public class Controller {
 	}
 	
 	public boolean addAlumno(Alumno a, String password) {
-		
+		AlumnoDAO aDao = new AlumnoDAO();
+		return aDao.addAlumno(a, calcularSHA256(password));
 	}
 	
 	
