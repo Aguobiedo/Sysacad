@@ -142,53 +142,6 @@ header {
   color: #ffffff;
 }
 
-/* Contenedor de la tabla */
-.table-container {
-  margin: 20px;
-  overflow-x: auto;
-}
-
-/* Estilos de la tabla */
-table {
-  border-collapse: collapse;
-  width: 100%;
-  background-color: transparent; /* Hace que la tabla sea transparente */
-}
-
-th, td {
-  border: 1px solid #dddddd;
-  text-align: left;
-  padding: 8px;
-  color: darkslategray;
-  font-weight: 700;
-}
-
-th {
-  background-color: #f2f2f2;
-}
-/* Estilos responsivos */
-@media (max-width: 768px) {
-  .container {
-      overflow-x: auto;
-  }
-
-  table {
-      border-collapse: collapse;
-      width: 100%;
-      background-color: transparent;
-  }
-
-  th, td {
-      border: 1px solid #dddddd;
-      text-align: left;
-      padding: 8px;
-      display: block;
-  }
-
-  th {
-      background-color: #f2f2f2;
-  }
-}
 
 ul {
   list-style: none;

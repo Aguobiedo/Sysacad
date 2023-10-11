@@ -6,6 +6,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 <title>Inicio - Tu Sistema Académico</title>
     <link rel="stylesheet" type="text/css" href="views/pages/principalNoDocente/alumnos/alumnos.css">
 <%
@@ -29,28 +32,30 @@
     <div class="container">
     <!-- Contenido principal -->
         <div class="right">
-            <table>
+            <table class="table table-dark">
                 <thead>
                     <tr>
-                        <th>Legajo</th>
-                        <th>Nombre</th>
-                        <th>Apellido</th>
-                        <th>DNI</th>
-                        <th>Direccion</th>
-                        <th>Email</th>
-                        <th>Usuario</th>
+                        <th scope="col">Legajo</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellido</th>
+                        <th scope="col">DNI</th>
+                        <th scope="col">Direccion</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="table-group-divider">
                     <%for (Alumno a : alumnos){ %>
                     <tr>
-                        <td><%=a.getLegajo() %></td>
+                        <td scope="row"><%=a.getLegajo() %></td>
                         <td><%=a.getNombre() %></td>
                         <td><%=a.getApellido() %></td>
                         <td><%=a.getDni() %></td>
                         <td><%=a.getDireccion() %></td>
                         <td><%=a.getEmail() %></td>
                         <td><%=a.getUsuario() %></td>
+                        <td><button><i class="bi bi-pencil-fill"></i></button><button><i class="bi bi-trash-fill"></i></button></td>
                     </tr>
                     <%} %>
                 </tbody>           
