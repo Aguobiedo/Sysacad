@@ -17,6 +17,8 @@
 %>    
 </head>
 <body>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <!-- Encabezado -->
     <header>
         <div class="logo">
@@ -46,7 +48,7 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    <%for (Alumno a : alumnos){ %>
+                    <%for (Alumno a : alumnos){ %>                    
                     <tr>
                         <td scope="row"><%=a.getLegajo() %></td>
                         <td><%=a.getNombre() %></td>
@@ -55,13 +57,63 @@
                         <td><%=a.getDireccion() %></td>
                         <td><%=a.getEmail() %></td>
                         <td><%=a.getUsuario() %></td>
-                        <td><button><i class="bi bi-pencil-fill"></i></button><button><i class="bi bi-trash-fill"></i></button></td>
+                        <td>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit">
+                                <i class="bi bi-pencil-fill"></i>
+                            </button>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h1 class="modal-title fs-5 text-dark" id="staticBackdropLabel">Modal title</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-dark">
+                                        HOLA
+                                    </div>
+                                    <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Understood</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete" data-bs-whatever="<%=a.getLegajo()%>">
+                                <i class="bi bi-trash-fill"></i>
+                            </button>
+                            
+                            <!-- Modal -->
+                            <div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                    <h1 class="modal-title fs-5 text-dark" id="staticBackdropLabel">Borrar alumno</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body text-dark">
+                                        ¿Está seguro que desea eliminar a este alumno?                            
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <form class="bajaAlumno-form" action="bajaAlumno" method="post"></form>
+                                            <input id="<%=a.getLegajo()%>" type="hidden" name="legajoDelete" value="<%=a.getLegajo()%>">
+                                            <button type="submit" class="btn btn-danger">Borrar</button>
+                                        </form>          
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </td>                   
                     </tr>
                     <%} %>
                 </tbody>           
             </table>
-        </div>
-        <script src="altaAlumno"></script>       
+            
+        </div>     
         <div class="left">
             <form class="altaAlumno-form" action="altaAlumno" method="post">
                 <h1>Cargar Alumno</h1>
@@ -98,7 +150,7 @@
                     <input type="password" id="password" name="password" required>
                 </div>
                 <%if(aviso.equals("ALUMNO CARGADO CON EXITO")) {%>
-                    <dialog data-modal class="modal">
+                    <dialog data-modal>
                         <div><%=aviso%></div>
                         <button data-close-modal>Aceptar</button>
                     </dialog>

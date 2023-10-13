@@ -47,9 +47,30 @@ public class AlumnoDAO implements IDao<Alumno>{
 	}
 
 	@Override
-	public void eliminar(int id) {
+	public void eliminar(int legajo) {
 		// TODO Auto-generated method stub
-		
+		PreparedStatement stmt= null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"DELETE FROM alumno WHERE legajo = ?",
+							PreparedStatement.RETURN_GENERATED_KEYS
+							);
+			stmt.setInt(1, legajo);
+			stmt.executeUpdate();	
+			keyResultSet=stmt.getGeneratedKeys();			
+		} catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
 	}
 
 	@Override

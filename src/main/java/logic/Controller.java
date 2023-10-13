@@ -36,6 +36,11 @@ public class Controller {
 		return aDao.addAlumno(a, calcularSHA256(password));
 	}
 	
+	public void deleteAlumno(int legajo) {
+		AlumnoDAO aDao = new AlumnoDAO();
+		aDao.eliminar(legajo);
+	}
+	
 	
 	
 	public static String calcularSHA256(String texto) {
