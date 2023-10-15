@@ -47,7 +47,9 @@ public class DeleteAlumno extends HttpServlet {
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
 			ctrl.deleteAlumno(legajo);
+			String aviso = "ALUMNO BORRADO CON EXITO";
 			LinkedList<Alumno> alumnos = ctrl.alumnosGetAll();
+			request.setAttribute("aviso", aviso);
 			request.setAttribute("alumnos", alumnos);
 			request.getRequestDispatcher("WEB-INF/principalNoDocente/alumnos/alumnos.jsp").forward(request, response);
 		}

@@ -17,6 +17,17 @@
 %>    
 </head>
 <body>
+    <script>
+        function cambiarNombre(id) {
+
+
+            // Obtenemos el elemento de entrada por su ID
+            var inputElement = document.getElementById(id);
+            
+            // Cambiamos el nombre del campo de entrada
+            inputElement.setAttribute("name","legajoDelete");
+        }
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <!-- Encabezado -->
@@ -48,8 +59,11 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
+                    <form class="bajaAlumno-form" action="bajaAlumno" method="post">
                     <%for (Alumno a : alumnos){ %>                    
                     <tr>
+                        
+                        <input type="hidden" id="<%=a.getLegajo() %>" name="" value="<%=a.getLegajo() %>">
                         <td scope="row"><%=a.getLegajo() %></td>
                         <td><%=a.getNombre() %></td>
                         <td><%=a.getApellido() %></td>
@@ -82,7 +96,7 @@
                                 </div>
                             </div>
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete" data-bs-whatever="<%=a.getLegajo()%>">
+                            <button onclick="cambiarNombre(<%=a.getLegajo()%>)" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete" data-bs-whatever="<%=a.getLegajo()%>">
                                 <i class="bi bi-trash-fill"></i>
                             </button>
                             
@@ -98,18 +112,18 @@
                                         ¿Está seguro que desea eliminar a este alumno?                            
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <form class="bajaAlumno-form" action="bajaAlumno" method="post"></form>
-                                            <input id="<%=a.getLegajo()%>" type="hidden" name="legajoDelete" value="<%=a.getLegajo()%>">
-                                            <button type="submit" class="btn btn-danger">Borrar</button>
-                                        </form>          
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button> 
+                                        <button data-bs-dismiss="modal" class="btn btn-danger" type="submit">Borrar</button>
+                                         
                                     </div>
                                 </div>
                                 </div>
                             </div>
-                        </td>                   
+                        </td> 
                     </tr>
                     <%} %>
+                    
+                    </form>
                 </tbody>           
             </table>
             
