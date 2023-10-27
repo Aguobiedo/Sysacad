@@ -1,0 +1,20 @@
+
+body{
+    background-color: #9DC08B;
+}
+
+.cartel-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Esto establece la altura al 100% del viewport (ventana del navegador) */
+}
+
+.cartel {
+    background-color: #40513B; /* Color de fondo rojo */
+    color: white; /* Color de texto blanco */
+    padding: 20px; /* Espacio interno del cartel */
+    font-size: 24px; /* Tamaño de fuente */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra */
+}
