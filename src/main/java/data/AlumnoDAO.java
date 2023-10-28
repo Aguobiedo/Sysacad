@@ -74,9 +74,40 @@ public class AlumnoDAO implements IDao<Alumno>{
 	}
 
 	@Override
-	public Alumno getOne(int id) {
+	public Alumno getOne(int legajo) {
 		// TODO Auto-generated method stub
-		return null;
+		Alumno a=null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"SELECT legajo,nombre,apellido,dni,direccion,email,usuario FROM alumno WHERE legajo=?"
+					);
+			stmt.setInt(1, legajo);
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) {
+				a=new Alumno();
+				a.setLegajo(rs.getInt("legajo"));
+				a.setNombre(rs.getString("nombre"));
+				a.setApellido(rs.getString("apellido"));
+				a.setDni(rs.getString("dni"));
+				a.setDireccion(rs.getString("direccion"));
+				a.setEmail(rs.getString("email"));
+				a.setUsuario(rs.getString("usuario"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return a;
 	}
 
 	@Override
@@ -119,6 +150,45 @@ public class AlumnoDAO implements IDao<Alumno>{
 	public Alumno guardar(Alumno c) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void update(Alumno a) {
+		// TODO Auto-generated method stub
+		PreparedStatement stmt= null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"UPDATE alumno SET nombre = ?, apellido = ?, dni = ?, direccion = ?, email = ?, usuario = ? WHERE legajo = ?",
+							PreparedStatement.RETURN_GENERATED_KEYS
+							);
+			stmt.setString(1, a.getNombre());
+			stmt.setString(2, a.getApellido());
+			stmt.setString(3, a.getDni());
+			stmt.setString(4, a.getDireccion());
+			stmt.setString(5, a.getEmail());
+			stmt.setString(6, a.getUsuario());
+			stmt.setInt(7, a.getLegajo());
+			stmt.executeUpdate();
+			
+			keyResultSet=stmt.getGeneratedKeys();
+            if(keyResultSet!=null && keyResultSet.next()){
+                a.setLegajo(keyResultSet.getInt(1));
+            }
+
+			
+		}  catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
 	}
 	
 

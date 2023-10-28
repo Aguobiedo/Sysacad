@@ -14,16 +14,21 @@ body {
 /* Estilos para el contenido */
 div.container {
   display: flex;
-  flex-direction: row-reverse;
-  align-items: flex-start;
+  flex-direction: column;
+  align-items: center;
   padding: 2rem 0;
-  justify-content: space-between;
   text-align: center;
   max-width: 1300px;
   margin: 0 32px;
   box-sizing: border-box;
   min-height: 100vh;
-  gap: 80px;
+  gap: 16px;
+}
+
+.form-Modificar{
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .left{
