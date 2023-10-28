@@ -59,11 +59,8 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    <form class="bajaAlumno-form" action="bajaAlumno" method="post">
                     <%for (Alumno a : alumnos){ %>                    
                     <tr>
-                        
-                        <input type="hidden" id="<%=a.getLegajo() %>" name="" value="<%=a.getLegajo() %>">
                         <td scope="row"><%=a.getLegajo() %></td>
                         <td><%=a.getNombre() %></td>
                         <td><%=a.getApellido() %></td>
@@ -76,54 +73,13 @@
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit">
                                 <i class="bi bi-pencil-fill"></i>
                             </button>
-                            
-                            <!-- Modal -->
-                            <div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h1 class="modal-title fs-5 text-dark" id="staticBackdropLabel">Modal title</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body text-dark">
-                                        HOLA
-                                    </div>
-                                    <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Understood</button>
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
                             <!-- Button trigger modal -->
-                            <button onclick="cambiarNombre(<%=a.getLegajo()%>)" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#delete" data-bs-whatever="<%=a.getLegajo()%>">
+                            <a href="bajaAlumno?legajoDelete=<%=a.getLegajo()%>" class="btn btn-danger"> 
                                 <i class="bi bi-trash-fill"></i>
-                            </button>
-                            
-                            <!-- Modal -->
-                            <div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                    <h1 class="modal-title fs-5 text-dark" id="staticBackdropLabel">Borrar alumno</h1>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                    </div>
-                                    <div class="modal-body text-dark">
-                                        ¿Está seguro que desea eliminar a este alumno?                            
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button> 
-                                        <button data-bs-dismiss="modal" class="btn btn-danger" type="submit">Borrar</button>
-                                         
-                                    </div>
-                                </div>
-                                </div>
-                            </div>
+                            </a>
                         </td> 
                     </tr>
                     <%} %>
-                    
-                    </form>
                 </tbody>           
             </table>
             
@@ -178,7 +134,22 @@
                             modal.close()
                         })
                     </script>
-                <%} %>
+                <%}else if(aviso.equals("ALUMNO BORRADO CON EXITO")) {%>
+                    <dialog data-modal>
+                        <div><%=aviso%></div>
+                        <button data-close-modal>Aceptar</button>
+                    </dialog>
+                    
+                    <script>
+                        const closeButton = document.querySelector("[data-close-modal]")
+                        const modal = document.querySelector("[data-modal]")
+                        
+                        modal.showModal()
+                        closeButton.addEventListener("click", () => {
+                            modal.close()
+                        })
+                    </script>
+                <%}%>
 
                 <button class="alta-button" type="submit">Cargar</button>
             </form>

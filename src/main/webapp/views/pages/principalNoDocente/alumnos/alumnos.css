@@ -33,20 +33,7 @@ div.container {
   margin: auto;
 }
 
-.altaAlumno-form {
-  background-color: rgba(255, 255, 255, 0.137);
-  border-radius: 1rem;
-  border: 2px solid rgba(255, 255, 255, 0.945);
-  padding: 2rem;
-  max-width: 20rem;
-  margin: 0 auto;
-  color: darkslategray;
-}
 
-.altaAlumno-form h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
 
 .input-container {
   margin-bottom: 1rem;
