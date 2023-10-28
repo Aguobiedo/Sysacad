@@ -108,4 +108,10 @@ public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
 		return null;
 	}
 
+	@Override
+	public void update(MiembroFacultad c) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

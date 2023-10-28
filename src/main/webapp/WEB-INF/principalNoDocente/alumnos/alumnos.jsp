@@ -70,9 +70,9 @@
                         <td><%=a.getUsuario() %></td>
                         <td>
                             <!-- Button trigger modal -->
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#edit">
+                            <a href="modificarAlumno?legajo=<%=a.getLegajo()%>" class="btn btn-primary">
                                 <i class="bi bi-pencil-fill"></i>
-                            </button>
+                            </a>
                             <!-- Button trigger modal -->
                             <a href="bajaAlumno?legajoDelete=<%=a.getLegajo()%>" class="btn btn-danger"> 
                                 <i class="bi bi-trash-fill"></i>
@@ -135,6 +135,21 @@
                         })
                     </script>
                 <%}else if(aviso.equals("ALUMNO BORRADO CON EXITO")) {%>
+                    <dialog data-modal>
+                        <div><%=aviso%></div>
+                        <button data-close-modal>Aceptar</button>
+                    </dialog>
+                    
+                    <script>
+                        const closeButton = document.querySelector("[data-close-modal]")
+                        const modal = document.querySelector("[data-modal]")
+                        
+                        modal.showModal()
+                        closeButton.addEventListener("click", () => {
+                            modal.close()
+                        })
+                    </script>
+                <%}else if(aviso.equals("ALUMNO MODIFICADO CON EXITO")){%>
                     <dialog data-modal>
                         <div><%=aviso%></div>
                         <button data-close-modal>Aceptar</button>
