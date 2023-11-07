@@ -8,5 +8,6 @@ public interface IDao<Clase> {
 	public void eliminar(int id);
 	public Clase getOne(int id);
 	public LinkedList<Clase> getAll();
+	public void update(Clase c);
 
 }

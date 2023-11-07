@@ -92,6 +92,12 @@ public class InscripcionDAO implements IDao<Inscripcion>{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void update(Inscripcion c) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 
 }
