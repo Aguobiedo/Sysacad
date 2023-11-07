@@ -10,8 +10,8 @@ public class DbConnector {
 	private String host="localhost";
 	private String port="3306";
 	private String user="root";
-	private String password="java2022";
-	private String db="Sysacad";
+	private String password="root"; 
+	private String db="sysacad";
 	private int conectados=0;
 	private Connection conn=null;
 	
