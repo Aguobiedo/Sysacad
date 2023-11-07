@@ -1,6 +1,6 @@
 /* Estilos generales */
 body {
-  background: linear-gradient(#40513B, #609966, #9DC08B, #609966, #40513B);
+  background: linear-gradient(#27374D, #526D82, #9DB2BF, #DDE6ED);
   font-family: 'Montserrat', sans-serif;
   margin: 0;
   padding: 0;
@@ -56,7 +56,7 @@ div.container {
 
 .alta-button {
   display: block;
-  background-color: #40513B;
+  background-color: #27374D;
   color: #fff;
   font-size: 1rem;
   padding: 0.625rem 1.25rem;
@@ -68,12 +68,12 @@ div.container {
 }
 
 .alta-button:hover {
-  background-color: #609966;
+  background-color: #526D82;
 }
 
 /* Encabezado */
 header {
-  background-color: #40513B;
+  background-color: #27374D;
   color: #fff;
   display: flex;
   justify-content: space-between;
@@ -82,7 +82,6 @@ header {
   padding-bottom: 0;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 }
-
 .logo h1 {
   font-size: 1.8rem;
   text-transform: uppercase;
@@ -106,15 +105,16 @@ header {
 }
 
 /* Contenido principal */
+/* Contenido principal */
 .infoContainer {
   border-radius: 1rem;
-  border: solid 1px rgb(0, 0, 0) ;
+  border: solid 1px rgb(0, 0, 0);
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.199);
-  background-color: #40513b69;
+  background-color: #526D82;
   padding: 2rem;
   margin-top: 2rem;
   width: 100%; /* Para ocupar todo el ancho disponible */
-  max-width: 800px; /* Limitamos el ancho m�ximo para evitar que se estire demasiado */
+  max-width: 800px; /* Limitamos el ancho máximo para evitar que se estire demasiado */
 }
 
 .infoContainer h2 {
@@ -158,7 +158,7 @@ li {
 }
 
 li:hover {
-  background-color: #333;
+  background-color: white;
 }
 
 nav a {
@@ -175,17 +175,18 @@ nav a:hover {
 }
 
 
-/* Pie de p�gina */
+ 
+/* Pie de página */
 footer {
   text-align: center;
-  background-color: #40513B;
+  background-color: #27374D;
   padding: 0.25rem 0;
   width: 100%;
 }
 
 footer p {
   font-size: 0.75rem;
-  color: #000;
+  color: white;
 }
 
 /* Estilos responsive */

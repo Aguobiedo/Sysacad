@@ -2,7 +2,7 @@
 
 /* Estilos generales */
 body {
-  background: linear-gradient(#40513B, #609966, #9DC08B, #609966, #40513B);
+  background: linear-gradient(#27374D, #526D82, #9DB2BF, #526D82, #27374D);
   font-family: 'Montserrat', sans-serif;
   margin: 0;
   padding: 0;
@@ -32,9 +32,9 @@ body {
 }
 
 .login-form {
-  background-color: rgba(255, 255, 255, 0.137);
+  background-color: rgba(157, 178, 191, 0.137);
   border-radius: 1rem;
-  border: 2px solid rgba(255, 255, 255, 0.945);
+  border: 2px solid rgba(221, 230, 237, 0.945);
   padding: 2rem;
   max-width: 20rem;
   margin: 0 auto;
@@ -60,12 +60,12 @@ body {
   padding: 0.3125rem;
   font-size: 1rem;
   border-radius: 1rem;
-  border: 2px solid rgba(255, 255, 255, 0.945);
+  border: 2px solid rgba(221, 230, 237, 0.945);
 }
 
 .login-button {
   display: block;
-  background-color: #40513B;
+  background-color: #27374D;
   color: #fff;
   font-size: 1rem;
   padding: 0.625rem 1.25rem;
@@ -77,13 +77,13 @@ body {
 }
 
 .login-button:hover {
-  background-color: #609966;
+  background-color: #526D82;
 }
 
-/* Estilos del pie de p·gina */
+/* Estilos del pie de p√°gina */
 footer {
   text-align: center;
-  background-color: #40513B;
+  background-color: #27374D;
   padding: 0.25rem 0;
   width: 100%;
 }
