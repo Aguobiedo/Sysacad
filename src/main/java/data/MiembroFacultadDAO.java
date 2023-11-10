@@ -11,9 +11,9 @@ import entities.NoDocente;
 
 
 public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
-
 	
-	public MiembroFacultad validate(String username, String password) throws SQLException{
+	
+	public final MiembroFacultad validate(String username, String password) throws SQLException{
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		MiembroFacultad a = null;
@@ -85,19 +85,107 @@ public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
 	}
 
 	@Override
-	public void eliminar(int id) {
+	public void eliminar(int legajo) {
 		// TODO Auto-generated method stub
+		PreparedStatement stmt= null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"DELETE FROM " +this.getTabla() + " WHERE legajo = ?",
+							PreparedStatement.RETURN_GENERATED_KEYS
+							);
+			stmt.setInt(1, legajo);
+			stmt.executeUpdate();	
+			keyResultSet=stmt.getGeneratedKeys();			
+		} catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
 		
 	}
 
 	@Override
-	public MiembroFacultad getOne(int id) {
+	public MiembroFacultad getOne(int legajo) {
 		// TODO Auto-generated method stub
-		return null;
+		MiembroFacultad a=null;
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"SELECT legajo,nombre,apellido,dni,direccion,email,usuario FROM " + this.getTabla() + " WHERE legajo=?"
+					);
+			stmt.setInt(1, legajo);
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) {
+				a=getTipo();
+				a.setLegajo(rs.getInt("legajo"));
+				a.setNombre(rs.getString("nombre"));
+				a.setApellido(rs.getString("apellido"));
+				a.setDni(rs.getString("dni"));
+				a.setDireccion(rs.getString("direccion"));
+				a.setEmail(rs.getString("email"));
+				a.setUsuario(rs.getString("usuario"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return a;
 	}
 
 	@Override
 	public LinkedList<MiembroFacultad> getAll() {
+		// TODO Auto-generated method stub
+		PreparedStatement stmt=null;
+		ResultSet rs = null;
+		LinkedList<MiembroFacultad> miembros = new LinkedList<>();
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("SELECT legajo,nombre,apellido,dni,direccion,email,usuario FROM " + this.getTabla());
+			rs = stmt.executeQuery();
+			if(rs!=null) {
+				while(rs.next()) {
+					MiembroFacultad m = getTipo();
+					m.setLegajo(rs.getInt("legajo"));
+					m.setNombre(rs.getString("nombre"));
+					m.setApellido(rs.getString("apellido"));
+					m.setDni(rs.getString("dni"));
+					m.setDireccion(rs.getString("direccion"));
+					m.setEmail(rs.getString("email"));
+					m.setUsuario(rs.getString("usuario"));
+					miembros.add(m);
+				}
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return miembros;
+	}
+
+	public MiembroFacultad getTipo() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -111,7 +199,83 @@ public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
 	@Override
 	public void update(MiembroFacultad c) {
 		// TODO Auto-generated method stub
-		
+		PreparedStatement stmt= null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"UPDATE " + this.getTabla() + " SET nombre = ?, apellido = ?, dni = ?, direccion = ?, email = ?, usuario = ? WHERE legajo = ?",
+							PreparedStatement.RETURN_GENERATED_KEYS
+							);
+			stmt.setString(1, c.getNombre());
+			stmt.setString(2, c.getApellido());
+			stmt.setString(3, c.getDni());
+			stmt.setString(4, c.getDireccion());
+			stmt.setString(5, c.getEmail());
+			stmt.setString(6, c.getUsuario());
+			stmt.setInt(7, c.getLegajo());
+			stmt.executeUpdate();
+			
+			keyResultSet=stmt.getGeneratedKeys();
+            if(keyResultSet!=null && keyResultSet.next()){
+                c.setLegajo(keyResultSet.getInt(1));
+            }
+
+			
+		}  catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
 	}
+
+	public String getTabla() {
+		return "";
+	}
+	
+	public boolean add(MiembroFacultad a, String password) {
+		// TODO Auto-generated method stub
+		PreparedStatement stmt= null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"INSERT INTO " + this.getTabla() + "(legajo,nombre,apellido,dni, direccion,email,usuario, password) VALUES(?,?,?,?,?,?,?,?)",
+							PreparedStatement.RETURN_GENERATED_KEYS
+							);
+			stmt.setInt(1, a.getLegajo());
+			stmt.setString(2, a.getNombre());
+			stmt.setString(3, a.getApellido());
+			stmt.setString(4, a.getDni());
+			stmt.setString(5, a.getDireccion());
+			stmt.setString(6, a.getEmail());
+			stmt.setString(7, a.getUsuario());
+			stmt.setString(8, password);
+			stmt.executeUpdate();
+			
+			keyResultSet=stmt.getGeneratedKeys();
+
+			
+		}  catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+		} finally {
+            try {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
+		return true;
+	}
+
 
 }

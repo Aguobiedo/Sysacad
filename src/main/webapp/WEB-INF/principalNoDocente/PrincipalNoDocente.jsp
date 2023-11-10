@@ -28,7 +28,7 @@
                 
                 <li><a href="#">Clases</a></li>
                 <li><a href="readAlumno">Alumnos</a></li>
-                <li><a href="#">Docentes</a></li>
+                <li><a href="readDocente">Docentes</a></li>
                 <li><a href="#">No Docentes</a></li>
                 <li><a href="#">Materias</a></li>
                 <li><a href="#">Comisiones</a></li>

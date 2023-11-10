@@ -9,21 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.Alumno;
 import entities.MiembroFacultad;
 import logic.Controller;
 
 /**
- * Servlet implementation class ReadAlumnoServlet
+ * Servlet implementation class DeleteDocenteServlet
  */
-@WebServlet("/readAlumno")
-public class ReadAlumnoServlet extends HttpServlet {
+@WebServlet("/bajaDocente")
+public class DeleteDocenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReadAlumnoServlet() {
+    public DeleteDocenteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,18 +32,18 @@ public class ReadAlumnoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		int legajo = Integer.parseInt(request.getParameter("legajoDelete"));
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
+		System.out.println(legajo);
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			LinkedList<MiembroFacultad> alumnos = ctrl.alumnosGetAll();
-			String aviso = "CARGA DE ALUMNO FALLIDA";
-			request.setAttribute("alumnos", alumnos);
+			ctrl.deleteDocente(legajo);
+			String aviso = "DOCENTE BORRADO CON EXITO";
+			LinkedList<MiembroFacultad> docentes = ctrl.docentesGetAll();
 			request.setAttribute("aviso", aviso);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/alumnos/alumnos.jsp").forward(request, response);
-		}else {
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.setAttribute("docentes", docentes);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/docentes/docentes.jsp").forward(request, response);
 		}
-		
 	}
 
 	/**

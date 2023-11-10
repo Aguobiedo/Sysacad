@@ -10,20 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.Alumno;
+import entities.Docente;
 import entities.MiembroFacultad;
 import logic.Controller;
 
 /**
- * Servlet implementation class UpdateAlumnoServlet
+ * Servlet implementation class UpdateDocenteServlet
  */
-@WebServlet("/modificarAlumno")
-public class UpdateAlumnoServlet extends HttpServlet {
+@WebServlet("/modificarDocente")
+public class UpdateDocenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateAlumnoServlet() {
+    public UpdateDocenteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,9 +39,9 @@ public class UpdateAlumnoServlet extends HttpServlet {
 		System.out.println(legajo);
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			Alumno alumno = ctrl.alumnoGetOne(legajo);
-			request.setAttribute("alumno", alumno);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/alumnos/alumnosUpdate.jsp").forward(request, response);
+			Docente docente = ctrl.docenteGetOne(legajo);
+			request.setAttribute("docente", docente);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/docentes/docentesUpdate.jsp").forward(request, response);
 		}
 	}
 
@@ -49,7 +50,7 @@ public class UpdateAlumnoServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Alumno a = new Alumno();
+		Docente a = new Docente();
 		a.setLegajo(Integer.parseInt(request.getParameter("legajo")));
 		a.setNombre(request.getParameter("name"));
 		System.out.println(request.getParameter("name"));
@@ -61,12 +62,12 @@ public class UpdateAlumnoServlet extends HttpServlet {
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			ctrl.updateAlumno(a);
-			String aviso = "ALUMNO MODIFICADO CON EXITO";
-			LinkedList<MiembroFacultad> alumnos = ctrl.alumnosGetAll();
-			request.setAttribute("alumnos", alumnos);
+			ctrl.updateDocente(a);
+			String aviso = "DOCENTE MODIFICADO CON EXITO";
+			LinkedList<MiembroFacultad> docentes = ctrl.docentesGetAll();
+			request.setAttribute("docentes", docentes);
 			request.setAttribute("aviso", aviso);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/alumnos/alumnos.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/docentes/docentes.jsp").forward(request, response);
 		}
 	}
 

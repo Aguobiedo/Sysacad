@@ -6,9 +6,11 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 
 import data.AlumnoDAO;
+import data.DocenteDAO;
 import data.InscripcionDAO;
 import data.MiembroFacultadDAO;
 import entities.Alumno;
+import entities.Docente;
 import entities.Inscripcion;
 import entities.MiembroFacultad;
 
@@ -21,37 +23,74 @@ public class Controller {
 		return (MiembroFacultad)mfDao.validate(username, calcularSHA256(password));
 	}
 	
+	//METODOS DE ALUMNO
+	
 	public LinkedList<Inscripcion> getInscripcionesByAlumno(Alumno a){
 		InscripcionDAO insDao = new InscripcionDAO();
 		return insDao.getByAlumno(a);
 	}
 	
-	public LinkedList<Alumno> alumnosGetAll(){
+	public LinkedList<MiembroFacultad> alumnosGetAll(){
 		AlumnoDAO aDao = new AlumnoDAO();
 		return aDao.getAll();
 	}
 	
+	
+	
 	public boolean addAlumno(Alumno a, String password) {
 		AlumnoDAO aDao = new AlumnoDAO();
-		return aDao.addAlumno(a, calcularSHA256(password));
+		return aDao.add(a, calcularSHA256(password));
 	}
+	
+	
 	
 	public void deleteAlumno(int legajo) {
 		AlumnoDAO aDao = new AlumnoDAO();
 		aDao.eliminar(legajo);
 	}
 	
+	
+	
 	public Alumno alumnoGetOne(int legajo) {
 		AlumnoDAO aDao = new AlumnoDAO();
-		return aDao.getOne(legajo);
+		return (Alumno) aDao.getOne(legajo);
 	}
+	
 	
 	public void updateAlumno(Alumno alumno) {
 		AlumnoDAO aDao = new AlumnoDAO();
 		aDao.update(alumno);
 	}
+	//FIN METODOS DE ALUMNO
 	
 	
+	//METODOS DOCENTE
+	public LinkedList<MiembroFacultad> docentesGetAll(){
+		DocenteDAO dDao = new DocenteDAO();
+		return dDao.getAll();
+	}
+	
+	public boolean addDocente(Docente a, String password) {
+		// TODO Auto-generated method stub
+		DocenteDAO dDao = new DocenteDAO();
+		return dDao.add(a, password);
+	}
+	
+	public void deleteDocente(int legajo) {
+		DocenteDAO dDao = new DocenteDAO();
+		dDao.eliminar(legajo);
+	}
+	
+	public Docente docenteGetOne(int legajo) {
+		DocenteDAO dDao = new DocenteDAO();
+		return (Docente) dDao.getOne(legajo);
+	}
+	
+	
+	public void updateDocente(Docente docente) {
+		DocenteDAO dDao = new DocenteDAO();
+		dDao.update(docente);
+	}
 	
 	public static String calcularSHA256(String texto) {
         try {
@@ -81,6 +120,8 @@ public class Controller {
             return null; // O puedes lanzar una excepción personalizada aquí
         }
     }
+
+
 	
 
 }
