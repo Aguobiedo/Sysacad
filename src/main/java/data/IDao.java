@@ -2,6 +2,8 @@ package data;
 
 import java.util.LinkedList;
 
+import entities.Docente;
+
 public interface IDao<Clase> {
 	
 	public Clase guardar(Clase c);

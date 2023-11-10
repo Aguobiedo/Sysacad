@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.Alumno;
+import entities.Docente;
 import entities.MiembroFacultad;
 import logic.Controller;
 
 /**
- * Servlet implementation class CreateAlumno
+ * Servlet implementation class CreateDocente
  */
-@WebServlet("/altaAlumno")
-public class CreateAlumno extends HttpServlet {
+@WebServlet("/altaDocente")
+public class CreateDocente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateAlumno() {
+    public CreateDocente() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -51,7 +51,7 @@ public class CreateAlumno extends HttpServlet {
 		String password = request.getParameter("password");
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
 		if(mf.esNoDocente()) {
-			Alumno a = new Alumno();
+			Docente a = new Docente();
 			a.setLegajo(legajo);
 			a.setNombre(name);
 			a.setApellido(last_name);
@@ -60,11 +60,11 @@ public class CreateAlumno extends HttpServlet {
 			a.setEmail(email);
 			a.setUsuario(username);
 			Controller ctrl = new Controller();
-			if(ctrl.addAlumno(a, password)) {
-				LinkedList<MiembroFacultad> alumnos = ctrl.alumnosGetAll();
-				request.setAttribute("alumnos", alumnos);
-				request.setAttribute("aviso", "ALUMNO CARGADO CON EXITO");
-				request.getRequestDispatcher("WEB-INF/principalNoDocente/alumnos/alumnos.jsp").forward(request, response);		
+			if(ctrl.addDocente(a, password)) {
+				LinkedList<MiembroFacultad> docentes = ctrl.docentesGetAll();
+				request.setAttribute("docentes", docentes);
+				request.setAttribute("aviso", "DOCENTE CARGADO CON EXITO");
+				request.getRequestDispatcher("WEB-INF/principalNoDocente/docentes/docentes.jsp").forward(request, response);		
 			}			
 		}
 	}
