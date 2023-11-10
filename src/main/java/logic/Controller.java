@@ -9,8 +9,10 @@ import data.AlumnoDAO;
 import data.DocenteDAO;
 import data.InscripcionDAO;
 import data.MiembroFacultadDAO;
+import data.NoDocenteDAO;
 import entities.Alumno;
 import entities.Docente;
+import entities.NoDocente;
 import entities.Inscripcion;
 import entities.MiembroFacultad;
 
@@ -73,7 +75,7 @@ public class Controller {
 	public boolean addDocente(Docente a, String password) {
 		// TODO Auto-generated method stub
 		DocenteDAO dDao = new DocenteDAO();
-		return dDao.add(a, password);
+		return dDao.add(a, calcularSHA256(password));
 	}
 	
 	public void deleteDocente(int legajo) {
@@ -91,6 +93,39 @@ public class Controller {
 		DocenteDAO dDao = new DocenteDAO();
 		dDao.update(docente);
 	}
+	
+	//FIN METODOS DOCENTE
+	
+	//METODOS NO DOCENTE
+	public LinkedList<MiembroFacultad> noDocentesGetAll(){
+		NoDocenteDAO nDao = new NoDocenteDAO();
+		return nDao.getAll();
+	}
+	
+	public boolean addNoDocente(NoDocente a, String password) {
+		// TODO Auto-generated method stub
+		NoDocenteDAO nDao = new NoDocenteDAO();
+		return nDao.add(a, calcularSHA256(password));
+	}
+	
+	public void deleteNoDocente(int legajo) {
+		NoDocenteDAO dDao = new NoDocenteDAO();
+		dDao.eliminar(legajo);
+	}
+	
+	public NoDocente noDocenteGetOne(int legajo) {
+		NoDocenteDAO nDao = new NoDocenteDAO();
+		return (NoDocente) nDao.getOne(legajo);
+	}
+	
+	
+	public void updateNoDocente(NoDocente noDocente) {
+		NoDocenteDAO nDao = new NoDocenteDAO();
+		nDao.update(noDocente);
+	}
+	
+	//FIN METODOS NO DOCENTE
+	
 	
 	public static String calcularSHA256(String texto) {
         try {
