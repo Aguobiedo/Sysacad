@@ -4,17 +4,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.LinkedList;
-
-import data.AlumnoDAO;
-import data.DocenteDAO;
-import data.InscripcionDAO;
-import data.MiembroFacultadDAO;
-import data.NoDocenteDAO;
-import entities.Alumno;
-import entities.Docente;
-import entities.NoDocente;
-import entities.Inscripcion;
-import entities.MiembroFacultad;
+import data.*;
+import entities.*;
 
 public class Controller {
 	
@@ -125,6 +116,40 @@ public class Controller {
 	}
 	
 	//FIN METODOS NO DOCENTE
+	
+	//METODOS CARRERAS
+	
+	public LinkedList<Carrera> carrerasGetAll(){
+		CarreraDAO cDao = new CarreraDAO();
+		return cDao.getAll();
+	}
+	
+	public boolean addCarrera(Carrera c) {
+		// TODO Auto-generated method stub
+		CarreraDAO cDao = new CarreraDAO();
+		if(cDao.guardar(c) != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public void deleteCarrera(int id) {
+		CarreraDAO cDao = new CarreraDAO();
+		cDao.eliminar(id);
+	}
+	
+	public Carrera carreraGetOne(int id) {
+		CarreraDAO cDao = new CarreraDAO();
+		return (Carrera) cDao.getOne(id);
+	}
+	
+	public void updateCarrera(Carrera carrera) {
+		CarreraDAO cDao = new CarreraDAO();
+		cDao.update(carrera);
+	}
+	
+	
 	
 	
 	public static String calcularSHA256(String texto) {
