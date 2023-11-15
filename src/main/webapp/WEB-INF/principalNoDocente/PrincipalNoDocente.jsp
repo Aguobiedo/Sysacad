@@ -33,7 +33,7 @@
                 <li><a href="#">Materias</a></li>
                 <li><a href="#">Comisiones</a></li>
                 <li><a href="readCarrera">Carreras</a></li>
-                <li><a href="#">Planes</a></li>
+                <li><a href="readPlan">Planes</a></li>
                 <li><a href="#">Inscripciones</a></li>
                 <li><a href="#">Examenes</a></li>
 

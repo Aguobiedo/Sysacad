@@ -149,7 +149,38 @@ public class Controller {
 		cDao.update(carrera);
 	}
 	
+	//FIN METODOS CARRERAS
 	
+	//METODOS PLANES
+	
+	public LinkedList<Plan> planesGetAll(){
+		PlanDAO pDao = new PlanDAO();
+		return pDao.getAll();
+	}
+	
+	public boolean addPlan(Plan p) {
+		PlanDAO pDao = new PlanDAO();
+		if(pDao.guardar(p) != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public void deletePlan(int id) {
+		PlanDAO pDao = new PlanDAO();
+		pDao.eliminar(id);
+	}
+	
+	public Plan planGetOne(int id) {
+		PlanDAO pDao = new PlanDAO();
+		return (Plan) pDao.getOne(id);
+	}
+	
+	public void updatePlan(Plan plan) {
+		PlanDAO pDao = new PlanDAO();
+		pDao.update(plan);
+	}
 	
 	
 	public static String calcularSHA256(String texto) {
