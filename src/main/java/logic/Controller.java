@@ -13,9 +13,6 @@ import entities.Inscripcion;
 import entities.MiembroFacultad;
 
 public class Controller {
-	
-	
-	
 	public MiembroFacultad validate(String username, String password) throws SQLException {
 		MiembroFacultadDAO mfDao = new MiembroFacultadDAO();
 		return (MiembroFacultad)mfDao.validate(username, calcularSHA256(password));
@@ -50,8 +47,6 @@ public class Controller {
 		AlumnoDAO aDao = new AlumnoDAO();
 		aDao.update(alumno);
 	}
-	
-	
 	
 	public static String calcularSHA256(String texto) {
         try {
