@@ -182,6 +182,39 @@ public class Controller {
 		pDao.update(plan);
 	}
 	
+	//FIN METODOS PLANES
+	
+	//METODOS COMISIONES
+	
+	public LinkedList<Comision> comisionesGetAll(){
+		ComisionDAO cDao = new ComisionDAO();
+		return cDao.getAll();
+	}
+	
+	public boolean addComision(Comision c) {
+		ComisionDAO cDao = new ComisionDAO();
+		if(cDao.guardar(c) != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public void deleteComision(int nro, int anio) {
+		ComisionDAO cDao = new ComisionDAO();
+		cDao.eliminarComision(nro,anio);
+	}
+	
+	public Comision comisionGetOne(int nro, int anio) {
+		ComisionDAO cDao = new ComisionDAO();
+		return (Comision) cDao.getOne(nro,anio);
+	}
+	
+	public void updateComision(Comision comision) {
+		ComisionDAO cDao = new ComisionDAO();
+		cDao.update(comision);
+	}
+	
 	
 	public static String calcularSHA256(String texto) {
         try {
