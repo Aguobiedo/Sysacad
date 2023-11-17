@@ -76,6 +76,4 @@ public class Controller {
             return null; // O puedes lanzar una excepción personalizada aquí
         }
     }
-	
-
 }
