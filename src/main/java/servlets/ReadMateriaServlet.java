@@ -9,21 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entities.Carrera;
 import entities.MiembroFacultad;
+import entities.Materia;
 import logic.Controller;
-import entities.Docente;
 
 /**
- * Servlet implementation class ReadDocenteServlet
+ * Servlet implementation class ReadMateriaServlet
  */
-@WebServlet("/readDocente")
-public class ReadDocenteServlet extends HttpServlet {
+@WebServlet("/readMateria")
+public class ReadMateriaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReadDocenteServlet() {
+    public ReadMateriaServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +33,16 @@ public class ReadDocenteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			LinkedList<MiembroFacultad> docentes = ctrl.docentesGetAll();
-			String aviso = "CARGA DE DOCENTE FALLIDA";
-			request.setAttribute("docentes", docentes);
+			LinkedList<Materia> materias = ctrl.materiasGetAll();
+			LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
+			String aviso = "CARGA DE MATERIA FALLIDA";
+			request.setAttribute("materias", materias);
+			request.setAttribute("carreras", carreras);
 			request.setAttribute("aviso", aviso);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/docentes/docentes.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/materias/materias.jsp").forward(request, response);
 		}else {
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}

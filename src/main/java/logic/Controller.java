@@ -4,15 +4,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.LinkedList;
-
-import data.AlumnoDAO;
-import data.DocenteDAO;
-import data.InscripcionDAO;
-import data.MiembroFacultadDAO;
-import entities.Alumno;
-import entities.Docente;
-import entities.Inscripcion;
-import entities.MiembroFacultad;
+import data.*;
+import entities.*;
 
 public class Controller {
 	
@@ -73,7 +66,7 @@ public class Controller {
 	public boolean addDocente(Docente a, String password) {
 		// TODO Auto-generated method stub
 		DocenteDAO dDao = new DocenteDAO();
-		return dDao.add(a, password);
+		return dDao.add(a, calcularSHA256(password));
 	}
 	
 	public void deleteDocente(int legajo) {
@@ -90,6 +83,169 @@ public class Controller {
 	public void updateDocente(Docente docente) {
 		DocenteDAO dDao = new DocenteDAO();
 		dDao.update(docente);
+	}
+	
+	//FIN METODOS DOCENTE
+	
+	//METODOS NO DOCENTE
+	public LinkedList<MiembroFacultad> noDocentesGetAll(){
+		NoDocenteDAO nDao = new NoDocenteDAO();
+		return nDao.getAll();
+	}
+	
+	public boolean addNoDocente(NoDocente a, String password) {
+		// TODO Auto-generated method stub
+		NoDocenteDAO nDao = new NoDocenteDAO();
+		return nDao.add(a, calcularSHA256(password));
+	}
+	
+	public void deleteNoDocente(int legajo) {
+		NoDocenteDAO dDao = new NoDocenteDAO();
+		dDao.eliminar(legajo);
+	}
+	
+	public NoDocente noDocenteGetOne(int legajo) {
+		NoDocenteDAO nDao = new NoDocenteDAO();
+		return (NoDocente) nDao.getOne(legajo);
+	}
+	
+	
+	public void updateNoDocente(NoDocente noDocente) {
+		NoDocenteDAO nDao = new NoDocenteDAO();
+		nDao.update(noDocente);
+	}
+	
+	//FIN METODOS NO DOCENTE
+	
+	//METODOS CARRERAS
+	
+	public LinkedList<Carrera> carrerasGetAll(){
+		CarreraDAO cDao = new CarreraDAO();
+		return cDao.getAll();
+	}
+	
+	public boolean addCarrera(Carrera c) {
+		// TODO Auto-generated method stub
+		CarreraDAO cDao = new CarreraDAO();
+		if(cDao.guardar(c) != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public void deleteCarrera(int id) {
+		CarreraDAO cDao = new CarreraDAO();
+		cDao.eliminar(id);
+	}
+	
+	public Carrera carreraGetOne(int id) {
+		CarreraDAO cDao = new CarreraDAO();
+		return (Carrera) cDao.getOne(id);
+	}
+	
+	public void updateCarrera(Carrera carrera) {
+		CarreraDAO cDao = new CarreraDAO();
+		cDao.update(carrera);
+	}
+	
+	//FIN METODOS CARRERAS
+	
+	//METODOS PLANES
+	
+	public LinkedList<Plan> planesGetAll(){
+		PlanDAO pDao = new PlanDAO();
+		return pDao.getAll();
+	}
+	
+	public boolean addPlan(Plan p) {
+		PlanDAO pDao = new PlanDAO();
+		if(pDao.guardar(p) != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public void deletePlan(int id) {
+		PlanDAO pDao = new PlanDAO();
+		pDao.eliminar(id);
+	}
+	
+	public Plan planGetOne(int id) {
+		PlanDAO pDao = new PlanDAO();
+		return (Plan) pDao.getOne(id);
+	}
+	
+	public void updatePlan(Plan plan) {
+		PlanDAO pDao = new PlanDAO();
+		pDao.update(plan);
+	}
+	
+	//FIN METODOS PLANES
+	
+	//METODOS COMISIONES
+	
+	public LinkedList<Comision> comisionesGetAll(){
+		ComisionDAO cDao = new ComisionDAO();
+		return cDao.getAll();
+	}
+	
+	public boolean addComision(Comision c) {
+		ComisionDAO cDao = new ComisionDAO();
+		if(cDao.guardar(c) != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public void deleteComision(int nro, int anio) {
+		ComisionDAO cDao = new ComisionDAO();
+		cDao.eliminarComision(nro,anio);
+	}
+	
+	public Comision comisionGetOne(int nro, int anio) {
+		ComisionDAO cDao = new ComisionDAO();
+		return (Comision) cDao.getOne(nro,anio);
+	}
+	
+	public void updateComision(Comision comision) {
+		ComisionDAO cDao = new ComisionDAO();
+		cDao.update(comision);
+	}
+	
+	//FIN METODOS COMISION
+	
+	//METODOS MATERIA
+	
+	public LinkedList<Materia> materiasGetAll(){
+		MateriaDAO mDao = new MateriaDAO();
+		return mDao.getAll();
+	}
+	
+	public boolean addMateria(Materia m) {
+		MateriaDAO mDao = new MateriaDAO();
+		if(mDao.guardar(m) != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public void deleteMateria(int id) {
+		MateriaDAO mDao = new MateriaDAO();
+		mDao.eliminar(id);
+	}
+	
+	public Materia materiaGetOne(int id) {
+		MateriaDAO mDao = new MateriaDAO();
+		return (Materia) mDao.getOne(id);
+	}
+	
+	public void updateMateria(Materia materia) {
+		MateriaDAO mDao = new MateriaDAO();
+		mDao.update(materia);
 	}
 	
 	public static String calcularSHA256(String texto) {

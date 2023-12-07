@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.MiembroFacultad;
+import entities.Carrera;
 import logic.Controller;
-import entities.Docente;
 
 /**
- * Servlet implementation class ReadDocenteServlet
+ * Servlet implementation class DeleteCarreraServlet
  */
-@WebServlet("/readDocente")
-public class ReadDocenteServlet extends HttpServlet {
+@WebServlet("/bajaCarrera")
+public class DeleteCarreraServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReadDocenteServlet() {
+    public DeleteCarreraServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,17 +32,17 @@ public class ReadDocenteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		int id = Integer.parseInt(request.getParameter("id"));
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
+		System.out.println(id);
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			LinkedList<MiembroFacultad> docentes = ctrl.docentesGetAll();
-			String aviso = "CARGA DE DOCENTE FALLIDA";
-			request.setAttribute("docentes", docentes);
+			ctrl.deleteCarrera(id);
+			String aviso = "CARRERA BORRADA CON EXITO";
+			LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
 			request.setAttribute("aviso", aviso);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/docentes/docentes.jsp").forward(request, response);
-		}else {
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.setAttribute("carreras", carreras);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/carreras/carreras.jsp").forward(request, response);
 		}
 	}
 

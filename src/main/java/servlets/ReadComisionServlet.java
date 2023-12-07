@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entities.Comision;
 import entities.MiembroFacultad;
 import logic.Controller;
-import entities.Docente;
 
 /**
- * Servlet implementation class ReadDocenteServlet
+ * Servlet implementation class ReadComisionServlet
  */
-@WebServlet("/readDocente")
-public class ReadDocenteServlet extends HttpServlet {
+@WebServlet("/readComision")
+public class ReadComisionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReadDocenteServlet() {
+    public ReadComisionServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,15 +32,14 @@ public class ReadDocenteServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			LinkedList<MiembroFacultad> docentes = ctrl.docentesGetAll();
-			String aviso = "CARGA DE DOCENTE FALLIDA";
-			request.setAttribute("docentes", docentes);
+			LinkedList<Comision> comisiones = ctrl.comisionesGetAll();
+			String aviso = "CARGA DE COMISION FALLIDA";
+			request.setAttribute("comisiones", comisiones);
 			request.setAttribute("aviso", aviso);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/docentes/docentes.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/comisiones/comisiones.jsp").forward(request, response);
 		}else {
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
