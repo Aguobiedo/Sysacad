@@ -30,7 +30,7 @@
                 <li><a href="readAlumno">Alumnos</a></li>
                 <li><a href="readDocente">Docentes</a></li>
                 <li><a href="readNoDocente">No Docentes</a></li>
-                <li><a href="#">Materias</a></li>
+                <li><a href="readMateria">Materias</a></li>
                 <li><a href="readComision">Comisiones</a></li>
                 <li><a href="readCarrera">Carreras</a></li>
                 <li><a href="readPlan">Planes</a></li>

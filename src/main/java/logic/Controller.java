@@ -215,6 +215,38 @@ public class Controller {
 		cDao.update(comision);
 	}
 	
+	//FIN METODOS COMISION
+	
+	//METODOS MATERIA
+	
+	public LinkedList<Materia> materiasGetAll(){
+		MateriaDAO mDao = new MateriaDAO();
+		return mDao.getAll();
+	}
+	
+	public boolean addMateria(Materia m) {
+		MateriaDAO mDao = new MateriaDAO();
+		if(mDao.guardar(m) != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public void deleteMateria(int id) {
+		MateriaDAO mDao = new MateriaDAO();
+		mDao.eliminar(id);
+	}
+	
+	public Materia materiaGetOne(int id) {
+		MateriaDAO mDao = new MateriaDAO();
+		return (Materia) mDao.getOne(id);
+	}
+	
+	public void updateMateria(Materia materia) {
+		MateriaDAO mDao = new MateriaDAO();
+		mDao.update(materia);
+	}
 	
 	public static String calcularSHA256(String texto) {
         try {
