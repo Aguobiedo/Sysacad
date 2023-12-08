@@ -7,11 +7,11 @@ public class DbConnector {
 	private static DbConnector instancia;
 	
 	private String driver="com.mysql.cj.jdbc.Driver";
-	private String host="localhost";
-	private String port="3306";
+	private String host="monorail.proxy.rlwy.net";
+	private String port="44308";
 	private String user="root";
-	private String password="java2022"; 
-	private String db="sysacad";
+	private String password="b1DG1B5H-Ag-b41f51DbG3ghC2daaBg5"; 
+	private String db="railway";
 	private int conectados=0;
 	private Connection conn=null;
 	

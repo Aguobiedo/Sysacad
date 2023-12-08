@@ -20,17 +20,15 @@ public class InscripcionDAO implements IDao<Inscripcion>{
 		LinkedList<Inscripcion> inscripciones = new LinkedList<>();
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"SELECT mat.nombre,doc.apellido,cla.numcomision, cla.anio_cursado, cla.dia_semana_cursado, cla.horario_inicio, cla.horario_fin FROM inscripcion ins "
-					+ "INNER JOIN "
-					+ "alumno alu ON ins.legajo_alumno=alu.legajo "
-					+ "INNER JOIN "
-					+ "clase cla ON ins.idclase = cla.idclase "
-					+ "INNER JOIN "
-					+ "docente doc ON cla.legajodoc = doc.legajo "
-					+ "INNER JOIN "
-					+ "materia mat ON cla.idmateria = mat.idmateria "
-					+ "WHERE ins.legajo_alumno = ? "
-					+ "ORDER BY cla.horario_inicio DESC;");
+					"SELECT mat.nombre, doc.apellido, cla.numcomision, cla.anio_cursado, cla.dia_semana_cursado, " +
+							"cla.horario_inicio, cla.horario_fin " +
+							"FROM inscripcion ins " +
+							"INNER JOIN alumno alu ON ins.legajo_alumno=alu.legajo " +
+							"INNER JOIN clase cla ON ins.idclase = cla.idclase " +
+							"INNER JOIN docente doc ON cla.legajodoc = doc.legajo " +
+							"INNER JOIN materia mat ON cla.idmateria = mat.idmateria " +
+							"WHERE ins.legajo_alumno = ? " +
+							"ORDER BY cla.horario_inicio DESC;");
 			stmt.setInt(1, a.getLegajo());
 			rs = stmt.executeQuery();
 			if(rs!=null) {
@@ -48,8 +46,8 @@ public class InscripcionDAO implements IDao<Inscripcion>{
 					c.setDocente(doc);
 					c.setMateria(mat);
 					c.setDiaSemanaCursado(rs.getString("dia_semana_cursado"));
-					c.setHorarioInicio(rs.getTime("horario_inicio"));
-					c.setHorarioFin(rs.getTime("horario_fin"));
+					c.setHorarioInicio(rs.getString("horario_inicio"));
+					c.setHorarioFin(rs.getString("horario_fin"));
 					i.setAlumno(a);
 					i.setClase(c);
 					inscripciones.add(i);
