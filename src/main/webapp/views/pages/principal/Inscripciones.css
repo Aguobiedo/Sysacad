@@ -1,117 +1,81 @@
-@charset "ISO-8859-1";
-/* Estilos generales */
+ 
 body {
-  background: linear-gradient(#40513B, #609966, #9DC08B, #609966, #40513B);
-  font-family: 'Montserrat', sans-serif;
-  padding: 0;
-  margin: 0;
-  position: relative; 
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+    background-color: #27374D; /* Fondo gris claro */
+    font-family: 'Roboto', sans-serif; /* Utiliza la fuente Roboto */;
 }
 
+.tituloInscripciones {
+    color: white; 
+    margin-bottom: 20px; /* Espaciado inferior */
+    font-size: 36px; /* Tamaño de fuente */
+}
 
-/* Estilos para el contenido */
 .container {
-    margin: unset;
-    padding: 40px 20px;
-    box-sizing: border-box;
-    display: flex;
-    flex-wrap: wrap;
-    min-height: 100vh;
-    gap: 16px;
-    justify-content: flex-start;
+    margin-top: 50px; /* Margen superior */
 }
 
-h1{
-    font-size: medium;
-}
-
-.inscripcion{
-    background-color: #dadada;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3); /* Sombra */
-    padding: 20px; /* Espaciado interno */
-    border-radius: 10px; /* Bordes redondeados */
-    height: 250px;
-    width: 275px;
-    overflow: hidden;
-    white-space: nowrap;
-}
-
-
-/* Encabezado */
-header {
-    background-color: #40513B;
-    color: #fff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-    padding-bottom: 0;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.logo h1 {
-    font-size: 1.8rem;
-    text-transform: uppercase;
-}
-
-.profile-options a {
-    color: #fff;
-    text-decoration: none;
-    margin-left: 1rem;
-}
-
-/* Pie de p�gina */
-footer {
-    text-align: center;
-    background-color: #40513B;
-    padding: 0.25rem 0;
+/* Estilos para la tabla */
+.table {
     width: 100%;
+    margin-bottom: 1rem;
+    color: #333; /* Texto negro */
 }
 
-nav a {
-    color: #fff;
-    text-decoration: none;
+.table th,
+.table td {
+    padding: 0.75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+    vertical-align: bottom;
+    border-bottom: 2px solid #dee2e6;
+    background-color: #526D82; /* Azul Bootstrap */
+    color: #fff; /* Texto blanco */
+}
+
+/* Estilos para la fila de "No hay inscripciones disponibles" */
+.table tbody tr td[colspan="6"] {
+    text-align: center;
+    font-style: italic;
+    color: #555; /* Texto gris oscuro */
+}
+
+/* Estilos de las filas alternas (alternancia de colores) */
+.table tbody tr:nth-child(even) {
+    background-color: #f9f9f9; /* Fondo gris claro */
+}
+
+.table tbody tr:nth-child(odd) {
+    background-color: #fff; /* Fondo blanco */
+}
+
+/* Estilo de hover para las filas */
+.table tbody tr:hover {
+    background-color: #d4ebf2; /* Fondo azul claro al pasar el ratón sobre la fila */
+}
+
+ 
+/* Estilo personalizado para el botón Volver */
+.btn-volver {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
     font-weight: bold;
-    font-size: 1rem;
-    padding: 1rem;
-    transition: color 0.3s ease;
-}
-  
-nav a:hover {
-    color: #9DC08B;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px solid #007bff; /* Color del borde */
+    color: #007bff; /* Color del texto */
+    background-color: #fff; /* Color de fondo */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
 
-/* Estilos responsive */
-@media (max-width: 768px) {
-    header {
-      padding: 1rem;
-      flex-direction: column;
-      align-items: center;
-    }
-    .logo h1 {
-        font-size: 1.5rem;
-    }
-    
-    .profile-options {
-        margin-top: 1rem;
-    }
-    
-    .infoContainer {
-        padding: 1rem;
-        margin-top: 1rem;
-    }
-    
-    .infoContainer h2 {
-        font-size: 1.5rem;
-    }
-    
-    .infoContainer p {
-        font-size: 1rem;
-    }
-    footer {
-        padding: 0.5rem 0;
-    }
+ 
+.btn-volver:hover {
+    background-color: #007bff;  
+    color: #fff;  
+    border-color: #007bff;  
 }
