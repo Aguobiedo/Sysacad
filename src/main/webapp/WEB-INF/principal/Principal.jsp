@@ -14,7 +14,8 @@
 <body>
     <header>
         <div class="logo">
-            <h1>Tu Sistema Académico</h1>
+             
+            <img src="views/pages/principal/Logotipo de Empresa Tecnológica Moderno Azul y Verde (2).png" alt="Logo del Sistema Académico">
         </div>
         <div class="navbar">
             <a href="#">Configuración</a>
