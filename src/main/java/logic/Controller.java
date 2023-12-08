@@ -54,6 +54,12 @@ public class Controller {
 		AlumnoDAO aDao = new AlumnoDAO();
 		aDao.update(alumno);
 	}
+	
+     
+    public LinkedList<Examen> getExamenAlumno(Alumno a){
+		ExamenDAO examenDao = new ExamenDAO();
+		return examenDao.getExamenesByAlumno(a);
+	}
 	//FIN METODOS DE ALUMNO
 	
 	

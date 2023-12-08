@@ -61,7 +61,8 @@
             </tbody>
         </table>
         
-        <a class="btn btn-primary btn-volver" href="javascript:history.back()">Volver</a>
+        <a class="btn btn-primary btn-volver" href="javascript:history.back()">Volver</a>  
+        <a class="btn btn-primary btn-volver" href="javascript:history.back()">Inscribirse a una nueva materia</a>
         
 
          
