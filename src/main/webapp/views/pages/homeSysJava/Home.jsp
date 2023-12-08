@@ -5,12 +5,20 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>SysJava</title>
-<link rel="stylesheet" type="text/css" href="Home.css">
+<link rel="stylesheet" type="text/css" href="./Home.css">
 </head>
 <body>
 <section class="container">
-    <h1>SYSJAVA (Logo)</h1>
-    <section class="home-container">
+<div class="featuresLogo">
+    <h1>SYSJAVA</h1>
+    <h3>Tu sistema académico</h3>
+</div>
+<div class="logo-container">
+    <img src="./Logotipo de Empresa Tecnológica Moderno Azul y Verde-fotor-bg-remover-2023120813522.png" alt="Logo del Sistema Académico">
+</div>
+
+
+<section class="home-container">
         <h2>Bienvenido a tu plataforma académica</h2>
         <p>Aquí puedes acceder a tus cursos, ver tus calificaciones, realizar inscripciones y más.</p>
         <a href="../login/Login.jsp" class="cta-button">Ingresar</a>
