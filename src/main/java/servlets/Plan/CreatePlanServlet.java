@@ -1,4 +1,4 @@
-package servlets;
+package servlets.Plan;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -9,21 +9,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.Comision;
+import entities.Carrera;
 import entities.MiembroFacultad;
+import entities.NoDocente;
+import entities.Plan;
 import logic.Controller;
 
 /**
- * Servlet implementation class CreateComisionServlet
+ * Servlet implementation class CreatePlanServlet
  */
-@WebServlet("/altaComision")
-public class CreateComisionServlet extends HttpServlet {
+@WebServlet("/altaPlan")
+public class CreatePlanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateComisionServlet() {
+    public CreatePlanServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,30 +42,35 @@ public class CreateComisionServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nro = request.getParameter("nroComision");
-		String anio = request.getParameter("anio");
-		String turno = request.getParameter("turno");
+		String id = request.getParameter("idPlan");
+		String descripcion = request.getParameter("descripcion");
+		String idCarrera = request.getParameter("idCarrera");
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
 		if(mf.esNoDocente()) {
 			try {
-				Comision c = new Comision();
-				c.setNumComision(Integer.parseInt(nro));
-				c.setAnioCursado(Integer.parseInt(anio));
-				c.setTurno(turno);
+				Plan p = new Plan();
+				p.setIdPlan(Integer.parseInt(id));
+				p.setDescripcion(descripcion);
 				Controller ctrl = new Controller();
-				if(ctrl.addComision(c)) {
-					LinkedList<Comision> comisiones = ctrl.comisionesGetAll();
-					request.setAttribute("comisiones", comisiones);
-					request.setAttribute("aviso", "COMISION CARGADA CON EXITO");
-					request.getRequestDispatcher("WEB-INF/principalNoDocente/comisiones/comisiones.jsp").forward(request, response);		
-				}	
+				p.setCarrera(ctrl.carreraGetOne(Integer.parseInt(idCarrera)));
+				if(ctrl.addPlan(p)) {
+					LinkedList<Plan> planes = ctrl.planesGetAll();
+					LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
+					request.setAttribute("planes", planes);
+					request.setAttribute("carreras", carreras);
+					request.setAttribute("aviso", "PLAN CARGADO CON EXITO");
+					request.getRequestDispatcher("WEB-INF/principalNoDocente/planes/planes.jsp").forward(request, response);		
+				}		
 			}catch(NumberFormatException n) {
 				Controller ctrl = new Controller();
-				LinkedList<Comision> comisiones = ctrl.comisionesGetAll();
+				LinkedList<Plan> planes = ctrl.planesGetAll();
+				LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
+				request.setAttribute("planes", planes);
+				request.setAttribute("carreras", carreras);
 				request.setAttribute("aviso", "");
-				request.setAttribute("comisiones", comisiones);
-				request.getRequestDispatcher("WEB-INF/principalNoDocente/comisiones/comisiones.jsp").forward(request, response);
-			}			
+				request.getRequestDispatcher("WEB-INF/principalNoDocente/planes/planes.jsp").forward(request, response);
+			}
+						
 		}
 	}
 

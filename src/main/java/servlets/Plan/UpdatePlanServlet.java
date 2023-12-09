@@ -1,4 +1,4 @@
-package servlets;
+package servlets.Plan;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -9,22 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entities.Plan;
 import entities.Carrera;
 import entities.MiembroFacultad;
-import entities.Plan;
 import logic.Controller;
 
 /**
- * Servlet implementation class DeletePlanServlet
+ * Servlet implementation class UpdatePlanServlet
  */
-@WebServlet("/bajaPlan")
-public class DeletePlanServlet extends HttpServlet {
+@WebServlet("/modificarPlan")
+public class UpdatePlanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeletePlanServlet() {
+    public UpdatePlanServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,14 +38,11 @@ public class DeletePlanServlet extends HttpServlet {
 		System.out.println(id);
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			ctrl.deletePlan(id);
-			String aviso = "PLAN BORRADO CON EXITO";
-			LinkedList<Plan> planes = ctrl.planesGetAll();
+			Plan plan = ctrl.planGetOne(id);
 			LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
-			request.setAttribute("planes", planes);
-			request.setAttribute("aviso", aviso);
 			request.setAttribute("carreras", carreras);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/planes/planes.jsp").forward(request, response);
+			request.setAttribute("plan", plan);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/planes/planesUpdate.jsp").forward(request, response);
 		}
 	}
 
@@ -53,8 +50,23 @@ public class DeletePlanServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		Plan p = new Plan();
+		p.setIdPlan(Integer.parseInt(request.getParameter("id")));
+		p.setDescripcion(request.getParameter("descripcion"));
+		Controller ctrl = new Controller();
+		p.setCarrera(ctrl.carreraGetOne(Integer.parseInt(request.getParameter("idCarrera"))));
+		System.out.println(request.getParameter("descripcion"));
+		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
+		if(mf.esNoDocente()) {
+			ctrl.updatePlan(p);
+			String aviso = "PLAN MODIFICADO CON EXITO";
+			LinkedList<Plan> planes = ctrl.planesGetAll();
+			LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
+			request.setAttribute("planes", planes);
+			request.setAttribute("carreras", carreras);
+			request.setAttribute("aviso", aviso);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/planes/planes.jsp").forward(request, response);
+		}
 	}
 
 }
