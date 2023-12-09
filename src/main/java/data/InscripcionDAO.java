@@ -46,8 +46,8 @@ public class InscripcionDAO implements IDao<Inscripcion>{
 					c.setDocente(doc);
 					c.setMateria(mat);
 					c.setDiaSemanaCursado(rs.getString("dia_semana_cursado"));
-					c.setHorarioInicio(rs.getString("horario_inicio"));
-					c.setHorarioFin(rs.getString("horario_fin"));
+					c.setHorarioInicio(rs.getTime("horario_inicio"));
+					c.setHorarioFin(rs.getTime("horario_fin"));
 					i.setAlumno(a);
 					i.setClase(c);
 					inscripciones.add(i);

@@ -1,10 +1,12 @@
 package entities;
 
+import java.sql.Time;
+
 public class Clase {
 	private int idClase;
 	private String diaSemanaCursado;
-    private String horarioInicio;  
-    private String horarioFin;    
+    private Time horarioInicio;  
+    private Time horarioFin;    
 	private Docente docente;
 	private Materia materia;
 	private Comision comision;
@@ -21,21 +23,21 @@ public class Clase {
 	public void setDiaSemanaCursado(String diasSemanaCursado) {
 		this.diaSemanaCursado = diasSemanaCursado;
 	}
-	public String getHorarioInicio() {
+	public Time getHorarioInicio() {
         return horarioInicio;
     }
 
-    public void setHorarioInicio(String horarioInicio) {
+    public void setHorarioInicio(Time horarioInicio) {
         this.horarioInicio = horarioInicio;
     }
 
-	    public String getHorarioFin() {
-	        return horarioFin;
-	    }
+	public Time getHorarioFin() {
+	    return horarioFin;
+    }
 
-	    public void setHorarioFin(String horarioFin) {
-	        this.horarioFin = horarioFin;
-	    }
+    public void setHorarioFin(Time horarioFin) {
+        this.horarioFin = horarioFin;
+    }
 
 	public Docente getDocente() {
 		return docente;

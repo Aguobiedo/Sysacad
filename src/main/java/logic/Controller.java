@@ -238,7 +238,6 @@ public class Controller {
 			return false;
 		}
 	}
-	
 	public void deleteMateria(int id) {
 		MateriaDAO mDao = new MateriaDAO();
 		mDao.eliminar(id);
@@ -253,7 +252,42 @@ public class Controller {
 		MateriaDAO mDao = new MateriaDAO();
 		mDao.update(materia);
 	}
+	// FIN METODOS MATERIA
 	
+	//METODOS CLASE
+	public LinkedList<Clase> clasesGetAll() {
+		ClaseDAO cDao = new ClaseDAO();
+		return cDao.getAll();
+	}
+	
+	public LinkedList<Clase> getClaseByLegajoDocente(int legajo) {
+		ClaseDAO cDao = new ClaseDAO();
+		return cDao.getByLegajoDocente(legajo);
+	}
+	
+	public boolean addClase(Clase c) {
+		ClaseDAO cDao = new ClaseDAO();
+		if(cDao.guardar(c) != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	public void deleteClase(int id) {
+		ClaseDAO cDao = new ClaseDAO();
+		cDao.eliminarClase(id);
+	}
+	
+	public Clase claseGetOne(int id) {
+		ClaseDAO cDao = new ClaseDAO();
+		return (Clase) cDao.getOne(id);
+	}
+	
+	public void updateClase(Clase clase) {
+		ClaseDAO cDao = new ClaseDAO();
+		cDao.update(clase);
+	}
+	//FIN METODOS CLASE
 	public static String calcularSHA256(String texto) {
         try {
             // Crear una instancia de MessageDigest con el algoritmo SHA-256
