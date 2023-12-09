@@ -1,4 +1,4 @@
-package servlets.carrera;
+package servlets;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.Carrera;
 import entities.MiembroFacultad;
+import entities.Carrera;
 import logic.Controller;
 
 /**
- * Servlet implementation class UpdateCarrera
+ * Servlet implementation class DeleteCarreraServlet
  */
-@WebServlet("/modificarCarrera")
-public class UpdateCarrera extends HttpServlet {
+@WebServlet("/bajaCarrera")
+public class DeleteCarreraServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateCarrera() {
+    public DeleteCarreraServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,9 +37,12 @@ public class UpdateCarrera extends HttpServlet {
 		System.out.println(id);
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			Carrera carrera = ctrl.carreraGetOne(id);
-			request.setAttribute("carrera", carrera);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/carreras/carrerasUpdate.jsp").forward(request, response);
+			ctrl.deleteCarrera(id);
+			String aviso = "CARRERA BORRADA CON EXITO";
+			LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
+			request.setAttribute("aviso", aviso);
+			request.setAttribute("carreras", carreras);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/carreras/carreras.jsp").forward(request, response);
 		}
 	}
 
@@ -47,20 +50,8 @@ public class UpdateCarrera extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Carrera a = new Carrera();
-		a.setIdCarrera(Integer.parseInt(request.getParameter("legajo")));
-		a.setNombre(request.getParameter("name"));
-		System.out.println(request.getParameter("name"));
-		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
-		if(mf.esNoDocente()) {
-			Controller ctrl = new Controller();
-			ctrl.updateCarrera(a);
-			String aviso = "CARRERA MODIFICADA CON EXITO";
-			LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
-			request.setAttribute("carreras", carreras);
-			request.setAttribute("aviso", aviso);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/carreras/carreras.jsp").forward(request, response);
-		}
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

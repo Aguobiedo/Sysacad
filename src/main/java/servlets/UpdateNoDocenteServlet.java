@@ -1,4 +1,4 @@
-package servlets.NoDocente;
+package servlets;
 
 import java.io.IOException;
 import java.util.LinkedList;

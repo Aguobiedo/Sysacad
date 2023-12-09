@@ -1,4 +1,4 @@
-package servlets.Alumno;
+package servlets;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.Alumno;
 import entities.MiembroFacultad;
+import entities.NoDocente;
 import logic.Controller;
 
 /**
- * Servlet implementation class CreateAlumno
+ * Servlet implementation class CreateNoDocenteServlet
  */
-@WebServlet("/altaAlumno")
-public class CreateAlumnoServlet extends HttpServlet {
+@WebServlet("/altaNoDocente")
+public class CreateNoDocenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CreateAlumnoServlet() {
+    public CreateNoDocenteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,7 +40,6 @@ public class CreateAlumnoServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		int legajo = Integer.parseInt(request.getParameter("legajo"));
 		String name = request.getParameter("name");
 		String last_name = request.getParameter("last-name");
@@ -51,7 +50,7 @@ public class CreateAlumnoServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
 		if(mf.esNoDocente()) {
-			Alumno a = new Alumno();
+			NoDocente a = new NoDocente();
 			a.setLegajo(legajo);
 			a.setNombre(name);
 			a.setApellido(last_name);
@@ -60,11 +59,11 @@ public class CreateAlumnoServlet extends HttpServlet {
 			a.setEmail(email);
 			a.setUsuario(username);
 			Controller ctrl = new Controller();
-			if(ctrl.addAlumno(a, password)) {
-				LinkedList<MiembroFacultad> alumnos = ctrl.alumnosGetAll();
-				request.setAttribute("alumnos", alumnos);
-				request.setAttribute("aviso", "ALUMNO CARGADO CON EXITO");
-				request.getRequestDispatcher("WEB-INF/principalNoDocente/alumnos/alumnos.jsp").forward(request, response);		
+			if(ctrl.addNoDocente(a, password)) {
+				LinkedList<MiembroFacultad> noDocentes = ctrl.noDocentesGetAll();
+				request.setAttribute("noDocentes", noDocentes);
+				request.setAttribute("aviso", "NO DOCENTE CARGADO CON EXITO");
+				request.getRequestDispatcher("WEB-INF/principalNoDocente/noDocentes/noDocentes.jsp").forward(request, response);		
 			}			
 		}
 	}

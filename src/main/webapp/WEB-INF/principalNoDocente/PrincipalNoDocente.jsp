@@ -4,19 +4,19 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Inicio - Tu Sistema Academico</title>
+<title>Inicio - Tu Sistema Acadï¿½mico</title>
     <link rel="stylesheet" type="text/css" href="views/pages/principalNoDocente/PrincipalNoDocente.css">
 </head>
 <body>
   <!-- Encabezado -->
     <header>
         <div class="logo">
-            <h1>Tu Sistema Academico</h1>
+            <h1>Tu Sistema Acadï¿½mico</h1>
         </div>
         <div class="profile-options">
             <a href="#">Ver Mi Perfil</a>
-            <a href="#">Configuración</a>
-            <a href="../home/Home.html">Cerrar Sesión</a>
+            <a href="#">Configuraciï¿½n</a>
+            <a href="../home/Home.html">Cerrar Sesiï¿½n</a>
         </div>
     </header>
         
@@ -44,7 +44,7 @@
 
     <!-- Pie de pï¿½gina -->
     <footer>
-        <p>&copy; 2023 Tu Sistema Academico</p>
+        <p>&copy; 2023 Tu Sistema Acadï¿½mico</p>
     </footer>
 </body>
 </html>

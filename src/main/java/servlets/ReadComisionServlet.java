@@ -1,4 +1,4 @@
-package servlets.Plan;
+package servlets;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -9,22 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.Carrera;
+import entities.Comision;
 import entities.MiembroFacultad;
-import entities.Plan;
 import logic.Controller;
 
 /**
- * Servlet implementation class DeletePlanServlet
+ * Servlet implementation class ReadComisionServlet
  */
-@WebServlet("/bajaPlan")
-public class DeletePlanServlet extends HttpServlet {
+@WebServlet("/readComision")
+public class ReadComisionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeletePlanServlet() {
+    public ReadComisionServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,19 +32,16 @@ public class DeletePlanServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
-		System.out.println(id);
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			ctrl.deletePlan(id);
-			String aviso = "PLAN BORRADO CON EXITO";
-			LinkedList<Plan> planes = ctrl.planesGetAll();
-			LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
-			request.setAttribute("planes", planes);
+			LinkedList<Comision> comisiones = ctrl.comisionesGetAll();
+			String aviso = "CARGA DE COMISION FALLIDA";
+			request.setAttribute("comisiones", comisiones);
 			request.setAttribute("aviso", aviso);
-			request.setAttribute("carreras", carreras);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/planes/planes.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/comisiones/comisiones.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 	}
 

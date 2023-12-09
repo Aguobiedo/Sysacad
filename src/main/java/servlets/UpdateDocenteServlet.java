@@ -1,4 +1,4 @@
-package servlets.comision;
+package servlets;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -9,22 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.Carrera;
-import entities.Comision;
+import entities.Alumno;
+import entities.Docente;
 import entities.MiembroFacultad;
 import logic.Controller;
 
 /**
- * Servlet implementation class UpdateComisionServlet
+ * Servlet implementation class UpdateDocenteServlet
  */
-@WebServlet("/modificarComision")
-public class UpdateComisionServlet extends HttpServlet {
+@WebServlet("/modificarDocente")
+public class UpdateDocenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateComisionServlet() {
+    public UpdateDocenteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,15 +33,15 @@ public class UpdateComisionServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int nro = Integer.parseInt(request.getParameter("numero"));
-		int anio = Integer.parseInt(request.getParameter("anio"));
+		// TODO Auto-generated method stub
+		int legajo = Integer.parseInt(request.getParameter("legajo"));
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
-		System.out.println(nro + " " + anio);
+		System.out.println(legajo);
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			Comision comision= ctrl.comisionGetOne(nro,anio);
-			request.setAttribute("comision", comision);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/comisiones/comisionesUpdate.jsp").forward(request, response);
+			Docente docente = ctrl.docenteGetOne(legajo);
+			request.setAttribute("docente", docente);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/docentes/docentesUpdate.jsp").forward(request, response);
 		}
 	}
 
@@ -49,20 +49,25 @@ public class UpdateComisionServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Comision a = new Comision();
-		a.setNumComision(Integer.parseInt(request.getParameter("numero")));
-		a.setAnioCursado(Integer.parseInt(request.getParameter("anio")));
-		a.setTurno(request.getParameter("turno"));
+		// TODO Auto-generated method stub
+		Docente a = new Docente();
+		a.setLegajo(Integer.parseInt(request.getParameter("legajo")));
+		a.setNombre(request.getParameter("name"));
 		System.out.println(request.getParameter("name"));
+		a.setApellido(request.getParameter("last-name"));
+		a.setDni(request.getParameter("dni"));
+		a.setDireccion(request.getParameter("adress"));
+		a.setEmail(request.getParameter("email"));
+		a.setUsuario(request.getParameter("username"));
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			ctrl.updateComision(a);
-			String aviso = "COMISION MODIFICADA CON EXITO";
-			LinkedList<Comision> comisiones = ctrl.comisionesGetAll();
-			request.setAttribute("comisiones", comisiones);
+			ctrl.updateDocente(a);
+			String aviso = "DOCENTE MODIFICADO CON EXITO";
+			LinkedList<MiembroFacultad> docentes = ctrl.docentesGetAll();
+			request.setAttribute("docentes", docentes);
 			request.setAttribute("aviso", aviso);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/comisiones/comisiones.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/docentes/docentes.jsp").forward(request, response);
 		}
 	}
 

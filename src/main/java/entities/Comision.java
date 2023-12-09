@@ -5,13 +5,6 @@ public class Comision {
 	private int anioCursado;
 	private String turno;
 	
-	public Comision(int numComision, int anioCursado) {
-		this.numComision = numComision;
-		this.anioCursado = anioCursado;
-	}
-	public Comision() {
-		// TODO Auto-generated constructor stub
-	}
 	public int getNumComision() {
 		return numComision;
 	}
