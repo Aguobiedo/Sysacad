@@ -1,4 +1,4 @@
-package servlets;
+package servlets.Plan;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -9,20 +9,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entities.Carrera;
 import entities.MiembroFacultad;
+import entities.Plan;
 import logic.Controller;
 
 /**
- * Servlet implementation class ReadNoDocenteServlet
+ * Servlet implementation class ReadPlanServlet
  */
-@WebServlet("/readNoDocente")
-public class ReadNoDocenteServlet extends HttpServlet {
+@WebServlet("/readPlan")
+public class ReadPlanServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReadNoDocenteServlet() {
+    public ReadPlanServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,11 +36,13 @@ public class ReadNoDocenteServlet extends HttpServlet {
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			LinkedList<MiembroFacultad> noDocentes = ctrl.noDocentesGetAll();
-			String aviso = "CARGA DE NO DOCENTE FALLIDA";
-			request.setAttribute("noDocentes", noDocentes);
+			LinkedList<Plan> planes = ctrl.planesGetAll();
+			LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
+			String aviso = "CARGA DE PLAN FALLIDA";
+			request.setAttribute("planes", planes);
+			request.setAttribute("carreras", carreras);
 			request.setAttribute("aviso", aviso);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/noDocentes/noDocentes.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/planes/planes.jsp").forward(request, response);
 		}else {
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
