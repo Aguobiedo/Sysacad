@@ -215,6 +215,45 @@ public class Controller {
 		cDao.update(comision);
 	}
 	
+	//FIN METODOS COMISIONES
+	
+	//METODOS CLASES
+	public LinkedList<Clase> clasesGetAll() {
+		ClaseDAO cDao = new ClaseDAO();
+		return cDao.getAll();
+	}
+	
+	public LinkedList<Clase> getClaseByLegajoDocente(int legajo) {
+		// TODO Auto-generated method stub
+		ClaseDAO cDao = new ClaseDAO();
+		return cDao.getByLegajoDocente(legajo);
+	}
+	
+	public boolean addClase(Clase c) {
+		ClaseDAO cDao = new ClaseDAO();
+		if(cDao.guardar(c) != null) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
+	public void deleteClase(int id) {
+		ClaseDAO cDao = new ClaseDAO();
+		cDao.eliminarClase(id);
+	}
+	
+	public Clase claseGetOne(int id) {
+		ClaseDAO cDao = new ClaseDAO();
+		return (Clase) cDao.getOne(id);
+	}
+	
+	public void updateClase(Clase clase) {
+		ClaseDAO cDao = new ClaseDAO();
+		cDao.update(clase);
+	}
+	
+	//FIN METODOS CLASES
 	
 	public static String calcularSHA256(String texto) {
         try {
@@ -244,7 +283,6 @@ public class Controller {
             return null; // O puedes lanzar una excepción personalizada aquí
         }
     }
-
 
 	
 

@@ -1,4 +1,4 @@
-package servlets;
+package servlets.NoDocente;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -9,21 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.Alumno;
 import entities.MiembroFacultad;
 import logic.Controller;
 
 /**
- * Servlet implementation class DeleteAlumno
+ * Servlet implementation class DeleteNoDocenteServlet
  */
-@WebServlet("/bajaAlumno")
-public class DeleteAlumno extends HttpServlet {
+@WebServlet("/bajaNoDocente")
+public class DeleteNoDocenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteAlumno() {
+    public DeleteNoDocenteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,12 +37,12 @@ public class DeleteAlumno extends HttpServlet {
 		System.out.println(legajo);
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			ctrl.deleteAlumno(legajo);
-			String aviso = "ALUMNO BORRADO CON EXITO";
-			LinkedList<MiembroFacultad> alumnos = ctrl.alumnosGetAll();
+			ctrl.deleteNoDocente(legajo);
+			String aviso = "NO DOCENTE BORRADO CON EXITO";
+			LinkedList<MiembroFacultad> noDocentes = ctrl.noDocentesGetAll();
 			request.setAttribute("aviso", aviso);
-			request.setAttribute("alumnos", alumnos);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/alumnos/alumnos.jsp").forward(request, response);
+			request.setAttribute("noDocentes", noDocentes);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/noDocentes/noDocentes.jsp").forward(request, response);
 		}
 	}
 
@@ -52,7 +51,7 @@ public class DeleteAlumno extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		doGet(request, response);
 	}
 
 }

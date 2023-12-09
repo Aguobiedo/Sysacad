@@ -11,6 +11,12 @@ public class Materia {
 	private LinkedList<Materia> correlativas;
 	private Carrera carrera;
 	
+	public Materia(int id) {
+		this.idMateria = id;
+	}
+	public Materia() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getIdMateria() {
 		return idMateria;
 	}

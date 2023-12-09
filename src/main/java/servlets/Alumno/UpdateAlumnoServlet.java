@@ -1,4 +1,4 @@
-package servlets;
+package servlets.Alumno;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.Carrera;
+import entities.Alumno;
 import entities.MiembroFacultad;
 import logic.Controller;
 
 /**
- * Servlet implementation class UpdateCarrera
+ * Servlet implementation class UpdateAlumnoServlet
  */
-@WebServlet("/modificarCarrera")
-public class UpdateCarrera extends HttpServlet {
+@WebServlet("/modificarAlumno")
+public class UpdateAlumnoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateCarrera() {
+    public UpdateAlumnoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,14 +32,15 @@ public class UpdateCarrera extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
+		// TODO Auto-generated method stub
+		int legajo = Integer.parseInt(request.getParameter("legajo"));
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
-		System.out.println(id);
+		System.out.println(legajo);
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			Carrera carrera = ctrl.carreraGetOne(id);
-			request.setAttribute("carrera", carrera);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/carreras/carrerasUpdate.jsp").forward(request, response);
+			Alumno alumno = ctrl.alumnoGetOne(legajo);
+			request.setAttribute("alumno", alumno);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/alumnos/alumnosUpdate.jsp").forward(request, response);
 		}
 	}
 
@@ -47,19 +48,25 @@ public class UpdateCarrera extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Carrera a = new Carrera();
-		a.setIdCarrera(Integer.parseInt(request.getParameter("legajo")));
+		// TODO Auto-generated method stub
+		Alumno a = new Alumno();
+		a.setLegajo(Integer.parseInt(request.getParameter("legajo")));
 		a.setNombre(request.getParameter("name"));
 		System.out.println(request.getParameter("name"));
+		a.setApellido(request.getParameter("last-name"));
+		a.setDni(request.getParameter("dni"));
+		a.setDireccion(request.getParameter("adress"));
+		a.setEmail(request.getParameter("email"));
+		a.setUsuario(request.getParameter("username"));
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			ctrl.updateCarrera(a);
-			String aviso = "CARRERA MODIFICADA CON EXITO";
-			LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
-			request.setAttribute("carreras", carreras);
+			ctrl.updateAlumno(a);
+			String aviso = "ALUMNO MODIFICADO CON EXITO";
+			LinkedList<MiembroFacultad> alumnos = ctrl.alumnosGetAll();
+			request.setAttribute("alumnos", alumnos);
 			request.setAttribute("aviso", aviso);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/carreras/carreras.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/alumnos/alumnos.jsp").forward(request, response);
 		}
 	}
 

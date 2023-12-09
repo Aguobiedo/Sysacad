@@ -1,4 +1,4 @@
-package servlets;
+package servlets.carrera;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -9,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.Alumno;
+import entities.Carrera;
 import entities.MiembroFacultad;
 import logic.Controller;
 
 /**
- * Servlet implementation class ReadAlumnoServlet
+ * Servlet implementation class ReadCarreraServlet
  */
-@WebServlet("/readAlumno")
-public class ReadAlumnoServlet extends HttpServlet {
+@WebServlet("/readCarrera")
+public class ReadCarreraServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReadAlumnoServlet() {
+    public ReadCarreraServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,19 +32,17 @@ public class ReadAlumnoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			LinkedList<MiembroFacultad> alumnos = ctrl.alumnosGetAll();
-			String aviso = "CARGA DE ALUMNO FALLIDA";
-			request.setAttribute("alumnos", alumnos);
+			LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
+			String aviso = "CARGA DE CARRERA FALLIDA";
+			request.setAttribute("carreras", carreras);
 			request.setAttribute("aviso", aviso);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/alumnos/alumnos.jsp").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/carreras/carreras.jsp").forward(request, response);
 		}else {
 			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
-		
 	}
 
 	/**

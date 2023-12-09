@@ -3,9 +3,11 @@ package servlets;
 import java.io.IOException;
 
 import java.sql.SQLException;
+import java.util.LinkedList;
 
 import entities.MiembroFacultad;
 import entities.Alumno;
+import entities.Clase;
 import entities.Docente;
 import entities.NoDocente;
 
@@ -59,6 +61,8 @@ public class LoginServlet extends HttpServlet {
 			}else if(mf.getTipo().equals("Docente")){
 				Docente d = (Docente) mf;
 				request.getSession().setAttribute("docente", d);
+				request.setAttribute("legajo", d.getLegajo());
+				request.getRequestDispatcher("WEB-INF/principalDocente/PrincipalDocente.jsp").forward(request, response);
 			}else {
 				NoDocente nd = (NoDocente)mf;
 				request.getSession().setAttribute("noDocente", nd);

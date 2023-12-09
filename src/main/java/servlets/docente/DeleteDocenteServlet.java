@@ -1,4 +1,4 @@
-package servlets;
+package servlets.docente;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -9,21 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import entities.Carrera;
 import entities.MiembroFacultad;
 import logic.Controller;
 
 /**
- * Servlet implementation class ReadCarreraServlet
+ * Servlet implementation class DeleteDocenteServlet
  */
-@WebServlet("/readCarrera")
-public class ReadCarreraServlet extends HttpServlet {
+@WebServlet("/bajaDocente")
+public class DeleteDocenteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReadCarreraServlet() {
+    public DeleteDocenteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,16 +31,18 @@ public class ReadCarreraServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		int legajo = Integer.parseInt(request.getParameter("legajoDelete"));
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
+		System.out.println(legajo);
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
-			String aviso = "CARGA DE CARRERA FALLIDA";
-			request.setAttribute("carreras", carreras);
+			ctrl.deleteDocente(legajo);
+			String aviso = "DOCENTE BORRADO CON EXITO";
+			LinkedList<MiembroFacultad> docentes = ctrl.docentesGetAll();
 			request.setAttribute("aviso", aviso);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/carreras/carreras.jsp").forward(request, response);
-		}else {
-			request.getRequestDispatcher("index.jsp").forward(request, response);
+			request.setAttribute("docentes", docentes);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/docentes/docentes.jsp").forward(request, response);
 		}
 	}
 

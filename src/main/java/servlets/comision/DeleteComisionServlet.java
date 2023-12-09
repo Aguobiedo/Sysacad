@@ -1,4 +1,4 @@
-package servlets;
+package servlets.comision;
 
 import java.io.IOException;
 import java.util.LinkedList;
