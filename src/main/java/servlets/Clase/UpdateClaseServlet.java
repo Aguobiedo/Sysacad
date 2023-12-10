@@ -22,7 +22,7 @@ import logic.Controller;
 /**
  * Servlet implementation class UpdateComisionServlet
  */
-@WebServlet("/modificarComision")
+@WebServlet("/modificarClase")
 public class UpdateClaseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

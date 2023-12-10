@@ -16,7 +16,7 @@ import logic.Controller;
 /**
  * Servlet implementation class DeleteComisionServlet
  */
-@WebServlet("/bajaComision")
+@WebServlet("/bajaClase")
 public class DeleteClaseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -16,7 +16,7 @@ import logic.Controller;
 /**
  * Servlet implementation class ReadComisionServlet
  */
-@WebServlet("/readComision")
+@WebServlet("/readClase")
 public class ReadClaseServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
