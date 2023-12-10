@@ -15,8 +15,8 @@
         </div>
         <div class="profile-options">
             <a href="#">Ver Mi Perfil</a>
-            <a href="#">Configuración</a>
-            <a href="../home/Home.html">Cerrar Sesión</a>
+            <a href="#">Configuraciï¿½n</a>
+            <a href="../home/Home.html">Cerrar Sesiï¿½n</a>
         </div>
     </header>
         
@@ -34,7 +34,7 @@
                 <li><a href="readComision">Comisiones</a></li>
                 <li><a href="readCarrera">Carreras</a></li>
                 <li><a href="readPlan">Planes</a></li>
-                <li><a href="#">Inscripciones</a></li>
+                <li><a href="readInscripcion">Inscripciones</a></li>
                 <li><a href="#">Examenes</a></li>
 
                 <!-- Agrega mï¿½s opciones de menï¿½ segï¿½n tu sistema -->

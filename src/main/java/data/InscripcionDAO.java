@@ -10,6 +10,7 @@ import entities.Comision;
 import entities.Docente;
 import entities.Inscripcion;
 import entities.Materia;
+import logic.Controller;
 
 public class InscripcionDAO implements IDao<Inscripcion>{
 	
@@ -87,8 +88,35 @@ public class InscripcionDAO implements IDao<Inscripcion>{
 
 	@Override
 	public LinkedList<Inscripcion> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		PreparedStatement stmt=null;
+		ResultSet rs = null;
+		LinkedList<Inscripcion> inscripciones = new LinkedList<>();
+		Controller ctrl = new Controller();
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("SELECT legajo_alumno, idclase, fecha_hora FROM inscripcion");
+			rs = stmt.executeQuery();
+			if(rs!=null) {
+				while(rs.next()) {
+					Inscripcion i = new Inscripcion();
+					i.setAlumno(ctrl.alumnoGetOne(rs.getInt("legajo_alumno")));
+					i.setClase(ctrl.claseGetOne(rs.getInt("idclase")));
+					System.out.println(rs.getTime("fecha_hora"));
+					i.setFechahora(rs.getTimestamp("fecha_hora"));
+					inscripciones.add(i);
+				}
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return inscripciones;
 	}
 
 	@Override

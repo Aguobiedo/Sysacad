@@ -18,7 +18,7 @@ public class ClaseDAO implements IDao<Clase>{
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"INSERT INTO Clase(idclase,legajodoc,idMateria,numComision,anio_cursado,dia_semana_cursado,horario_inicio,horario_fin) VALUES(?,?,?,?,?,?,?,?)",
+							"INSERT INTO clase(idclase,legajodoc,idMateria,numComision,anio_cursado,dia_semana_cursado,horario_inicio,horario_fin) VALUES(?,?,?,?,?,?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			stmt.setInt(1, c.getIdClase());
@@ -81,7 +81,7 @@ public class ClaseDAO implements IDao<Clase>{
 		ResultSet rs=null;
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
-					"SELECT idclase, legajodoc, idMateria, numComision, anio_cursado, dia_semana_cursado, horario_inicio, horario_fin FROM Clase WHERE idclase=?"
+					"SELECT idclase, legajodoc, idMateria, numComision, anio_cursado, dia_semana_cursado, horario_inicio, horario_fin FROM clase WHERE idclase=?"
 					);
 			stmt.setInt(1, id);
 			rs=stmt.executeQuery();
@@ -115,7 +115,7 @@ public class ClaseDAO implements IDao<Clase>{
 		ResultSet rs = null;
 		LinkedList<Clase> Clases = new LinkedList<>();
 		try {
-			stmt=DbConnector.getInstancia().getConn().prepareStatement("SELECT idclase, legajodoc, idMateria, numComision, anio_cursado, dia_semana_cursado, horario_inicio, horario_fin FROM Clase");
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("SELECT idclase, legajodoc, idMateria, numComision, anio_cursado, dia_semana_cursado, horario_inicio, horario_fin FROM clase");
 			rs = stmt.executeQuery();
 			if(rs!=null) {
 				while(rs.next()) {
@@ -151,7 +151,7 @@ public class ClaseDAO implements IDao<Clase>{
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"UPDATE Clase SET legajodoc = ?,idMateria = ?, numComision = ?, anio_cursado = ?, "
+							"UPDATE clase SET legajodoc = ?,idMateria = ?, numComision = ?, anio_cursado = ?, "
 							+ "dia_semana_cursado = ?, horario_inicio = ?, horario_fin = ? WHERE idclase = ?",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
@@ -192,8 +192,8 @@ public class ClaseDAO implements IDao<Clase>{
 		try {
 			stmt=DbConnector.getInstancia().getConn().prepareStatement(
 					"SELECT c.idclase, c.legajodoc, c.idmateria, c.numComision, c.anio_cursado, c.dia_semana_cursado, c.horario_inicio, c.horario_fin, m.nombre "
-					+ "FROM Clase c "
-					+ "INNER JOIN Materia m ON c.idmateria = m.idmateria "
+					+ "FROM clase c "
+					+ "INNER JOIN materia m ON c.idmateria = m.idmateria "
 					+ "WHERE legajodoc=?"
 					);
 			stmt.setInt(1, legajo);

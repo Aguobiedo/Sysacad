@@ -288,6 +288,15 @@ public class Controller {
 		cDao.update(clase);
 	}
 	//FIN METODOS CLASE
+	
+	
+	// METODOS INSCRIPCIONES
+	
+	public LinkedList<Inscripcion> inscripcionesGetAll() {
+		InscripcionDAO iDao = new InscripcionDAO();
+		return iDao.getAll();
+	}
+	
 	public static String calcularSHA256(String texto) {
         try {
             // Crear una instancia de MessageDigest con el algoritmo SHA-256
