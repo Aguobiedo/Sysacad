@@ -52,11 +52,11 @@
                         <td><%=a.getFechahora()%></td>
                         <td>
                             <!-- Button trigger modal -->
-                            <a href="modificarInscripcion?legajo=<%=a.getAlumno().getLegajo()%>" class="btn btn-primary">
+                            <a href="modificarInscripcion?legajo=<%=a.getAlumno().getLegajo()%>&idclase=<%=a.getClase().getIdClase() %>" class="btn btn-primary">
                                 <i class="bi bi-pencil-fill"></i>
                             </a>
                             <!-- Button trigger modal -->
-                            <a href="bajaInscripcion?legajo=<%=a.getAlumno().getLegajo()%>" class="btn btn-danger"> 
+                            <a href="bajaInscripcion?legajo=<%=a.getAlumno().getLegajo()%>&idclase=<%=a.getClase().getIdClase() %>" class="btn btn-danger"> 
                                 <i class="bi bi-trash-fill"></i>
                             </a>
                         </td> 
@@ -77,7 +77,8 @@
                     <input name="idclase" type="number" class="form-control" id="floatingInput" placeholder="Juan">
                     <label for="floatingInput">ID Clase</label>
                 </div>
-                <%if(aviso.equals("PLAN CARGADO CON EXITO")) {%>
+                <%if(aviso.equals("")) {%>
+                <%}else{%>
                     <dialog data-modal>
                         <div><%=aviso%></div>
                         <button data-close-modal>Aceptar</button>
@@ -92,37 +93,7 @@
                             modal.close()
                         })
                     </script>
-                <%}else if(aviso.equals("PLAN BORRADO CON EXITO")) {%>
-                    <dialog data-modal>
-                        <div><%=aviso%></div>
-                        <button data-close-modal>Aceptar</button>
-                    </dialog>
-                    
-                    <script>
-                        const closeButton = document.querySelector("[data-close-modal]")
-                        const modal = document.querySelector("[data-modal]")
-                        
-                        modal.showModal()
-                        closeButton.addEventListener("click", () => {
-                            modal.close()
-                        })
-                    </script>
-                <%}else if(aviso.equals("PLAN MODIFICADO CON EXITO")){%>
-                    <dialog data-modal>
-                        <div><%=aviso%></div>
-                        <button data-close-modal>Aceptar</button>
-                    </dialog>
-                    
-                    <script>
-                        const closeButton = document.querySelector("[data-close-modal]")
-                        const modal = document.querySelector("[data-modal]")
-                        
-                        modal.showModal()
-                        closeButton.addEventListener("click", () => {
-                            modal.close()
-                        })
-                    </script>
-                <%}%>
+				<%} %>
 
                 <button class="alta-button" type="submit">Cargar</button>
             </form>

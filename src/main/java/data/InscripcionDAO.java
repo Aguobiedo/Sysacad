@@ -69,9 +69,36 @@ public class InscripcionDAO implements IDao<Inscripcion>{
 	}
 
 	@Override
-	public Inscripcion guardar(Inscripcion c) {
-		// TODO Auto-generated method stub
-		return null;
+	public Inscripcion guardar(Inscripcion i) {
+		PreparedStatement stmt= null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"INSERT INTO inscripcion(legajo_alumno,idclase,fecha_hora) VALUES(?,?,?)",
+							PreparedStatement.RETURN_GENERATED_KEYS
+							);
+			stmt.setInt(1, i.getAlumno().getLegajo());
+			stmt.setInt(2, i.getClase().getIdClase());
+			stmt.setTimestamp(3, i.getFechahora());
+			stmt.executeUpdate();
+			
+			keyResultSet=stmt.getGeneratedKeys();
+
+			
+		}  catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+		} finally {
+            try {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
+		return i;
 	}
 
 	@Override

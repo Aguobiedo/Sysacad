@@ -3,7 +3,11 @@ package logic;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
+import java.util.Objects;
+
 import data.*;
 import entities.*;
 
@@ -295,6 +299,26 @@ public class Controller {
 	public LinkedList<Inscripcion> inscripcionesGetAll() {
 		InscripcionDAO iDao = new InscripcionDAO();
 		return iDao.getAll();
+	}
+	
+	public String addInscripcion(int legajo, int idclase) {
+		InscripcionDAO iDao = new InscripcionDAO();
+		Inscripcion i = new Inscripcion();
+		i.setAlumno(this.alumnoGetOne(legajo));
+		if(Objects.isNull(i.getAlumno())) {
+			return "EL ALUMNO INGRESADO NO EXISTE";
+		}
+		i.setClase(this.claseGetOne(idclase));
+		if(i.getClase().getIdClase() == 0) {
+			return "LA CLASE INGRESADA NO EXISTE";
+		}
+		System.out.println("ID DE LA CLASE ASIGNADA:" + i.getClase().getIdClase());
+		i.setFechahora(Timestamp.valueOf(LocalDateTime.now()));
+		if(Objects.nonNull(iDao.guardar(i))) {
+			return "INSCRIPCION CARGADA CON EXITO";
+		}else {
+			return "ERROR AL CARGAR LA INSCRIPCION";
+		}
 	}
 	
 	public static String calcularSHA256(String texto) {
