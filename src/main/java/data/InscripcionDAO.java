@@ -101,9 +101,30 @@ public class InscripcionDAO implements IDao<Inscripcion>{
 		return i;
 	}
 
-	@Override
-	public void eliminar(int id) {
-		// TODO Auto-generated method stub
+	public void eliminar(int legajo, int idclase) {
+		PreparedStatement stmt= null;
+		ResultSet keyResultSet=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().
+					prepareStatement(
+							"DELETE FROM inscripcion WHERE legajo_alumno = ? AND idclase=?",
+							PreparedStatement.RETURN_GENERATED_KEYS
+							);
+			stmt.setInt(1, legajo);
+			stmt.setInt(2, idclase);
+			stmt.executeUpdate();	
+			keyResultSet=stmt.getGeneratedKeys();			
+		} catch (SQLException e) {
+            e.printStackTrace();
+		} finally {
+            try {
+                if(keyResultSet!=null)keyResultSet.close();
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException e) {
+            	e.printStackTrace();
+            }
+		}
 		
 	}
 
@@ -148,6 +169,12 @@ public class InscripcionDAO implements IDao<Inscripcion>{
 
 	@Override
 	public void update(Inscripcion c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void eliminar(int id) {
 		// TODO Auto-generated method stub
 		
 	}

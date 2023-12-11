@@ -321,6 +321,11 @@ public class Controller {
 		}
 	}
 	
+	public void deleteInscripcion(int legajo, int idclase) {
+		InscripcionDAO iDao = new InscripcionDAO();
+		iDao.eliminar(legajo,idclase);
+	}
+	
 	public static String calcularSHA256(String texto) {
         try {
             // Crear una instancia de MessageDigest con el algoritmo SHA-256
