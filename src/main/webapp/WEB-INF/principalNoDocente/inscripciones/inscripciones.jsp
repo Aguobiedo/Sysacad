@@ -52,10 +52,6 @@
                         <td><%=a.getFechahora()%></td>
                         <td>
                             <!-- Button trigger modal -->
-                            <a href="modificarInscripcion?legajo=<%=a.getAlumno().getLegajo()%>&idclase=<%=a.getClase().getIdClase() %>" class="btn btn-primary">
-                                <i class="bi bi-pencil-fill"></i>
-                            </a>
-                            <!-- Button trigger modal -->
                             <a href="bajaInscripcion?legajo=<%=a.getAlumno().getLegajo()%>&idclase=<%=a.getClase().getIdClase() %>" class="btn btn-danger"> 
                                 <i class="bi bi-trash-fill"></i>
                             </a>
