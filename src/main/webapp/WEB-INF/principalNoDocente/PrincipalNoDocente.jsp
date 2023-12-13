@@ -4,14 +4,14 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Inicio - Tu Sistema Acad�mico</title>
+<title>Inicio - Tu Sistema Academico</title>
     <link rel="stylesheet" type="text/css" href="views/pages/principalNoDocente/PrincipalNoDocente.css">
 </head>
 <body>
   <!-- Encabezado -->
     <header>
         <div class="logo">
-            <h1>Tu Sistema Acad�mico</h1>
+            <h1>Tu Sistema Academico</h1>
         </div>
         <div class="profile-options">
             <a href="#">Ver Mi Perfil</a>
@@ -34,7 +34,7 @@
                 <li><a href="readComision">Comisiones</a></li>
                 <li><a href="readCarrera">Carreras</a></li>
                 <li><a href="readPlan">Planes</a></li>
-                <li><a href="#">Inscripciones</a></li>
+                <li><a href="readInscripcion">Inscripciones</a></li>
                 <li><a href="#">Examenes</a></li>
 
                 <!-- Agrega m�s opciones de men� seg�n tu sistema -->
@@ -44,7 +44,7 @@
 
     <!-- Pie de p�gina -->
     <footer>
-        <p>&copy; 2023 Tu Sistema Acad�mico</p>
+        <p>&copy; 2023 Tu Sistema Academico</p>
     </footer>
 </body>
 </html>
