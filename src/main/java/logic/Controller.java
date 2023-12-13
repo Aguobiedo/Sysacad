@@ -64,8 +64,18 @@ public class Controller {
 		ExamenDAO examenDao = new ExamenDAO();
 		return examenDao.getExamenesByAlumno(a);
 	}
+    
+    public LinkedList<Clase> matDispRendir(Alumno a){
+		ExamenDAO examenDao = new ExamenDAO();
+		return examenDao.materiasDisponiblesRendir(a);
+	}
+    
+    public boolean inscribirExamen(int legajoAlumno, int idClase) {
+        ExamenDAO examenDAO = new ExamenDAO();
+        return examenDAO.inscribirExamen(legajoAlumno, idClase);
+    }
 	//FIN METODOS DE ALUMNO
-	
+  
 	
 	//METODOS DOCENTE
 	public LinkedList<MiembroFacultad> docentesGetAll(){

@@ -25,7 +25,7 @@
             <div class="navbar-secundario">
             <a href="inscripciones" class="btn btn-primary">Inscripcion Materias</a>
             <a href="horarios" class="btn btn-primary">Horarios</a>
-            <a href="ExamenAlumnoServlet" class="btn btn-primary">Inscripcion Examenes</a>
+            <a href="ExamenesAlumnoServlet" class="btn btn-primary">Inscripcion Examenes</a>
             <a href="horarios" class="btn btn-primary">Materias del plan</a>
             
         </div>
