@@ -79,3 +79,43 @@ body {
     color: #fff;  
     border-color: #007bff;  
 }
+
+/* Estilo del modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    z-index: 1;
+    width: 300px;
+    text-align: center; /* Centrar el contenido del modal */
+}
+
+/* Estilo del botón de aceptar */
+.modal button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px; /* Espaciado superior para el botón */
+}
+
+/* Estilo de cierre (la "x" en la esquina superior derecha) */
+.modal .close {
+    color: #aaaaaa;
+    font-size: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal .close:hover {
+    color: #000;
+}
+
+
