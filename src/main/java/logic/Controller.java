@@ -74,6 +74,11 @@ public class Controller {
         ExamenDAO examenDAO = new ExamenDAO();
         return examenDAO.inscribirExamen(legajoAlumno, idClase);
     }
+    
+    public LinkedList<AlumnoPlan> materiasAlumno(Alumno a){
+		MateriasAlumnoDAO materiasAlumnoDAO = new MateriasAlumnoDAO();
+		return materiasAlumnoDAO.materiasByAlumno(a);
+	}
 	//FIN METODOS DE ALUMNO
   
 	
