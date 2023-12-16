@@ -16,6 +16,7 @@
     <div class="container mt-4">
         <h1 class="tituloExamenes">Lista de exámenes</h1>
 
+
         <% 
         LinkedList<Examen> examenes = (LinkedList<Examen>) request.getAttribute("examenes");
         if (examenes != null && !examenes.isEmpty()) {
@@ -30,6 +31,7 @@
                         <th>Nombre Docente</th>
                         <th>Apellido Docente</th>
                         <th>Nota</th>
+                        <th>Estado</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -44,6 +46,8 @@
                             <td><%= examen.getClase().getDocente().getNombre() %></td>
                             <td><%= examen.getClase().getDocente().getApellido() %></td>
                             <td><%= examen.getNota() %></td>
+                            <td><%= examen.getEstado() %></td>
+                             
                         </tr>
                     <% } %>
                 </tbody>
