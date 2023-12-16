@@ -19,7 +19,7 @@ public class ExamenDAO implements IDao<Examen> {
 
         try {
             // Consulta SQL
-            String sql = "SELECT m.nombre, c.anio_cursado, c.numcomision, ex.fecha_hora_inscripcion, d.nombre, d.apellido, ex.nota " +
+            String sql = "SELECT m.nombre, c.anio_cursado, c.numcomision, ex.fecha_hora_inscripcion, d.nombre, d.apellido, ex.nota, ex.estado " +
                     "FROM examen ex " +
                     "INNER JOIN alumno alu ON ex.legajo_alumno = alu.legajo " +
                     "INNER JOIN clase c ON ex.idclase = c.idclase " +
@@ -57,6 +57,7 @@ public class ExamenDAO implements IDao<Examen> {
                         examen.setClase(clase);
                         examen.setAlumno(alumno);
                         examen.getClase().setDocente(docente);
+                        examen.setEstado(resultSet.getString("estado"));
 
                         // Agregar el examen a la lista
                         examenes.add(examen);
@@ -76,7 +77,7 @@ public class ExamenDAO implements IDao<Examen> {
 
         try {
             // Consulta SQL
-            String sql = "SELECT m.nombre, c.anio_cursado, c.numcomision, d.nombre AS nombre_docente, d.apellido AS apellido_docente, c.idclase as idClase " +
+            String sql = "SELECT DISTINCT m.nombre, c.anio_cursado, c.numcomision, d.nombre AS nombre_docente, d.apellido AS apellido_docente, c.idclase as idClase " +
                     "FROM alumno alu " +
                     "INNER JOIN inscripcion i ON alu.legajo = i.legajo_alumno " +
                     "INNER JOIN clase c ON i.idclase = c.idclase " +
@@ -128,8 +129,8 @@ public class ExamenDAO implements IDao<Examen> {
     public boolean inscribirExamen(int legajoAlumno, int idClase) {
     	System.out.println(legajoAlumno);
     	System.out.println(idClase);
-        String sql = "INSERT INTO examen (legajo_alumno, idclase, fecha_hora_inscripcion) " +
-                     "VALUES (?, ?, CURRENT_TIMESTAMP)";
+        String sql = "INSERT INTO examen (legajo_alumno, idclase, fecha_hora_inscripcion,estado) " +
+                     "VALUES (?, ?, CURRENT_TIMESTAMP, 'En curso')";
 
         try (PreparedStatement statement = DbConnector.getInstancia().getConn().prepareStatement(sql)) {
             statement.setInt(1, legajoAlumno);
