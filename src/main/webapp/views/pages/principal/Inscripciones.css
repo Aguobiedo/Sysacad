@@ -14,6 +14,13 @@ body {
     margin-top: 50px; /* Margen superior */
 }
 
+.tituloExamenes{
+	color: white;
+}
+.tituloMaterias{
+	color: white;
+}
+
 /* Estilos para la tabla */
 .table {
     width: 100%;

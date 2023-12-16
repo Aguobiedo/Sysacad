@@ -7,6 +7,7 @@ public class Examen {
     private Alumno alumno;
     private Timestamp fechaHoraInicio;
     private Timestamp fechaHoraInscripcion;
+    private String estado;
     private float nota;
 
     public Clase getClase() {
@@ -47,5 +48,13 @@ public class Examen {
 
 	public void setNota(float nota) {
 		this.nota = nota;
+	}
+
+	public String getEstado() {
+		return estado;
+	}
+
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 }
