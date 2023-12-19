@@ -24,12 +24,12 @@
   <!-- Encabezado -->
     <header>
         <div class="logo">
-            <h1>Tu Sistema Acad�mico</h1>
+            <h1>Tu Sistema Académico</h1>
         </div>
         <div class="profile-options">
             <a href="#">Ver Mi Perfil</a>
-            <a href="#">Configuraci�n</a>
-            <a href="../home/Home.html">Cerrar Sesi�n</a>
+            <a href="#">Configuración</a>
+            <a href="../home/Home.html">Cerrar Sesión</a>
         </div>
     </header>
         
