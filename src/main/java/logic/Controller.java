@@ -156,6 +156,11 @@ public class Controller {
 		dDao.update(docente);
 	}
 	
+	public LinkedList<MiembroFacultad> filtrarDocentesPorApellido(String apellido){
+		DocenteDAO dDao = new DocenteDAO();
+		return dDao.filtrarPorApellido(apellido);
+	}
+	
 	//FIN METODOS DOCENTE
 	
 	//METODOS NO DOCENTE
