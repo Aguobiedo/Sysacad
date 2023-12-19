@@ -35,7 +35,7 @@ public class ReadNoDocenteServlet extends HttpServlet {
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
 			LinkedList<MiembroFacultad> noDocentes = ctrl.noDocentesGetAll();
-			String aviso = "CARGA DE NO DOCENTE FALLIDA";
+			String aviso = "";
 			request.setAttribute("noDocentes", noDocentes);
 			request.setAttribute("aviso", aviso);
 			request.getRequestDispatcher("WEB-INF/principalNoDocente/noDocentes/noDocentes.jsp").forward(request, response);

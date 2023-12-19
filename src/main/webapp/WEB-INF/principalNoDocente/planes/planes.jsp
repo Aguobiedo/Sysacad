@@ -84,37 +84,8 @@
                     	<option value="<%=c.getIdCarrera()%>"><%=c.getNombre()%></option>
                     <%} %>
                 </select>
-                <%if(aviso.equals("PLAN CARGADO CON EXITO")) {%>
-                    <dialog data-modal>
-                        <div><%=aviso%></div>
-                        <button data-close-modal>Aceptar</button>
-                    </dialog>
-                    
-                    <script>
-                        const closeButton = document.querySelector("[data-close-modal]")
-                        const modal = document.querySelector("[data-modal]")
-                        
-                        modal.showModal()
-                        closeButton.addEventListener("click", () => {
-                            modal.close()
-                        })
-                    </script>
-                <%}else if(aviso.equals("PLAN BORRADO CON EXITO")) {%>
-                    <dialog data-modal>
-                        <div><%=aviso%></div>
-                        <button data-close-modal>Aceptar</button>
-                    </dialog>
-                    
-                    <script>
-                        const closeButton = document.querySelector("[data-close-modal]")
-                        const modal = document.querySelector("[data-modal]")
-                        
-                        modal.showModal()
-                        closeButton.addEventListener("click", () => {
-                            modal.close()
-                        })
-                    </script>
-                <%}else if(aviso.equals("PLAN MODIFICADO CON EXITO")){%>
+                <%if(aviso.equals("")) {%>
+                <%}else{%>
                     <dialog data-modal>
                         <div><%=aviso%></div>
                         <button data-close-modal>Aceptar</button>

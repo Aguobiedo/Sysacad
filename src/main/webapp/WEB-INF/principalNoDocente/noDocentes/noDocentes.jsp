@@ -89,7 +89,7 @@
                 <h1>Cargar No Docente</h1>
                 <div class="input-container">
                     <label for="legajo">Legajo:</label>
-                    <input type="text" id="legajo" name="legajo" required>
+                    <input type="number" id="legajo" name="legajo" required>
                 </div>
                 <div class="input-container">
                     <label for="name">Nombre:</label>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="input-container">
                     <label for="email">Email:</label>
-                    <input type="text" id="email" name="email" required>
+                    <input type="email" id="email" name="email" required>
                 </div>
                 <div class="input-container">
                     <label for="username">Usuario:</label>
@@ -119,37 +119,8 @@
                     <label for="password">Contraseña:</label>
                     <input type="password" id="password" name="password" required>
                 </div>
-                <%if(aviso.equals("NO DOCENTE CARGADO CON EXITO")) {%>
-                    <dialog data-modal>
-                        <div><%=aviso%></div>
-                        <button data-close-modal>Aceptar</button>
-                    </dialog>
-                    
-                    <script>
-                        const closeButton = document.querySelector("[data-close-modal]")
-                        const modal = document.querySelector("[data-modal]")
-                        
-                        modal.showModal()
-                        closeButton.addEventListener("click", () => {
-                            modal.close()
-                        })
-                    </script>
-                <%}else if(aviso.equals("NO DOCENTE BORRADO CON EXITO")) {%>
-                    <dialog data-modal>
-                        <div><%=aviso%></div>
-                        <button data-close-modal>Aceptar</button>
-                    </dialog>
-                    
-                    <script>
-                        const closeButton = document.querySelector("[data-close-modal]")
-                        const modal = document.querySelector("[data-modal]")
-                        
-                        modal.showModal()
-                        closeButton.addEventListener("click", () => {
-                            modal.close()
-                        })
-                    </script>
-                <%}else if(aviso.equals("NO DOCENTE MODIFICADO CON EXITO")){%>
+                <%if(aviso.equals("")) {%>
+                <%}else{%>
                     <dialog data-modal>
                         <div><%=aviso%></div>
                         <button data-close-modal>Aceptar</button>

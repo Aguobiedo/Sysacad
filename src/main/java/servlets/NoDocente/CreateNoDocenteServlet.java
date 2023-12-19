@@ -59,12 +59,11 @@ public class CreateNoDocenteServlet extends HttpServlet {
 			a.setEmail(email);
 			a.setUsuario(username);
 			Controller ctrl = new Controller();
-			if(ctrl.addNoDocente(a, password)) {
-				LinkedList<MiembroFacultad> noDocentes = ctrl.noDocentesGetAll();
-				request.setAttribute("noDocentes", noDocentes);
-				request.setAttribute("aviso", "NO DOCENTE CARGADO CON EXITO");
-				request.getRequestDispatcher("WEB-INF/principalNoDocente/noDocentes/noDocentes.jsp").forward(request, response);		
-			}			
+			String aviso = ctrl.addNoDocente(a, password);
+			LinkedList<MiembroFacultad> noDocentes = ctrl.noDocentesGetAll();
+			request.setAttribute("noDocentes", noDocentes);
+			request.setAttribute("aviso", aviso);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/noDocentes/noDocentes.jsp").forward(request, response);
 		}
 	}
 

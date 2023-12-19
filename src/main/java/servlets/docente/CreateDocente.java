@@ -60,12 +60,11 @@ public class CreateDocente extends HttpServlet {
 			a.setEmail(email);
 			a.setUsuario(username);
 			Controller ctrl = new Controller();
-			if(ctrl.addDocente(a, password)) {
-				LinkedList<MiembroFacultad> docentes = ctrl.docentesGetAll();
-				request.setAttribute("docentes", docentes);
-				request.setAttribute("aviso", "DOCENTE CARGADO CON EXITO");
-				request.getRequestDispatcher("WEB-INF/principalNoDocente/docentes/docentes.jsp").forward(request, response);		
-			}			
+			String aviso = ctrl.addDocente(a, password);
+			LinkedList<MiembroFacultad> docentes = ctrl.docentesGetAll();
+			request.setAttribute("docentes", docentes);
+			request.setAttribute("aviso", aviso);
+			request.getRequestDispatcher("WEB-INF/principalNoDocente/docentes/docentes.jsp").forward(request, response);
 		}
 	}
 

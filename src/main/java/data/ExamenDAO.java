@@ -2,61 +2,149 @@ package data;
 
 import entities.Alumno;
 import entities.Clase;
+import entities.Comision;
 import entities.Docente;
 import entities.Examen;
+import entities.Materia;
 
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.LinkedList;
 
 public class ExamenDAO implements IDao<Examen> {
 
-	public LinkedList<Examen> getExamenesByAlumno(Alumno alumno) {
-	    LinkedList<Examen> examenes = new LinkedList<>();
+    public LinkedList<Examen> getExamenesByAlumno(Alumno alumno) {
+        LinkedList<Examen> examenes = new LinkedList<>();
 
-	    try (PreparedStatement statement = DbConnector.getInstancia().getConn().prepareStatement(
-	            "SELECT e.*, c.idclase, c.legajodoc, c.idmateria, c.numcomision, c.anio_cursado, c.dia_semana_cursado, c.horario_inicio, c.horario_fin " +
-	                    "FROM examen e " +
-	                    "INNER JOIN clase c ON e.idclase = c.idclase " +
-	                    "INNER JOIN alumno alu ON e.legajo_alumno = alu.legajo " +
-	                    "WHERE e.legajo_alumno = ?")) {
+        try {
+            // Consulta SQL
+            String sql = "SELECT m.nombre, c.anio_cursado, c.numcomision, ex.fecha_hora_inscripcion, d.nombre, d.apellido, ex.nota, ex.estado " +
+                    "FROM examen ex " +
+                    "INNER JOIN alumno alu ON ex.legajo_alumno = alu.legajo " +
+                    "INNER JOIN clase c ON ex.idclase = c.idclase " +
+                    "INNER JOIN materia m ON c.idmateria = m.idmateria " +
+                    "INNER JOIN docente d ON c.legajodoc = d.legajo " +
+                    "WHERE alu.legajo = ?";
 
-	        statement.setInt(1, alumno.getLegajo());
+            // Crear la conexión y la declaración preparada
+            try (PreparedStatement statement = DbConnector.getInstancia().getConn().prepareStatement(sql)) {
+                statement.setInt(1, alumno.getLegajo());
 
-	        try (ResultSet resultSet = statement.executeQuery()) {
-	            while (resultSet.next()) {
-	                Examen examen = new Examen();
+                // Ejecutar la consulta
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
 
-	                Clase clase = new Clase();
-	                clase.setIdClase(resultSet.getInt("idclase"));
+                        // Crea instancias clases y configurcion con los datos del resultado
+                        Materia materia = new Materia();
+                        materia.setNombre(resultSet.getString("nombre"));
+                        
+                        Comision comision = new Comision();
+                        comision.setAnioCursado(resultSet.getInt("anio_cursado"));
+                        comision.setNumComision(resultSet.getInt("numcomision"));
 
-	                // Mostrar los atributos de la clase
-	                System.out.println("Legajo Alumno: " + alumno.getLegajo());
-	                System.out.println("ID Clase: " + clase.getIdClase());
-	                System.out.println("Fecha y Hora Inicio: " + resultSet.getTimestamp("fecha_hora_inicio"));
-	                System.out.println("Fecha y Hora Inscripción: " + resultSet.getTimestamp("fecha_hora_inscripcion"));
+                        Clase clase = new Clase();
+                        clase.setComision(comision);
+                        clase.setMateria(materia);
 
-	                // Resto del código
+                        Docente docente = new Docente();
+                        docente.setNombre(resultSet.getString("nombre"));
+                        docente.setApellido(resultSet.getString("apellido"));
 
-	                examen.setAlumno(alumno);
-	                examen.setClase(clase);
-	                examen.setFechaHoraInicio(resultSet.getTimestamp("fecha_hora_inicio"));
-	                examen.setFechaHoraInscripcion(resultSet.getTimestamp("fecha_hora_inscripcion"));
+                        Examen examen = new Examen();
+                        examen.setFechaHoraInscripcion(resultSet.getTimestamp("fecha_hora_inscripcion"));
+                        examen.setNota(resultSet.getFloat("nota"));
+                        examen.setClase(clase);
+                        examen.setAlumno(alumno);
+                        examen.getClase().setDocente(docente);
+                        examen.setEstado(resultSet.getString("estado"));
 
-	                // Agregar el examen a la lista
-	                examenes.add(examen);
-	            }
-	        }
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	    }
+                        // Agregar el examen a la lista
+                        examenes.add(examen);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejar la excepción según tus necesidades (lanzarla nuevamente, convertirla a una excepción específica, etc.)
+        }
 
-	    // Retornar la lista de exámenes
-	    return examenes;
-	}
+        return examenes;
+    }
+    
+    public LinkedList<Clase> materiasDisponiblesRendir(Alumno alumno) {
+        LinkedList<Clase> listMateriasDisponiblesRendir = new LinkedList<>();
 
+        try {
+            // Consulta SQL
+            String sql = "SELECT DISTINCT m.nombre, c.anio_cursado, c.numcomision, d.nombre AS nombre_docente, d.apellido AS apellido_docente, c.idclase as idClase " +
+                    "FROM alumno alu " +
+                    "INNER JOIN inscripcion i ON alu.legajo = i.legajo_alumno " +
+                    "INNER JOIN clase c ON i.idclase = c.idclase " +
+                    "INNER JOIN materia m ON c.idmateria = m.idmateria " +
+                    "INNER JOIN docente d ON c.legajodoc = d.legajo " +
+                    "WHERE c.idclase NOT IN (" +
+                    "        SELECT idclase " +
+                    "        FROM examen " +
+                    "        WHERE legajo_alumno = ?" +
+                    "    )";
 
+            try (PreparedStatement statement = DbConnector.getInstancia().getConn().prepareStatement(sql)) {
+                statement.setInt(1, alumno.getLegajo());
 
+                // Ejecutar la consulta
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
 
+                        // Crear instancias de clases y configurar con los datos del resultado
+                        Materia materia = new Materia();
+                        materia.setNombre(resultSet.getString("nombre"));
+
+                        Comision comision = new Comision();
+                        comision.setAnioCursado(resultSet.getInt("anio_cursado"));
+                        comision.setNumComision(resultSet.getInt("numcomision"));
+
+                        Docente docente = new Docente();
+                        docente.setNombre(resultSet.getString("nombre_docente"));
+                        docente.setApellido(resultSet.getString("apellido_docente"));
+
+                        Clase clase = new Clase();
+                        clase.setIdClase(resultSet.getInt("idClase"));
+                        clase.setComision(comision);
+                        clase.setMateria(materia);
+                        clase.setDocente(docente);
+
+                        listMateriasDisponiblesRendir.add(clase);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejar la excepción según tus necesidades
+        }
+
+        return listMateriasDisponiblesRendir;
+    }
+    
+    public boolean inscribirExamen(int legajoAlumno, int idClase) {
+    	System.out.println(legajoAlumno);
+    	System.out.println(idClase);
+        String sql = "INSERT INTO examen (legajo_alumno, idclase, fecha_hora_inscripcion,estado) " +
+                     "VALUES (?, ?, CURRENT_TIMESTAMP, 'En curso')";
+
+        try (PreparedStatement statement = DbConnector.getInstancia().getConn().prepareStatement(sql)) {
+            statement.setInt(1, legajoAlumno);
+            statement.setInt(2, idClase);
+
+            // Ejecutar la consulta de inscripción
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejar la excepción según tus necesidades
+            return false;
+        }
+    }
 
     private Clase getClaseById(int idClase) {
         // Implementa la lógica para obtener la Clase por su ID desde la base de datos
@@ -92,3 +180,4 @@ public class ExamenDAO implements IDao<Examen> {
         // Implementa la lógica para actualizar un examen en la base de datos
     }
 }
+

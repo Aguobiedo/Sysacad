@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import data.DocenteDAO;
 import entities.Alumno;
 import entities.Docente;
 import entities.MiembroFacultad;
@@ -62,12 +63,22 @@ public class UpdateDocenteServlet extends HttpServlet {
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			ctrl.updateDocente(a);
-			String aviso = "DOCENTE MODIFICADO CON EXITO";
-			LinkedList<MiembroFacultad> docentes = ctrl.docentesGetAll();
-			request.setAttribute("docentes", docentes);
-			request.setAttribute("aviso", aviso);
-			request.getRequestDispatcher("WEB-INF/principalNoDocente/docentes/docentes.jsp").forward(request, response);
+			DocenteDAO dDao = new DocenteDAO();
+			if(ctrl.isUsernameAvailable(dDao, a.getUsuario())) {
+				ctrl.updateDocente(a);
+				String aviso = "DOCENTE MODIFICADO CON EXITO";
+				LinkedList<MiembroFacultad> docentes = ctrl.docentesGetAll();
+				request.setAttribute("docentes", docentes);
+				request.setAttribute("aviso", aviso);
+				request.getRequestDispatcher("WEB-INF/principalNoDocente/docentes/docentes.jsp").forward(request, response);
+			}else {
+				String aviso = "EL NOMBRE DE USUARIO INGRESADO SE ENCUENTRA EN USO, ERROR AL MODIFICAR EL DOCENTE";
+				LinkedList<MiembroFacultad> docentes = ctrl.docentesGetAll();
+				request.setAttribute("docentes", docentes);
+				request.setAttribute("aviso", aviso);
+				request.getRequestDispatcher("WEB-INF/principalNoDocente/docentes/docentes.jsp").forward(request, response);
+			}
+			
 		}
 	}
 

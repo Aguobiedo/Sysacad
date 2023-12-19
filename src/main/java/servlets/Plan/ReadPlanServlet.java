@@ -38,7 +38,7 @@ public class ReadPlanServlet extends HttpServlet {
 			Controller ctrl = new Controller();
 			LinkedList<Plan> planes = ctrl.planesGetAll();
 			LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
-			String aviso = "CARGA DE PLAN FALLIDA";
+			String aviso = "";
 			request.setAttribute("planes", planes);
 			request.setAttribute("carreras", carreras);
 			request.setAttribute("aviso", aviso);

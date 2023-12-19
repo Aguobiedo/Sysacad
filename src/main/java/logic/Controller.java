@@ -14,7 +14,6 @@ import entities.*;
 public class Controller {
 	
 	
-	
 	public MiembroFacultad validate(String username, String password) throws SQLException {
 		MiembroFacultadDAO mfDao = new MiembroFacultadDAO();
 		return (MiembroFacultad)mfDao.validate(username, calcularSHA256(password));
@@ -34,9 +33,40 @@ public class Controller {
 	
 	
 	
-	public boolean addAlumno(Alumno a, String password) {
+	public String addAlumno(Alumno a, String password) {
 		AlumnoDAO aDao = new AlumnoDAO();
-		return aDao.add(a, calcularSHA256(password));
+		if(this.isLegajoAvailable(a.getLegajo())) {
+			if(this.isUsernameAvailable(aDao, a.getUsuario())) {
+				if(aDao.add(a, calcularSHA256(password))) {
+					return "ALUMNO INGRESADO CON EXITO";
+				}else {
+					return "ERROR AL INGRESAR EL ALUMNO";
+				}
+			}else {
+				return "EL NOMBRE DE USUARIO INGRESADO YA SE ENCUENTRA EN USO";
+			}
+		}else {
+			return "EL LEGAJO INGRESADO YA EXISTE";
+		}
+		
+	}
+	
+	
+	public boolean isLegajoAvailable(int legajo) {
+		if(Objects.isNull(this.alumnoGetOne(legajo)) &&
+				Objects.isNull(this.docenteGetOne(legajo)) &&
+				Objects.isNull(this.noDocenteGetOne(legajo))) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean isUsernameAvailable(MiembroFacultadDAO mfDao, String username) {
+		if(mfDao.isUsernameAvailable(username)) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
 	
@@ -64,8 +94,23 @@ public class Controller {
 		ExamenDAO examenDao = new ExamenDAO();
 		return examenDao.getExamenesByAlumno(a);
 	}
+    
+    public LinkedList<Clase> matDispRendir(Alumno a){
+		ExamenDAO examenDao = new ExamenDAO();
+		return examenDao.materiasDisponiblesRendir(a);
+	}
+    
+    public boolean inscribirExamen(int legajoAlumno, int idClase) {
+        ExamenDAO examenDAO = new ExamenDAO();
+        return examenDAO.inscribirExamen(legajoAlumno, idClase);
+    }
+    
+    public LinkedList<AlumnoPlan> materiasAlumno(Alumno a){
+		MateriasAlumnoDAO materiasAlumnoDAO = new MateriasAlumnoDAO();
+		return materiasAlumnoDAO.materiasByAlumno(a);
+	}
 	//FIN METODOS DE ALUMNO
-	
+  
 	
 	//METODOS DOCENTE
 	public LinkedList<MiembroFacultad> docentesGetAll(){
@@ -73,10 +118,21 @@ public class Controller {
 		return dDao.getAll();
 	}
 	
-	public boolean addDocente(Docente a, String password) {
-		// TODO Auto-generated method stub
+	public String addDocente(Docente a, String password) {
 		DocenteDAO dDao = new DocenteDAO();
-		return dDao.add(a, calcularSHA256(password));
+		if(this.isLegajoAvailable(a.getLegajo())) {
+			if(this.isUsernameAvailable(dDao, a.getUsuario())) {
+				if(dDao.add(a, calcularSHA256(password))) {
+					return "DOCENTE INGRESADO CON EXITO";
+				}else {
+					return "ERROR AL INGRESAR EL DOCENTE";
+				}
+			}else {
+				return "EL NOMBRE DE USUARIO INGRESADO YA SE ENCUENTRA EN USO";
+			}
+		}else {
+			return "EL LEGAJO INGRESADO YA EXISTE";
+		}
 	}
 	
 	public void deleteDocente(int legajo) {
@@ -103,10 +159,21 @@ public class Controller {
 		return nDao.getAll();
 	}
 	
-	public boolean addNoDocente(NoDocente a, String password) {
-		// TODO Auto-generated method stub
-		NoDocenteDAO nDao = new NoDocenteDAO();
-		return nDao.add(a, calcularSHA256(password));
+	public String addNoDocente(NoDocente a, String password) {
+		NoDocenteDAO ndDao = new NoDocenteDAO();
+		if(this.isLegajoAvailable(a.getLegajo())) {
+			if(this.isUsernameAvailable(ndDao, a.getUsuario())) {
+				if(ndDao.add(a, calcularSHA256(password))) {
+					return "NO DOCENTE INGRESADO CON EXITO";
+				}else {
+					return "ERROR AL INGRESAR EL NO DOCENTE";
+				}
+			}else {
+				return "EL NOMBRE DE USUARIO INGRESADO YA SE ENCUENTRA EN USO";
+			}
+		}else {
+			return "EL LEGAJO INGRESADO YA EXISTE";
+		}
 	}
 	
 	public void deleteNoDocente(int legajo) {
@@ -134,14 +201,17 @@ public class Controller {
 		return cDao.getAll();
 	}
 	
-	public boolean addCarrera(Carrera c) {
+	public String addCarrera(Carrera c) {
 		// TODO Auto-generated method stub
 		CarreraDAO cDao = new CarreraDAO();
-		if(cDao.guardar(c) != null) {
-			return true;
-		}else {
-			return false;
+		if(Objects.isNull(this.carreraGetOne(c.getIdCarrera()))) {
+			if(cDao.guardar(c) != null) {
+				return "CARRERA CARGADA CON EXITO";
+			}else {
+				return "ERROR AL CARGAR LA CARRERA";
+			}
 		}
+		return "EL ID DE LA CARRERA CARGADA YA EXISTE";
 	}
 	
 	public void deleteCarrera(int id) {
@@ -168,13 +238,16 @@ public class Controller {
 		return pDao.getAll();
 	}
 	
-	public boolean addPlan(Plan p) {
+	public String addPlan(Plan p) {
 		PlanDAO pDao = new PlanDAO();
-		if(pDao.guardar(p) != null) {
-			return true;
-		}else {
-			return false;
+		if(Objects.isNull(this.planGetOne(p.getIdPlan()))) {
+			if(pDao.guardar(p) != null) {
+				return "PLAN CARGADO CON EXITO";
+			}else {
+				return "ERROR AL CARGAR EL PLAN";
+			}
 		}
+		return "EL ID DEL PLAN INGRESADO YA EXISTE";
 	}
 	
 	public void deletePlan(int id) {
@@ -201,13 +274,16 @@ public class Controller {
 		return cDao.getAll();
 	}
 	
-	public boolean addComision(Comision c) {
+	public String addComision(Comision c) {
 		ComisionDAO cDao = new ComisionDAO();
-		if(cDao.guardar(c) != null) {
-			return true;
-		}else {
-			return false;
+		if(Objects.isNull(this.comisionGetOne(c.getNumComision(), c.getAnioCursado()))) {
+			if(cDao.guardar(c) != null) {
+				return "COMISION CARGADA CON EXITO";
+			}else {
+				return "ERROR AL CARGAR LA COMISION";
+			}
 		}
+		return "LA COMISION INGRESADA YA EXISTE";
 	}
 	
 	public void deleteComision(int nro, int anio) {

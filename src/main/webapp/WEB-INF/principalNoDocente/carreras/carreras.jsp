@@ -74,37 +74,8 @@
                     <input name="name" type="text" class="form-control" id="floatingInput" placeholder="Juan">
                     <label for="floatingInput">Nombre</label>
                 </div>
-                <%if(aviso.equals("CARRERA CARGADA CON EXITO")) {%>
-                    <dialog data-modal>
-                        <div><%=aviso%></div>
-                        <button data-close-modal>Aceptar</button>
-                    </dialog>
-                    
-                    <script>
-                        const closeButton = document.querySelector("[data-close-modal]")
-                        const modal = document.querySelector("[data-modal]")
-                        
-                        modal.showModal()
-                        closeButton.addEventListener("click", () => {
-                            modal.close()
-                        })
-                    </script>
-                <%}else if(aviso.equals("CARRERA BORRADA CON EXITO")) {%>
-                    <dialog data-modal>
-                        <div><%=aviso%></div>
-                        <button data-close-modal>Aceptar</button>
-                    </dialog>
-                    
-                    <script>
-                        const closeButton = document.querySelector("[data-close-modal]")
-                        const modal = document.querySelector("[data-modal]")
-                        
-                        modal.showModal()
-                        closeButton.addEventListener("click", () => {
-                            modal.close()
-                        })
-                    </script>
-                <%}else if(aviso.equals("CARRERA MODIFICADA CON EXITO")){%>
+                <%if(aviso.equals("")) {%>
+                <%}else{%>
                     <dialog data-modal>
                         <div><%=aviso%></div>
                         <button data-close-modal>Aceptar</button>
