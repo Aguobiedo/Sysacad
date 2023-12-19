@@ -83,37 +83,8 @@
                     <option value="Tarde">Tarde</option>
                     <option value="Noche">Noche</option>
                 </select>
-                <%if(aviso.equals("COMISION CARGADA CON EXITO")) {%>
-                    <dialog data-modal>
-                        <div><%=aviso%></div>
-                        <button data-close-modal>Aceptar</button>
-                    </dialog>
-                    
-                    <script>
-                        const closeButton = document.querySelector("[data-close-modal]")
-                        const modal = document.querySelector("[data-modal]")
-                        
-                        modal.showModal()
-                        closeButton.addEventListener("click", () => {
-                            modal.close()
-                        })
-                    </script>
-                <%}else if(aviso.equals("COMISION BORRADA CON EXITO")) {%>
-                    <dialog data-modal>
-                        <div><%=aviso%></div>
-                        <button data-close-modal>Aceptar</button>
-                    </dialog>
-                    
-                    <script>
-                        const closeButton = document.querySelector("[data-close-modal]")
-                        const modal = document.querySelector("[data-modal]")
-                        
-                        modal.showModal()
-                        closeButton.addEventListener("click", () => {
-                            modal.close()
-                        })
-                    </script>
-                <%}else if(aviso.equals("COMISION MODIFICADA CON EXITO")){%>
+                <%if(aviso.equals("")) {%>
+                <%}else{%>
                     <dialog data-modal>
                         <div><%=aviso%></div>
                         <button data-close-modal>Aceptar</button>

@@ -24,7 +24,8 @@ h1 {
   text-transform: uppercase;
   margin-bottom: 10px;
   text-align: center;
-  padding-top: 6rem;
+  padding-top: 2rem;
+  color: white;
 }
 
 .home-container {
@@ -36,11 +37,13 @@ h1 {
   font-size: 1.5rem;
   margin-bottom: 1rem;
   font-weight: bold;
+  color: white;
 }
 
 .home-container p {
   font-size: 1rem;
   margin-bottom: 1rem;
+  color: white;
 }
 
 .cta-button {
@@ -72,7 +75,7 @@ h1 {
   flex: 1;
   text-align: center;
   padding: 1rem;
-  background-color: #9DB2BF;
+  background-color: #526D82;
   border-radius: 0.3125rem;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
@@ -86,10 +89,12 @@ h1 {
 .feature h2 {
   font-size: 1.25rem;
   margin-bottom: 0.3125rem;
+   color: white;
 }
 
 .feature p {
   font-size: 0.875rem;
+   color: white;
 }
 
 /* Estilos del pie de página */
@@ -104,3 +109,33 @@ footer p {
   font-size: 0.75rem;
   color: #DDE6ED;
 }
+
+
+.logo-container {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin-top: 2rem;
+ }
+
+ .logo-container img {
+   width: 100px;  
+   
+  }
+  
+@import url('https://fonts.cdnfonts.com/css/league-spartan');
+
+    .featuresLogo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+         
+        font-family: 'League Spartan', sans-serif;
+    }
+
+    .featuresLogo h1,
+    .featuresLogo h3 {
+        margin: 0;  
+        color: white;
+    }

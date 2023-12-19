@@ -69,7 +69,7 @@ public class ComisionDAO implements IDao<Comision>{
 	}
 
 	public Comision getOne(int nro, int anio) {
-		Comision a= new Comision();
+		Comision a= null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
@@ -80,6 +80,7 @@ public class ComisionDAO implements IDao<Comision>{
 			stmt.setInt(2, anio);
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
+				a = new Comision();
 				a.setNumComision(rs.getInt("num_comision"));
 				a.setAnioCursado(rs.getInt("anio_cursado"));
 				a.setTurno(rs.getString("turno"));

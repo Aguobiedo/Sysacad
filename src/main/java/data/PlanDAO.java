@@ -73,7 +73,7 @@ public class PlanDAO implements IDao<Plan>{
 
 	@Override
 	public Plan getOne(int id) {
-		Plan a= new Plan();
+		Plan a= null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		Controller ctrl = new Controller();
@@ -84,6 +84,7 @@ public class PlanDAO implements IDao<Plan>{
 			stmt.setInt(1, id);
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
+				a= new Plan();
 				a.setIdPlan(rs.getInt("idplan"));
 				a.setDescripcion(rs.getString("descripcion"));
 				a.setCarrera(ctrl.carreraGetOne(rs.getInt("idcarrera")));

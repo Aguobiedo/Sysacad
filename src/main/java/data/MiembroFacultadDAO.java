@@ -276,6 +276,44 @@ public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
 		}
 		return true;
 	}
+	
+	public boolean isUsernameAvailable(String username) {
+		PreparedStatement stmt=null;
+		boolean a = false;
+		ResultSet rs=null;
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"SELECT a.usuario "
+					+ "FROM alumno a WHERE a.usuario=? "
+					+ "UNION "
+					+ "SELECT nd.usuario "
+					+ "FROM no_docente nd WHERE nd.usuario = ? "
+					+ "UNION "
+					+ "SELECT d.usuario "
+					+ "FROM docente d WHERE d.usuario = ?"
+					);
+			stmt.setString(1, username);
+			stmt.setString(2, username);
+			stmt.setString(3, username);
+			rs=stmt.executeQuery();
+			if(rs!=null && rs.next()) {
+				a = false;
+			}else {
+				a = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return a;
+	}
 
 
 }
