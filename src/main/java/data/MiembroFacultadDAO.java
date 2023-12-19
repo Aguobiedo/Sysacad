@@ -314,6 +314,41 @@ public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
 		}
 		return a;
 	}
+	
+	public LinkedList<MiembroFacultad> filtrarPorApellido(String apellido) {
+		PreparedStatement stmt=null;
+		ResultSet rs = null;
+		LinkedList<MiembroFacultad> miembros = new LinkedList<>();
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement("SELECT legajo,nombre,apellido,dni,direccion,email,usuario FROM " + this.getTabla() + " WHERE apellido LIKE ?");
+			stmt.setString(1, "%" + apellido + "%");
+			rs = stmt.executeQuery();
+			if(rs!=null) {
+				while(rs.next()) {
+					MiembroFacultad m = getTipo();
+					m.setLegajo(rs.getInt("legajo"));
+					m.setNombre(rs.getString("nombre"));
+					m.setApellido(rs.getString("apellido"));
+					m.setDni(rs.getString("dni"));
+					m.setDireccion(rs.getString("direccion"));
+					m.setEmail(rs.getString("email"));
+					m.setUsuario(rs.getString("usuario"));
+					miembros.add(m);
+				}
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return miembros;
+	}
 
 
 }

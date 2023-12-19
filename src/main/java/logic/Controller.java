@@ -89,6 +89,11 @@ public class Controller {
 		aDao.update(alumno);
 	}
 	
+	public LinkedList<MiembroFacultad> filtrarAlumnosPorApellido(String apellido){
+		AlumnoDAO aDao = new AlumnoDAO();
+		return aDao.filtrarPorApellido(apellido);
+	}
+	
      
     public LinkedList<Examen> getExamenAlumno(Alumno a){
 		ExamenDAO examenDao = new ExamenDAO();
@@ -151,6 +156,11 @@ public class Controller {
 		dDao.update(docente);
 	}
 	
+	public LinkedList<MiembroFacultad> filtrarDocentesPorApellido(String apellido){
+		DocenteDAO dDao = new DocenteDAO();
+		return dDao.filtrarPorApellido(apellido);
+	}
+	
 	//FIN METODOS DOCENTE
 	
 	//METODOS NO DOCENTE
@@ -190,6 +200,11 @@ public class Controller {
 	public void updateNoDocente(NoDocente noDocente) {
 		NoDocenteDAO nDao = new NoDocenteDAO();
 		nDao.update(noDocente);
+	}
+	
+	public LinkedList<MiembroFacultad> filtrarNoDocentesPorApellido(String apellido){
+		NoDocenteDAO dDao = new NoDocenteDAO();
+		return dDao.filtrarPorApellido(apellido);
 	}
 	
 	//FIN METODOS NO DOCENTE
