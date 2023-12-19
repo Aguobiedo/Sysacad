@@ -53,14 +53,14 @@ public class CreatePlanServlet extends HttpServlet {
 				p.setDescripcion(descripcion);
 				Controller ctrl = new Controller();
 				p.setCarrera(ctrl.carreraGetOne(Integer.parseInt(idCarrera)));
-				if(ctrl.addPlan(p)) {
-					LinkedList<Plan> planes = ctrl.planesGetAll();
-					LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
-					request.setAttribute("planes", planes);
-					request.setAttribute("carreras", carreras);
-					request.setAttribute("aviso", "PLAN CARGADO CON EXITO");
-					request.getRequestDispatcher("WEB-INF/principalNoDocente/planes/planes.jsp").forward(request, response);		
-				}		
+				String aviso = ctrl.addPlan(p);
+				LinkedList<Plan> planes = ctrl.planesGetAll();
+				LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
+				request.setAttribute("planes", planes);
+				request.setAttribute("carreras", carreras);
+				request.setAttribute("aviso", aviso);
+				request.getRequestDispatcher("WEB-INF/principalNoDocente/planes/planes.jsp").forward(request, response);		
+						
 			}catch(NumberFormatException n) {
 				Controller ctrl = new Controller();
 				LinkedList<Plan> planes = ctrl.planesGetAll();

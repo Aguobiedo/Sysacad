@@ -235,13 +235,16 @@ public class Controller {
 		return pDao.getAll();
 	}
 	
-	public boolean addPlan(Plan p) {
+	public String addPlan(Plan p) {
 		PlanDAO pDao = new PlanDAO();
-		if(pDao.guardar(p) != null) {
-			return true;
-		}else {
-			return false;
+		if(Objects.isNull(this.planGetOne(p.getIdPlan()))) {
+			if(pDao.guardar(p) != null) {
+				return "PLAN CARGADO CON EXITO";
+			}else {
+				return "ERROR AL CARGAR EL PLAN";
+			}
 		}
+		return "EL ID DEL PLAN INGRESADO YA EXISTE";
 	}
 	
 	public void deletePlan(int id) {
