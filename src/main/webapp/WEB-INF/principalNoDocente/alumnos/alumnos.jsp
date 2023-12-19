@@ -33,12 +33,12 @@
   <!-- Encabezado -->
     <header>
         <div class="logo">
-            <h1>Tu Sistema Academico</h1>
+            <h1>Tu Sistema Académico</h1>
         </div>
         <div class="profile-options">
             <a href="#">Ver Mi Perfil</a>
-            <a href="#">Configuracion</a>
-            <a href="../home/Home.html">Cerrar Sesion</a>
+            <a href="#">Configuración</a>
+            <a href="../home/Home.html">Cerrar Sesión</a>
         </div>
     </header>
         
