@@ -71,7 +71,7 @@ public class CarreraDAO implements IDao<Carrera>{
 
 	@Override
 	public Carrera getOne(int id) {
-		Carrera a= new Carrera();
+		Carrera a= null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
@@ -81,6 +81,7 @@ public class CarreraDAO implements IDao<Carrera>{
 			stmt.setInt(1, id);
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
+				a = new Carrera();
 				a.setIdCarrera(rs.getInt("idcarrera"));
 				a.setNombre(rs.getString("nombre"));
 			}

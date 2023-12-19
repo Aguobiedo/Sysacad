@@ -49,12 +49,11 @@ public class CreateCarreraServlet extends HttpServlet {
 				c.setIdCarrera(Integer.parseInt(id));
 				c.setNombre(name);
 				Controller ctrl = new Controller();
-				if(ctrl.addCarrera(c)) {
-					LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
-					request.setAttribute("carreras", carreras);
-					request.setAttribute("aviso", "CARRERA CARGADA CON EXITO");
-					request.getRequestDispatcher("WEB-INF/principalNoDocente/carreras/carreras.jsp").forward(request, response);		
-				}	
+				String aviso = ctrl.addCarrera(c);
+				LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
+				request.setAttribute("carreras", carreras);
+				request.setAttribute("aviso", aviso);
+				request.getRequestDispatcher("WEB-INF/principalNoDocente/carreras/carreras.jsp").forward(request, response);			
 			}catch(NumberFormatException n) {
 				Controller ctrl = new Controller();
 				LinkedList<Carrera> carreras = ctrl.carrerasGetAll();

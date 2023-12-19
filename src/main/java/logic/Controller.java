@@ -201,14 +201,17 @@ public class Controller {
 		return cDao.getAll();
 	}
 	
-	public boolean addCarrera(Carrera c) {
+	public String addCarrera(Carrera c) {
 		// TODO Auto-generated method stub
 		CarreraDAO cDao = new CarreraDAO();
-		if(cDao.guardar(c) != null) {
-			return true;
-		}else {
-			return false;
+		if(Objects.isNull(this.carreraGetOne(c.getIdCarrera()))) {
+			if(cDao.guardar(c) != null) {
+				return "CARRERA CARGADA CON EXITO";
+			}else {
+				return "ERROR AL CARGAR LA CARRERA";
+			}
 		}
+		return "EL ID DE LA CARRERA CARGADA YA EXISTE";
 	}
 	
 	public void deleteCarrera(int id) {

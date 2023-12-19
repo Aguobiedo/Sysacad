@@ -36,7 +36,7 @@ public class ReadCarreraServlet extends HttpServlet {
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
 			LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
-			String aviso = "CARGA DE CARRERA FALLIDA";
+			String aviso = "";
 			request.setAttribute("carreras", carreras);
 			request.setAttribute("aviso", aviso);
 			request.getRequestDispatcher("WEB-INF/principalNoDocente/carreras/carreras.jsp").forward(request, response);
