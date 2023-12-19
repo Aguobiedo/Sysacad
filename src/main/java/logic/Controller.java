@@ -89,6 +89,11 @@ public class Controller {
 		aDao.update(alumno);
 	}
 	
+	public LinkedList<MiembroFacultad> filtrarAlumnosPorApellido(String apellido){
+		AlumnoDAO aDao = new AlumnoDAO();
+		return aDao.filtrarPorApellido(apellido);
+	}
+	
      
     public LinkedList<Examen> getExamenAlumno(Alumno a){
 		ExamenDAO examenDao = new ExamenDAO();
