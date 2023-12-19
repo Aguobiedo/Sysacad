@@ -271,13 +271,16 @@ public class Controller {
 		return cDao.getAll();
 	}
 	
-	public boolean addComision(Comision c) {
+	public String addComision(Comision c) {
 		ComisionDAO cDao = new ComisionDAO();
-		if(cDao.guardar(c) != null) {
-			return true;
-		}else {
-			return false;
+		if(Objects.isNull(this.comisionGetOne(c.getNumComision(), c.getAnioCursado()))) {
+			if(cDao.guardar(c) != null) {
+				return "COMISION CARGADA CON EXITO";
+			}else {
+				return "ERROR AL CARGAR LA COMISION";
+			}
 		}
+		return "LA COMISION INGRESADA YA EXISTE";
 	}
 	
 	public void deleteComision(int nro, int anio) {

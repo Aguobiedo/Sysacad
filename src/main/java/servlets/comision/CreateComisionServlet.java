@@ -51,12 +51,12 @@ public class CreateComisionServlet extends HttpServlet {
 				c.setAnioCursado(Integer.parseInt(anio));
 				c.setTurno(turno);
 				Controller ctrl = new Controller();
-				if(ctrl.addComision(c)) {
-					LinkedList<Comision> comisiones = ctrl.comisionesGetAll();
-					request.setAttribute("comisiones", comisiones);
-					request.setAttribute("aviso", "COMISION CARGADA CON EXITO");
-					request.getRequestDispatcher("WEB-INF/principalNoDocente/comisiones/comisiones.jsp").forward(request, response);		
-				}	
+				String aviso = ctrl.addComision(c);
+				LinkedList<Comision> comisiones = ctrl.comisionesGetAll();
+				request.setAttribute("comisiones", comisiones);
+				request.setAttribute("aviso", aviso);
+				request.getRequestDispatcher("WEB-INF/principalNoDocente/comisiones/comisiones.jsp").forward(request, response);		
+					
 			}catch(NumberFormatException n) {
 				Controller ctrl = new Controller();
 				LinkedList<Comision> comisiones = ctrl.comisionesGetAll();

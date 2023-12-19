@@ -36,7 +36,7 @@ public class ReadComisionServlet extends HttpServlet {
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
 			LinkedList<Comision> comisiones = ctrl.comisionesGetAll();
-			String aviso = "CARGA DE COMISION FALLIDA";
+			String aviso = "";
 			request.setAttribute("comisiones", comisiones);
 			request.setAttribute("aviso", aviso);
 			request.getRequestDispatcher("WEB-INF/principalNoDocente/comisiones/comisiones.jsp").forward(request, response);
