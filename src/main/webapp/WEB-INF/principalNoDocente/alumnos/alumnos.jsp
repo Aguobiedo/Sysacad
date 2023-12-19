@@ -33,12 +33,12 @@
   <!-- Encabezado -->
     <header>
         <div class="logo">
-            <h1>Tu Sistema Acad�mico</h1>
+            <h1>Tu Sistema Academico</h1>
         </div>
         <div class="profile-options">
             <a href="#">Ver Mi Perfil</a>
-            <a href="#">Configuraci�n</a>
-            <a href="../home/Home.html">Cerrar Sesi�n</a>
+            <a href="#">Configuracion</a>
+            <a href="../home/Home.html">Cerrar Sesion</a>
         </div>
     </header>
         
@@ -144,7 +144,7 @@
 
     <!-- Pie de p�gina -->
     <footer>
-        <p>&copy; 2023 Tu Sistema Acad�mico</p>
+        <p>&copy; 2023 Tu Sistema Academico</p>
     </footer>
 </body>
 </html>
