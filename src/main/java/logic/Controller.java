@@ -89,6 +89,11 @@ public class Controller {
 		aDao.update(alumno);
 	}
 	
+	public LinkedList<MiembroFacultad> filtrarAlumnosPorApellido(String apellido){
+		AlumnoDAO aDao = new AlumnoDAO();
+		return aDao.filtrarPorApellido(apellido);
+	}
+	
      
     public LinkedList<Examen> getExamenAlumno(Alumno a){
 		ExamenDAO examenDao = new ExamenDAO();
@@ -151,6 +156,11 @@ public class Controller {
 		dDao.update(docente);
 	}
 	
+	public LinkedList<MiembroFacultad> filtrarDocentesPorApellido(String apellido){
+		DocenteDAO dDao = new DocenteDAO();
+		return dDao.filtrarPorApellido(apellido);
+	}
+	
 	//FIN METODOS DOCENTE
 	
 	//METODOS NO DOCENTE
@@ -190,6 +200,11 @@ public class Controller {
 	public void updateNoDocente(NoDocente noDocente) {
 		NoDocenteDAO nDao = new NoDocenteDAO();
 		nDao.update(noDocente);
+	}
+	
+	public LinkedList<MiembroFacultad> filtrarNoDocentesPorApellido(String apellido){
+		NoDocenteDAO dDao = new NoDocenteDAO();
+		return dDao.filtrarPorApellido(apellido);
 	}
 	
 	//FIN METODOS NO DOCENTE
@@ -401,6 +416,20 @@ public class Controller {
 		InscripcionDAO iDao = new InscripcionDAO();
 		iDao.eliminar(legajo,idclase);
 	}
+	public LinkedList<Inscripcion> getInscripcionesByClase(Clase c) {
+		InscripcionDAO iDao = new InscripcionDAO();
+		return iDao.getByClase(c);
+	}
+	// FIN METODOS INSCRIPCIONES
+	
+	// METODOS EXAMENES
+	
+	public Examen getLastExamenByLegajoAlumnoIdClase (int legajo_alumno, int idclase) {
+		ExamenDAO eDao = new ExamenDAO();
+		return eDao.getLastByLegajoAlumnoIdClase(legajo_alumno, idclase);
+	}
+	
+	// FIN METODOS EXAMENES 
 	
 	public static String calcularSHA256(String texto) {
         try {
@@ -430,6 +459,7 @@ public class Controller {
             return null; // O puedes lanzar una excepción personalizada aquí
         }
     }
+
 
 
 	
