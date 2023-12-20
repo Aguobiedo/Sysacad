@@ -179,5 +179,42 @@ public class InscripcionDAO implements IDao<Inscripcion>{
 		
 	}
 	
+	public LinkedList<Inscripcion> getByClase(Clase c){
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		Controller ctrl = new Controller();
+		LinkedList<Inscripcion> inscripciones = new LinkedList<>();
+		try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"SELECT cla.legajo, cla.id " +
+							"FROM inscripcion ins " +
+							"INNER JOIN alumno alu ON ins.legajo_alumno=alu.legajo " +
+							"WHERE ins.idclase = ? " +
+							"ORDER BY alu.apellido ASC, alu.nombre DESC;");
+			stmt.setInt(1, c.getIdClase());
+			rs = stmt.executeQuery();
+			if(rs!=null) {
+				while(rs.next()) {
+					Inscripcion i = new Inscripcion();
+					Alumno a = ctrl.alumnoGetOne(rs.getInt("legajo"));
+					c = ctrl.claseGetOne(rs.getInt("idclase"));
+					i.setAlumno(a);
+					inscripciones.add(i);
+				}
+			}
+		}catch (SQLException e){
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return inscripciones;
+	}
+	
 
 }

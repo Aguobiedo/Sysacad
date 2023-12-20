@@ -1,14 +1,14 @@
 package entities;
 
 public abstract class MiembroFacultad {
-	private String dni;
-	private String nombre;
-	private String apellido;
-	private String direccion;
-	private String email;
-	private String usuario;
-	private int legajo;
-	private String tipo;
+	protected String dni;
+	protected String nombre;
+	protected String apellido;
+	protected String direccion;
+	protected String email;
+	protected String usuario;
+	protected int legajo;
+	protected String tipo;
 	
 	public String getDni() {
 		return dni;
