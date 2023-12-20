@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.Clase;
+import entities.Materia;
 import entities.MiembroFacultad;
 import logic.Controller;
 
@@ -32,16 +33,18 @@ public class DeleteClaseServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int idClase = Integer.parseInt(request.getParameter("idClase"));
+		int idclase = Integer.parseInt(request.getParameter("id"));
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
-		System.out.println(idClase);
+		System.out.println(idclase);
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			ctrl.deleteClase(idClase);
+			ctrl.deleteClase(idclase);
 			String aviso = "CLASE BORRADA CON EXITO";
 			LinkedList<Clase> clases = ctrl.clasesGetAll();
+			LinkedList<Materia> materias= ctrl.materiasGetAll();
 			request.setAttribute("aviso", aviso);
 			request.setAttribute("clases", clases);
+			request.setAttribute("materias", materias);
 			request.getRequestDispatcher("WEB-INF/principalNoDocente/clases/clases.jsp").forward(request, response);
 		}
 	}

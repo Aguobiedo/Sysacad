@@ -26,7 +26,7 @@
         <nav>
             <ul>
                 
-                <li><a href="#">Clases</a></li>
+                <li><a href="readClase">Clases</a></li>
                 <li><a href="readAlumno">Alumnos</a></li>
                 <li><a href="readDocente">Docentes</a></li>
                 <li><a href="readNoDocente">No Docentes</a></li>

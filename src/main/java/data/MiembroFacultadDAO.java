@@ -4,6 +4,8 @@ import java.sql.*;
 
 import java.util.LinkedList;
 
+import org.apache.logging.log4j.*;
+
 import entities.Alumno;
 import entities.Docente;
 import entities.MiembroFacultad;
@@ -12,6 +14,7 @@ import entities.NoDocente;
 
 public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
 	
+	 private static final Logger logger = LogManager.getLogger(MiembroFacultadDAO.class);
 	
 	public final MiembroFacultad validate(String username, String password) throws SQLException{
 		PreparedStatement stmt=null;
@@ -38,8 +41,8 @@ public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
 			if(rs!=null && rs.next()) {
 				if(rs.getString("TipoMiembro").equals("Alumno")) {
 					a = new Alumno();
-					System.out.println("ENCONTRO EL ALUMNO");
 					a.setLegajo(rs.getInt("legajo"));
+					logger.info("EL ALUMNO CON LEGAJO " +a.getLegajo() + " HA INICIADO SESION");
 					a.setNombre(rs.getString("nombre"));
 					a.setApellido(rs.getString("apellido"));
 					a.setDni(rs.getString("dni"));
@@ -50,6 +53,7 @@ public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
 				}else if(rs.getString("TipoMiembro").equals("Docente")) {
 					a = new Docente();
 					a.setLegajo(rs.getInt("legajo"));
+					logger.info("EL DOCENTE CON LEGAJO " +a.getLegajo() + " HA INICIADO SESION");
 					a.setNombre(rs.getString("nombre"));
 					a.setApellido(rs.getString("apellido"));
 					a.setDni(rs.getString("dni"));
@@ -59,8 +63,8 @@ public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
 					a.setTipo(rs.getString("TipoMiembro"));
 				}else if(rs.getString("TipoMiembro").equals("NoDocente")) {
 					a = new NoDocente();
-					System.out.println("ENCONTRO EL NO DOCENTE");
 					a.setLegajo(rs.getInt("legajo"));
+					logger.info("EL NO DOCENTE CON LEGAJO " +a.getLegajo() + " HA INICIADO SESION");
 					a.setNombre(rs.getString("nombre"));
 					a.setApellido(rs.getString("apellido"));
 					a.setDni(rs.getString("dni"));
@@ -71,6 +75,7 @@ public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
 				}
 			}
 		} catch (SQLException e) {
+			logger.error("SQLException");
 			e.printStackTrace();
 		}finally {
 			try {
@@ -97,8 +102,10 @@ public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
 							);
 			stmt.setInt(1, legajo);
 			stmt.executeUpdate();	
-			keyResultSet=stmt.getGeneratedKeys();			
+			keyResultSet=stmt.getGeneratedKeys();
+			logger.info("SE HA BORRADO LA CUENTA CON LEGAJO: " + legajo);
 		} catch (SQLException e) {
+			logger.error("SQLException");
             e.printStackTrace();
 		} finally {
             try {
@@ -135,6 +142,7 @@ public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
 				a.setUsuario(rs.getString("usuario"));
 			}
 		} catch (SQLException e) {
+			logger.error("SQLException");
 			e.printStackTrace();
 		}finally {
 			try {
@@ -172,6 +180,7 @@ public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
 				}
 			}
 		}catch(SQLException e){
+			logger.error("SQLException");
 			e.printStackTrace();
 		}finally {
 			try {
@@ -223,6 +232,7 @@ public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
 
 			
 		}  catch (SQLException e) {
+			logger.error("SQLException");
             e.printStackTrace();
 		} finally {
             try {
@@ -261,8 +271,9 @@ public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
 			
 			keyResultSet=stmt.getGeneratedKeys();
 
-			
+			logger.info("SE HA AÑADIDO UN MIEMBRO FACULTAD CON LEGAJO " + a.getLegajo());
 		}  catch (SQLException e) {
+			logger.error("SQLException");
             e.printStackTrace();
             return false;
 		} finally {
@@ -302,6 +313,7 @@ public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
 				a = true;
 			}
 		} catch (SQLException e) {
+			logger.error("SQLException");
 			e.printStackTrace();
 		}finally {
 			try {
@@ -337,6 +349,7 @@ public class MiembroFacultadDAO implements IDao<MiembroFacultad>{
 				}
 			}
 		}catch(SQLException e){
+			logger.error("SQLException");
 			e.printStackTrace();
 		}finally {
 			try {

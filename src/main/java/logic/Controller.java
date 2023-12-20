@@ -360,13 +360,25 @@ public class Controller {
 		return cDao.getByLegajoDocente(legajo);
 	}
 	
-	public boolean addClase(Clase c) {
+	public String addClase(Clase c) {
 		ClaseDAO cDao = new ClaseDAO();
-		if(cDao.guardar(c) != null) {
-			return true;
-		}else {
-			return false;
+		if(Objects.isNull(this.claseGetOne(c.getIdClase()))) {
+			if(Objects.nonNull(this.docenteGetOne(c.getDocente().getLegajo()))) {
+				if(Objects.nonNull(this.comisionGetOne(c.getComision().getNumComision(), c.getComision().getAnioCursado()))) {
+					if(cDao.guardar(c) != null) {
+						return "CLASE INGRESADA CON EXITO";
+					}else {
+						return "ERROR AL INGRESAR LA CLASE";
+					}
+				}else {
+					return "LA COMISION INGRESADA NO EXISTE";
+				}
+			}else {
+				return "EL LEGAJO DEL DOCENTE NO EXISTE";
+			}
 		}
+		return "EL ID DE LA CLASE INGRESADA YA EXISTE";
+		
 	}
 	public void deleteClase(int id) {
 		ClaseDAO cDao = new ClaseDAO();

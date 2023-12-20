@@ -38,12 +38,12 @@ public class UpdateClaseServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int idClase = Integer.parseInt(request.getParameter("idClase"));
+		int idclase = Integer.parseInt(request.getParameter("id"));
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
-		System.out.println(idClase);
+		System.out.println(idclase);
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			Clase clase= ctrl.claseGetOne(idClase);
+			Clase clase= ctrl.claseGetOne(idclase);
 			request.setAttribute("clase", clase);
 			request.getRequestDispatcher("WEB-INF/principalNoDocente/clases/clasesUpdate.jsp").forward(request, response);
 		}
@@ -54,20 +54,20 @@ public class UpdateClaseServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Clase a = new Clase();
-		a.setIdClase(Integer.parseInt(request.getParameter("IdClase")));
-		a.setDocente(new Docente(Integer.parseInt(request.getParameter("legajoDoc"))));
-		a.setMateria(new Materia(Integer.parseInt(request.getParameter("idMateria"))));
-		a.setComision(new Comision(Integer.parseInt(request.getParameter("numComision")),Integer.parseInt(request.getParameter("anioCursado"))));
-		a.setDiaSemanaCursado(request.getParameter("IdClase"));
+		a.setIdClase(Integer.parseInt(request.getParameter("idclase")));
+		a.setDocente(new Docente(Integer.parseInt(request.getParameter("legajo"))));
+		a.setMateria(new Materia(Integer.parseInt(request.getParameter("materia"))));
+		a.setComision(new Comision(Integer.parseInt(request.getParameter("nrocomision")),Integer.parseInt(request.getParameter("aniocursado"))));
+		a.setDiaSemanaCursado(request.getParameter("diasemana"));
 		Time horarioInicio = null;
 		try {
-			horarioInicio = new Time(new SimpleDateFormat("HH:mm:ss").parse(request.getParameter("horarioInicio")).getTime());
+			horarioInicio = new Time(new SimpleDateFormat("HH:mm").parse(request.getParameter("horarioinicio")).getTime());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		Time horarioFin = null;
 		try {
-			horarioFin = new Time(new SimpleDateFormat("HH:mm:ss").parse(request.getParameter("horarioFin")).getTime());
+			horarioFin = new Time(new SimpleDateFormat("HH:mm").parse(request.getParameter("horariofin")).getTime());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -79,7 +79,9 @@ public class UpdateClaseServlet extends HttpServlet {
 			ctrl.updateClase(a);
 			String aviso = "CLASE MODIFICADA CON EXITO";
 			LinkedList<Clase> clases = ctrl.clasesGetAll();
+			LinkedList<Materia> materias= ctrl.materiasGetAll();
 			request.setAttribute("clases", clases);
+			request.setAttribute("materias", materias);
 			request.setAttribute("aviso", aviso);
 			request.getRequestDispatcher("WEB-INF/principalNoDocente/clases/clases.jsp").forward(request, response);
 		}
