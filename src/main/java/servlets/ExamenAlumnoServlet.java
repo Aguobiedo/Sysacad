@@ -13,7 +13,7 @@ import entities.Alumno;
 import entities.Examen;
 import logic.Controller;
 
-@WebServlet("/ExamenAlumnoServlet")
+@WebServlet("/ExamenAlumno")
 public class ExamenAlumnoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 

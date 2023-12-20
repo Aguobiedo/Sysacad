@@ -56,12 +56,12 @@
                         <td><%=c.getHorarioFin() %></td>
                         <td>
                             <!-- Button trigger modal -->
-                            <a href="" class="btn btn-primary">
-                                <i class="bi bi-pencil-fill"></i>
+                            <a href="cargarNotas?idClase=<%=c.getIdClase()%>" class="btn">
+                                <i class="bi bi-pencil-fill">Cargar Notas</i>
                             </a>
                             <!-- Button trigger modal -->
-                            <a href="" class="btn btn-danger"> 
-                                <i class="bi bi-trash-fill"></i>
+                            <a href="" class="btn"> 
+                                <i class="bi bi-trash-fill">Listar</i>
                             </a>
                         </td> 
                     </tr>

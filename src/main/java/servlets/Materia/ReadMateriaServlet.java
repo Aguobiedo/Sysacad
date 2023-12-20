@@ -1,4 +1,4 @@
-package servlets;
+package servlets.Materia;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -15,16 +15,16 @@ import entities.Materia;
 import logic.Controller;
 
 /**
- * Servlet implementation class DeleteMateriaServlet
+ * Servlet implementation class ReadMateriaServlet
  */
-@WebServlet("/bajaMateria")
-public class DeleteMateriaServlet extends HttpServlet {
+@WebServlet("/readMateria")
+public class ReadMateriaServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteMateriaServlet() {
+    public ReadMateriaServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,19 +33,18 @@ public class DeleteMateriaServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int id = Integer.parseInt(request.getParameter("id"));
 		MiembroFacultad mf = (MiembroFacultad) request.getSession().getAttribute("noDocente");
-		System.out.println(id);
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
-			ctrl.deleteMateria(id);
-			String aviso = "MATERIA BORRADA CON EXITO";
 			LinkedList<Materia> materias = ctrl.materiasGetAll();
 			LinkedList<Carrera> carreras = ctrl.carrerasGetAll();
+			String aviso = "CARGA DE MATERIA FALLIDA";
 			request.setAttribute("materias", materias);
-			request.setAttribute("aviso", aviso);
 			request.setAttribute("carreras", carreras);
+			request.setAttribute("aviso", aviso);
 			request.getRequestDispatcher("WEB-INF/principalNoDocente/materias/materias.jsp").forward(request, response);
+		}else {
+			request.getRequestDispatcher("index.jsp").forward(request, response);
 		}
 	}
 

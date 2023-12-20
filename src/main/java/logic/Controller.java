@@ -297,6 +297,21 @@ public class Controller {
 		return iDao.getAll();
 	}
 	
+	public LinkedList<Inscripcion> getInscripcionesByClase(Clase c) {
+		InscripcionDAO iDao = new InscripcionDAO();
+		return iDao.getByClase(c);
+	}
+	// FIN METODOS INSCRIPCIONES
+	
+	// METODOS EXAMENES
+	
+	public Examen getLastExamenByLegajoAlumnoIdClase (int legajo_alumno, int idclase) {
+		ExamenDAO eDao = new ExamenDAO();
+		return eDao.getLastByLegajoAlumnoIdClase(legajo_alumno, idclase);
+	}
+	
+	// FIN METODOS EXAMENES 
+	
 	public static String calcularSHA256(String texto) {
         try {
             // Crear una instancia de MessageDigest con el algoritmo SHA-256
@@ -325,6 +340,7 @@ public class Controller {
             return null; // O puedes lanzar una excepción personalizada aquí
         }
     }
+
 
 
 	
