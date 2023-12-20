@@ -11,6 +11,11 @@ public class Clase {
 	private Materia materia;
 	private Comision comision;
 	
+	public Clase(int id_clase) {
+		this.idClase = id_clase;
+	}
+	public Clase() {
+	}
 	public int getIdClase() {
 		return idClase;
 	}

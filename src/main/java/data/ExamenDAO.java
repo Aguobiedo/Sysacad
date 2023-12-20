@@ -179,5 +179,42 @@ public class ExamenDAO implements IDao<Examen> {
     public void update(Examen c) {
         // Implementa la lógica para actualizar un examen en la base de datos
     }
+    
+    public Examen getLastByLegajoAlumnoIdClase(int legajo_alumno, int idClase) {
+    	Examen e = new Examen();
+    	ResultSet rs=null;
+    	PreparedStatement stmt=null;
+	    try {
+	    	stmt=DbConnector.getInstancia().getConn().prepareStatement(
+	    		"WITH ExamenesOrdenados AS ( " +
+	    				"SELECT legajo_alumno, idclase, fecha_hora_inscripcion, nota, " +
+	    				"ROW_NUMBER() OVER (PARTITION BY legajo_alumno, idclase ORDER BY fecha_hora_inscripcion DESC) AS rownum FROM examen) " +
+	    				"SELECT legajo_alumno, idclase, fecha_hora_inscripcion, nota " +
+	    				"FROM ExamenesOrdenados " +
+	    				"WHERE rownum = 1 and legajo_alumno = ? and idclase = ?");
+	    	stmt.setInt(1, legajo_alumno);
+	    	stmt.setInt(2, idClase);
+	        rs=stmt.executeQuery();
+	        e.setAlumno(new Alumno(legajo_alumno));
+	        e.setClase(new Clase(idClase));
+			if(rs!=null && rs.next()) {
+				e.setNota(rs.getInt("nota"));
+			}
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				DbConnector.getInstancia().releaseConn();
+			} catch (SQLException ex) {
+				ex.printStackTrace();
+			}
+		}
+		
+		return e;
+	        
+    }
+    
 }
 
