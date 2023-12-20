@@ -47,21 +47,21 @@ public class CreateClaseServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int idClase = Integer.parseInt(request.getParameter("idClase"));
-		int legajoDoc = Integer.parseInt(request.getParameter("legajoDoc"));
-		int idMateria = Integer.parseInt(request.getParameter("idMateria"));
-		int numComision = Integer.parseInt(request.getParameter("numComision"));
-		int anioCursado = Integer.parseInt(request.getParameter("anioCursado"));
-		String diaSemanaCursado = request.getParameter("diaSemanaCursado");
+		String idclase = request.getParameter("idclase");
+		String legajo = request.getParameter("legajo");
+		String materia = request.getParameter("materia");
+		String nrocomision = request.getParameter("nrocomision");
+		String aniocursado = request.getParameter("aniocursado");
+		String diaSemanaCursado = request.getParameter("diasemana");
 		Time horarioInicio = null;
 		try {
-			horarioInicio = new Time(new SimpleDateFormat("HH:mm:ss").parse(request.getParameter("horarioInicio")).getTime());
+			horarioInicio = new Time(new SimpleDateFormat("HH:mm").parse(request.getParameter("horarioinicio")).getTime());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		Time horarioFin = null;
 		try {
-			horarioFin = new Time(new SimpleDateFormat("HH:mm:ss").parse(request.getParameter("horarioFin")).getTime());
+			horarioFin = new Time(new SimpleDateFormat("HH:mm").parse(request.getParameter("horariofin")).getTime());
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -69,25 +69,29 @@ public class CreateClaseServlet extends HttpServlet {
 		if(mf.esNoDocente()) {
 			try {
 				Clase c = new Clase();
-				c.setIdClase(idClase);
-				c.setDocente(new Docente(legajoDoc));
-				c.setMateria(new Materia(idMateria));
-				c.setComision(new Comision(numComision,anioCursado));
+				c.setIdClase(Integer.parseInt(idclase));
+				c.setDocente(new Docente(Integer.parseInt(legajo)));
+				c.setMateria(new Materia(Integer.parseInt(materia)));
+				c.setComision(new Comision(Integer.parseInt(nrocomision),Integer.parseInt(aniocursado)));
 				c.setDiaSemanaCursado(diaSemanaCursado);
 				c.setHorarioInicio(horarioInicio);
 				c.setHorarioFin(horarioFin);
 				Controller ctrl = new Controller();
-				if(ctrl.addClase(c)) {
-					LinkedList<Clase> clases = ctrl.clasesGetAll();
-					request.setAttribute("clases", clases);
-					request.setAttribute("aviso", "CLASE CARGADA CON EXITO");
-					request.getRequestDispatcher("WEB-INF/principalNoDocente/clases/clases.jsp").forward(request, response);		
-				}	
+				String aviso = ctrl.addClase(c);
+				LinkedList<Clase> clases = ctrl.clasesGetAll();
+				LinkedList<Materia> materias= ctrl.materiasGetAll();
+				request.setAttribute("clases", clases);
+				request.setAttribute("materias", materias);
+				request.setAttribute("aviso", aviso);
+				request.getRequestDispatcher("WEB-INF/principalNoDocente/clases/clases.jsp").forward(request, response);		
+					
 			}catch(NumberFormatException n) {
 				Controller ctrl = new Controller();
 				LinkedList<Clase> clases = ctrl.clasesGetAll();
+				LinkedList<Materia> materias= ctrl.materiasGetAll();
 				request.setAttribute("aviso", "");
 				request.setAttribute("clases", clases);
+				request.setAttribute("materias", materias);
 				request.getRequestDispatcher("WEB-INF/principalNoDocente/clases/clases.jsp").forward(request, response);
 			}			
 		}			

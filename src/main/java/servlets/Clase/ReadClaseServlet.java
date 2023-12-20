@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entities.Clase;
+import entities.Materia;
 import entities.MiembroFacultad;
 import logic.Controller;
 
@@ -36,8 +37,10 @@ public class ReadClaseServlet extends HttpServlet {
 		if(mf.esNoDocente()) {
 			Controller ctrl = new Controller();
 			LinkedList<Clase> clases = ctrl.clasesGetAll();
-			String aviso = "CARGA DE CLASE FALLIDA";
+			LinkedList<Materia> materias= ctrl.materiasGetAll();
+			String aviso = "";
 			request.setAttribute("clases", clases);
+			request.setAttribute("materias", materias);
 			request.setAttribute("aviso", aviso);
 			request.getRequestDispatcher("WEB-INF/principalNoDocente/clases/clases.jsp").forward(request, response);
 		}else {

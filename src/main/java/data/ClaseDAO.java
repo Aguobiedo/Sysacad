@@ -76,7 +76,7 @@ public class ClaseDAO implements IDao<Clase>{
 	}
 	@Override
 	public Clase getOne(int id) {
-		Clase c= new Clase();
+		Clase c= null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {
@@ -86,6 +86,7 @@ public class ClaseDAO implements IDao<Clase>{
 			stmt.setInt(1, id);
 			rs=stmt.executeQuery();
 			if(rs!=null && rs.next()) {
+				c= new Clase();
 				c.setIdClase(rs.getInt("idclase"));
 				c.setDocente(new Docente(rs.getInt("legajodoc")));
 				c.setMateria(new Materia(rs.getInt("idMateria")));
