@@ -13,7 +13,7 @@
 <title>Inicio - Tu Sistema Académico</title>
     <link rel="stylesheet" type="text/css" href="views/pages/principalDocente/ListadoCargaNotas.css">
 <%
-	LinkedList<Examen> examenes = (LinkedList<Inscripcion>)request.getAttribute("examenes");
+	LinkedList<Examen> examenes = (LinkedList<Examen>)request.getAttribute("examenes");
 	String aviso = (String)request.getAttribute("aviso");
 	Controller ctrl = new Controller ();
 %>    
