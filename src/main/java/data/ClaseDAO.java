@@ -85,7 +85,7 @@ public class ClaseDAO implements IDao<Clase>{
 	}
 	@Override
 	public Clase getOne(int id) {
-		Clase c= null;
+		Clase c=null;
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		try {

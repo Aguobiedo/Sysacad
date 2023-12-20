@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entities.Clase;
 import entities.Docente;
-import entities.Inscripcion;
+import entities.Examen;
 
 /**
  * Servlet implementation class Inscripciones
@@ -35,10 +35,11 @@ public class CargarNotasDocenteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Controller ctrl = new Controller();
-		Clase c = ctrl.claseGetOne((int)request.getSession().getAttribute("idClase"));
+		int idclase = Integer.parseInt(request.getParameter("idClase"));
+		Clase c = ctrl.claseGetOne(idclase);
 		if(c!=null) {
-			LinkedList<Inscripcion> inscripciones = ctrl.getInscripcionesByClase(c);
-			request.setAttribute("inscripciones", inscripciones);
+			LinkedList<Examen> examenes = ctrl.getExamenesEnCursoByClase(c);
+			request.setAttribute("examenes", examenes);
 			request.getRequestDispatcher("WEB-INF/principalDocente/ListadoCargaNotas.jsp").forward(request, response);
 		}else {
 			response.getWriter().append("NO SE ENCONTRO LA CLASE").append(request.getContextPath());

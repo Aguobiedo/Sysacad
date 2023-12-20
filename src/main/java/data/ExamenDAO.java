@@ -176,8 +176,30 @@ public class ExamenDAO implements IDao<Examen> {
     }
 
     @Override
-    public void update(Examen c) {
-        // Implementa la lógica para actualizar un examen en la base de datos
+    public void update(Examen e) {
+    	PreparedStatement stmt=null;
+    	try {
+			stmt=DbConnector.getInstancia().getConn().prepareStatement(
+					"UPDATE examenes e " +
+					"SET e.nota = ?, e.estado = ? " +
+					"WHERE e.legajo_alumno = ? AND e.idclase = ? AND e.fecha_hora_inscripcion = ?",PreparedStatement.NO_GENERATED_KEYS);
+			stmt.setFloat(1, e.getNota());
+			stmt.setString(2, e.getEstado());
+			stmt.setInt(3, e.getAlumno().getLegajo());
+			stmt.setInt(4, e.getClase().getIdClase());
+			stmt.setTimestamp(5, e.getFechaHoraInscripcion());
+			stmt.executeUpdate();
+		} catch (SQLException ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		} finally {
+			try {
+                if(stmt!=null)stmt.close();
+                DbConnector.getInstancia().releaseConn();
+            } catch (SQLException ex) {
+            	ex.printStackTrace();
+            }
+		}
     }
     
     public Examen getLastByLegajoAlumnoIdClase(int legajo_alumno, int idClase) {
@@ -215,6 +237,50 @@ public class ExamenDAO implements IDao<Examen> {
 		return e;
 	        
     }
+
+	public LinkedList<Examen> getExamenesEnCursoByClase(Clase c) {
+		LinkedList<Examen> examenes = new LinkedList<>();
+
+        try {
+            // Consulta SQL
+            String sql = "SELECT alu.legajo, alu.nombre, alu.apellido, alu.email, ex.fecha_hora_inscripcion, ex.estado " +
+                    "FROM examen ex " +
+                    "INNER JOIN alumno alu ON ex.legajo_alumno = alu.legajo " +
+                    "WHERE ex.idclase = ? AND ex.estado='En curso'";
+
+            // Crear la conexión y la declaración preparada
+            try (PreparedStatement statement = DbConnector.getInstancia().getConn().prepareStatement(sql)) {
+                statement.setInt(1, c.getIdClase());
+
+                // Ejecutar la consulta
+                try (ResultSet resultSet = statement.executeQuery()) {
+                    while (resultSet.next()) {
+
+                        // Crea instancias clases y configurcion con los datos del resultado
+                        
+                        Alumno a = new Alumno();
+                        a.setLegajo(resultSet.getInt("legajo"));
+                        a.setNombre(resultSet.getString("nombre"));
+                        a.setApellido(resultSet.getString("apellido"));
+                        a.setEmail(resultSet.getString("email"));
+                        Examen examen = new Examen();
+                        examen.setFechaHoraInscripcion(resultSet.getTimestamp("fecha_hora_inscripcion"));
+                        examen.setNota(resultSet.getFloat("nota"));
+                        examen.setClase(c);
+                        examen.setAlumno(a);
+                        examen.setEstado(resultSet.getString("estado"));
+                        // Agregar el examen a la lista
+                        examenes.add(examen);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Manejar la excepción según tus necesidades (lanzarla nuevamente, convertirla a una excepción específica, etc.)
+        }
+
+        return examenes;
+	}
     
 }
 
