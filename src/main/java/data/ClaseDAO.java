@@ -4,12 +4,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import entities.Clase;
 import entities.Comision;
 import entities.Docente;
 import entities.Materia;
 
 public class ClaseDAO implements IDao<Clase>{
+	
+	private static final Logger logger = LogManager.getLogger(MiembroFacultadDAO.class);
 
 	@Override
 	public Clase guardar(Clase c) {
@@ -32,9 +38,10 @@ public class ClaseDAO implements IDao<Clase>{
 			stmt.executeUpdate();
 			
 			keyResultSet=stmt.getGeneratedKeys();
-
+			logger.info("SE HA CREADO UNA NUEVA CLASE CON ID " + c.getIdClase());
 			
 		}  catch (SQLException e) {
+			logger.error("SQLException");
             e.printStackTrace();
             return null;
 		} finally {
@@ -55,13 +62,15 @@ public class ClaseDAO implements IDao<Clase>{
 		try {
 			stmt=DbConnector.getInstancia().getConn().
 					prepareStatement(
-							"DELETE FROM Clase WHERE idclase = ?",
+							"DELETE FROM clase WHERE idclase = ?",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			stmt.setInt(1, id);
 			stmt.executeUpdate();	
-			keyResultSet=stmt.getGeneratedKeys();			
+			keyResultSet=stmt.getGeneratedKeys();
+			logger.info("SE HA BORRADO LA CLASE CON ID: " +id);
 		} catch (SQLException e) {
+			logger.error("SQLException");
             e.printStackTrace();
 		} finally {
             try {
