@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@page import="java.util.LinkedList"%>
 <%@page import="entities.Materia"%>
-<%@page import="entities.Carrera"%>
+<%@page import="entities.Clase"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,11 +13,8 @@
 <title>Inicio - Tu Sistema Académico</title>
     <link rel="stylesheet" type="text/css" href="views/pages/principalNoDocente/alumnos/alumnosUpdate.css">   
 <%
-    Materia m = (Materia)request.getAttribute("materia");
-	Materia correlativa1 = (Materia)request.getAttribute("correlativa1");
-	Materia correlativa2 = (Materia)request.getAttribute("correlativa2");
+    Clase c = (Clase)request.getAttribute("clase");
 	LinkedList<Materia> materias = (LinkedList<Materia>)request.getAttribute("materias");
-    LinkedList<Carrera> carreras = (LinkedList<Carrera>)request.getAttribute("carreras");
 %>
 </head>
 <body>
@@ -36,60 +33,45 @@
     </header>
 
     <div class="container">
-    <form class="form-Modificar" action="modificarMateria" method="post">
+    <form class="form-Modificar" action="modificarClase" method="post">
 	    <div class="form-floating mb-3">
-	        <input name="id" type="text" class="form-control" value="<%=m.getIdMateria()%>" id="floatingInput" placeholder="" readonly>
+	        <input name="idclase" type="number" class="form-control" value="<%=c.getIdClase()%>" id="floatingInput" placeholder="" readonly>
 	        <label for="floatingInput">ID</label>
 	    </div>
         <div class="form-floating mb-3">
-            <input name="nombre" type="text" class="form-control" value="<%=m.getNombre()%>" id="floatingInput" placeholder="">
-            <label for="floatingInput">Nombre de Materia</label>
+            <input name="legajo" type="number" class="form-control" value="<%=c.getDocente().getLegajo()%>" id="floatingInput" placeholder="" readonly>
+            <label for="floatingInput">Legajo del docente</label>
         </div>
         <div class="form-floating mb-3">
-            <input name="horas" type="number" class="form-control" value="<%=m.getHsSemanales()%>" id="floatingInput">
-            <label for="floatingInput">Horas Semanales</label>
+            <input name="materia" type="number" class="form-control" value="<%=c.getMateria().getIdMateria()%>" id="floatingInput" readonly>
+            <label for="floatingInput"><%=c.getMateria().getNombre() %></label>
         </div>
         <div class="form-floating mb-3">
-            <input name="resolucion" type="text" class="form-control" value="<%=m.getResolucion()%>" id="floatingInput" placeholder="Juan">
-            <label for="floatingInput">Resolucion</label>
+            <input name="nrocomision" type="number" class="form-control" value="<%=c.getComision().getNumComision()%>" id="floatingInput" placeholder="Juan" readonly>
+            <label for="floatingInput">Nro de comision</label>
         </div>
         <div class="form-floating mb-3">
-            <input name="anio" type="number" class="form-control" value="<%=m.getAnioCursado()%>" id="floatingInput">
+            <input name="aniocursado" type="number" class="form-control" value="<%=c.getComision().getAnioCursado()%>" id="floatingInput" readonly>
             <label for="floatingInput">Año en que se cursa la materia</label>
         </div>
-        <select name="idcarrera" class="form-select mb-3" aria-label="Default select example">
-            <option selected value=<%=m.getCarrera().getIdCarrera()%>><%=m.getCarrera().getNombre() %></option>
-            <%for (Carrera c : carreras){ %>
-                <option value="<%=c.getIdCarrera()%>"><%=c.getNombre()%></option>
-            <%} %>
-        </select>
-        <select name="idcorrelativa1" class="form-select mb-3" aria-label="Default select example">
-        	<%if(correlativa1.getNombre().equals("") == false && correlativa1.getIdMateria() != 0) {%>
-	            <option selected value=<%=correlativa1.getIdMateria()%>><%=correlativa1.getNombre()%></option>
-	            <%for (Materia a : materias){ %>
-	                <option value="<%=a.getIdMateria()%>"><%=a.getNombre()%></option>
-	            <%} %>
-	        <%}else{ %>
-	        	<option selected value='0'>Seleccione la primer correlativa</option>
-	            <%for (Materia a : materias){ %>
-	                <option value="<%=a.getIdMateria()%>"><%=a.getNombre()%></option>
-	            <%} %>
-	        <%} %>
-        </select>
-        <select name="idcorrelativa2" class="form-select mb-3" aria-label="Default select example">
-        	<%if(correlativa2.getNombre().equals("") == false && correlativa2.getIdMateria() != 0) {%>
-	            <option selected value=<%=correlativa2.getIdMateria()%>><%=correlativa2.getNombre() %></option>
-	            <%for (Materia a : materias){ %>
-	                <option value="<%=a.getIdMateria()%>"><%=a.getNombre()%></option>
-	            <%} %>
-	        <%}else{ %>
-	        	<option selected value='0'>Seleccione la segunda correlativa</option>
-	            <%for (Materia a : materias){ %>
-	                <option value="<%=a.getIdMateria()%>"><%=a.getNombre()%></option>
-	            <%} %>
-	        <%} %>
-        </select>
-        <% request.setAttribute("materia", m); %>
+        <select name="diasemana" class="form-select mb-3" aria-label="Default select example">
+                    <option selected value="<%=c.getDiaSemanaCursado()%>"><%=c.getDiaSemanaCursado()%></option>              
+                    <option value="Lunes">Lunes</option> 
+                    <option value="Martes">Martes</option> 
+                    <option value="Miercoles">Miercoles</option> 
+                    <option value="Jueves">Jueves</option> 
+                    <option value="Viernes">Viernes</option> 
+                    <option value="Sabado">Sabado</option> 
+                </select>
+        <div class="form-floating mb-3">
+            <input name="horarioinicio" type="time" class="form-control" value="<%=c.getHorarioInicio()%>" id="floatingInput">
+            <label for="floatingInput">Horario de inicio</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input name="horariofin" type="time" class="form-control" value="<%=c.getHorarioFin()%>" id="floatingInput">
+            <label for="floatingInput">Horario de fin</label>
+        </div>
+        <% request.setAttribute("clase", c); %>
         <button class="alta-button" type="submit">Modificar</button>
     </form>
     </div>    
