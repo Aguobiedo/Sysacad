@@ -93,22 +93,6 @@ public class Controller {
 		AlumnoDAO aDao = new AlumnoDAO();
 		return aDao.filtrarPorApellido(apellido);
 	}
-	
-     
-    public LinkedList<Examen> getExamenAlumno(Alumno a){
-		ExamenDAO examenDao = new ExamenDAO();
-		return examenDao.getExamenesByAlumno(a);
-	}
-    
-    public LinkedList<Clase> matDispRendir(Alumno a){
-		ExamenDAO examenDao = new ExamenDAO();
-		return examenDao.materiasDisponiblesRendir(a);
-	}
-    
-    public boolean inscribirExamen(int legajoAlumno, int idClase) {
-        ExamenDAO examenDAO = new ExamenDAO();
-        return examenDAO.inscribirExamen(legajoAlumno, idClase);
-    }
     
     public LinkedList<AlumnoPlan> materiasAlumno(Alumno a){
 		MateriasAlumnoDAO materiasAlumnoDAO = new MateriasAlumnoDAO();
@@ -360,13 +344,25 @@ public class Controller {
 		return cDao.getByLegajoDocente(legajo);
 	}
 	
-	public boolean addClase(Clase c) {
+	public String addClase(Clase c) {
 		ClaseDAO cDao = new ClaseDAO();
-		if(cDao.guardar(c) != null) {
-			return true;
-		}else {
-			return false;
+		if(Objects.isNull(this.claseGetOne(c.getIdClase()))) {
+			if(Objects.nonNull(this.docenteGetOne(c.getDocente().getLegajo()))) {
+				if(Objects.nonNull(this.comisionGetOne(c.getComision().getNumComision(), c.getComision().getAnioCursado()))) {
+					if(cDao.guardar(c) != null) {
+						return "CLASE INGRESADA CON EXITO";
+					}else {
+						return "ERROR AL INGRESAR LA CLASE";
+					}
+				}else {
+					return "LA COMISION INGRESADA NO EXISTE";
+				}
+			}else {
+				return "EL LEGAJO DEL DOCENTE NO EXISTE";
+			}
 		}
+		return "EL ID DE LA CLASE INGRESADA YA EXISTE";
+		
 	}
 	public void deleteClase(int id) {
 		ClaseDAO cDao = new ClaseDAO();
@@ -427,6 +423,31 @@ public class Controller {
 	public Examen getLastExamenByLegajoAlumnoIdClase (int legajo_alumno, int idclase) {
 		ExamenDAO eDao = new ExamenDAO();
 		return eDao.getLastByLegajoAlumnoIdClase(legajo_alumno, idclase);
+	}
+	
+    public LinkedList<Examen> getExamenAlumno(Alumno a){
+		ExamenDAO examenDao = new ExamenDAO();
+		return examenDao.getExamenesByAlumno(a);
+	}
+    
+    public LinkedList<Clase> matDispRendir(Alumno a){
+		ExamenDAO examenDao = new ExamenDAO();
+		return examenDao.materiasDisponiblesRendir(a);
+	}
+    
+    public boolean inscribirExamen(int legajoAlumno, int idClase) {
+        ExamenDAO examenDAO = new ExamenDAO();
+        return examenDAO.inscribirExamen(legajoAlumno, idClase);
+    }
+    
+    public LinkedList<Examen> getExamenesEnCursoByClase(Clase c) {
+    	ExamenDAO examenDAO = new ExamenDAO();
+    	return examenDAO.getExamenesEnCursoByClase(c);
+	}
+    
+	public void updateExamen(Examen e) {
+		ExamenDAO examenDAO = new ExamenDAO();
+		examenDAO.update(e);
 	}
 	
 	// FIN METODOS EXAMENES 

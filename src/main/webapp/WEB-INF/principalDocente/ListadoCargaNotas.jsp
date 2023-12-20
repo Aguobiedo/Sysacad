@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.LinkedList"%>
-<%@page import="entities.Inscripcion"%>
+<%@page import="entities.Examen"%>
 <%@page import="logic.Controller"%>
 <!DOCTYPE html>
 <html>
@@ -13,7 +13,7 @@
 <title>Inicio - Tu Sistema Académico</title>
     <link rel="stylesheet" type="text/css" href="views/pages/principalDocente/ListadoCargaNotas.css">
 <%
-	LinkedList<Inscripcion> inscripciones = (LinkedList<Inscripcion>)request.getAttribute("inscripciones");
+	LinkedList<Examen> examenes = (LinkedList<Examen>)request.getAttribute("examenes");
 	String aviso = (String)request.getAttribute("aviso");
 	Controller ctrl = new Controller ();
 %>    
@@ -25,43 +25,41 @@
         <div class="logo">
             <h1>Tu Sistema Academico</h1>
         </div>
-        <div class="profile-options">
-            <a href="#">Ver Mi Perfil</a>
-            <a href="#">Configuracion</a>
-            <a href="../home/Home.html">Cerrar Sesión</a>
-        </div>
     </header>
         
     <div class="container">
     <!-- Contenido principal -->
         <div class="right">
-            <table class="table table-dark">
-                <thead>
-                    <tr>
-                        <th scope="col">Legajo</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellido</th>
-                        <th scope="col">Email</th>
-                        <th scope="col"> Ultima Nota</th>
-                        <th scope="col"> Cargar Nota</th>
-                    </tr>
-                </thead>
-                <tbody class="table-group-divider">
-                    <%for (Inscripcion i : inscripciones){ %>                    
-                    <tr>
-                        <td scope="row"><%=i.getAlumno().getLegajo() %></td>
-                        <td><%=i.getAlumno().getNombre() %></td>
-                        <td><%=i.getAlumno().getApellido() %></td>
-                        <td><%=i.getAlumno().getEmail() %></td>
-                        <td><%=ctrl.getLastExamenByLegajoAlumnoIdClase(i.getAlumno().getLegajo(), i.getClase().getIdClase()) %></td>
-                        <td>
-                            <input type="number" id="nota" name="quantity" min="1" max="5"><br><br>
-                        </td> 
-                    </tr>
+        	<form action="guardarNotas" method="post">
+            	<table class="table table-dark">
+                	<thead>
+                    	<tr>
+                        	<th scope="col">Legajo</th>
+                        	<th scope="col">Nombre</th>
+                        	<th scope="col">Apellido</th>
+                        	<th scope="col">Email</th>
+                        	<th scope="col"> Cargar Nota</th>
+                    	</tr>
+                	</thead>
+                	<tbody class="table-group-divider">
+                		<% int index = 0; %>
+                    	<%for (Examen e : examenes){ %>                    
+                    	<tr>
+                        	<td scope="row"><%=e.getAlumno().getLegajo() %></td>
+                        	<td><%=e.getAlumno().getNombre() %></td>
+                        	<td><%=e.getAlumno().getApellido() %></td>
+                        	<td><%=e.getAlumno().getEmail() %></td>
+                        	<td>
+                        		<input type="number" id="nota_<%= index %>" name="notas[<%= index %>]" min="1" max="10">
+                        		<input type="hidden" name="legajos[<%= index %>]" value="<%= e	.getAlumno().getLegajo() %>">
+                        	</td>
+                    	</tr>
+                    	<% index++; %>
                     <%} %>
                 </tbody>           
             </table>
-            
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            </form>
         </div>     
     </div>
 

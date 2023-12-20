@@ -57,11 +57,11 @@
                         <td>
                             <!-- Button trigger modal -->
                             <a href="cargarNotas?idClase=<%=c.getIdClase()%>" class="btn">
-                                <i class="bi bi-pencil-fill">Cargar Notas</i>
+                                <i class="">Cargar Notas</i>
                             </a>
                             <!-- Button trigger modal -->
                             <a href="" class="btn"> 
-                                <i class="bi bi-trash-fill">Listar</i>
+                                <i class="">Listar</i>
                             </a>
                         </td> 
                     </tr>
